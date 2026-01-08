@@ -2,61 +2,204 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Nerd-or-Geek Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A hub for tech projects, tutorials, and development resources">
+  <title>Nerd or Geek - Tech Hub</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <header class="header">
-    <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
-    <img src="assets/img/NOG-LOGO-LONG.png" alt="Nerd-or-Geek Logo" class="header-logo"/>
-    <form class="header-search" action="#" method="get" autocomplete="off">
-      <input type="search" name="q" placeholder="Search..." aria-label="Search" />
-    </form>
-    <nav class="header-nav">
-      <a href="index.html" title="Home"><span class="sidebar-doc-icon">🏠</span>Home</a>
-      <a href="#projects" title="Projects"><img src="assets/img/Pinecraft-nbg.png" class="sidebar-icon" alt="Pinecraft Icon"/>Projects</a>
-      <a href="https://github.com/Nerd-or-Geek" target="_blank" rel="noopener" title="GitHub"><img src="assets/img/github-mark-white.svg" class="sidebar-icon" alt="GitHub"/></a>
-    </nav>
-  </header>
-  <aside class="sidebar">
-  </aside>
-  <main class="main">
-    <section class="hero">
-      <img src="assets/img/NOG.png" alt="Nerd-or-Geek Icon" class="hero-logo"/>
-      <div class="hero-content">
-        <h1>Welcome to Nerd-or-Geek</h1>
-        <p class="hero-desc">Portfolio and documentation hub for <strong>Nerd-or-Geek</strong> YouTube projects. Explore guides, tutorials, and resources for each featured project.</p>
-        <a class="promo-btn" href="https://www.youtube.com/@Nerd-or-Geek" target="_blank">Watch on YouTube</a>
+
+<!-- Header -->
+<header class="header">
+  <a href="/" class="header-logo" title="Home">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" style="height: 36px; width: auto;">
+      <text x="10" y="28" font-size="24" font-weight="bold" fill="#1f6feb" font-family="monospace">Nerd or Geek</text>
+    </svg>
+  </a>
+  
+  <div class="header-search">
+    <input type="search" placeholder="Search documentation...">
+  </div>
+  
+  <nav class="header-nav">
+    <a href="#projects">Projects</a>
+    <a href="#resources">Resources</a>
+    <a href="#about">About</a>
+  </nav>
+  
+  <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">☰</button>
+</header>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <nav>
+    <strong>Documentation</strong>
+    <ul>
+      <li>🏠 <a href="/">Home</a></li>
+      <li>📚 <a href="#projects">Projects</a></li>
+      <li>🔧 <a href="#resources">Resources</a></li>
+    </ul>
+  </nav>
+  
+  <nav>
+    <strong>Projects</strong>
+    <ul>
+      <li>🎮 <a href="projects/pinecraft-raspberry-pi.html">Pinecraft RPi Guide</a></li>
+      <li>🛠️ <a href="#">Tool Library</a></li>
+      <li>📖 <a href="#">Blog</a></li>
+    </ul>
+  </nav>
+  
+  <nav>
+    <strong>Community</strong>
+    <ul>
+      <li><a href="https://github.com" target="_blank">GitHub</a></li>
+      <li><a href="https://twitter.com" target="_blank">Twitter</a></li>
+      <li><a href="https://discord.com" target="_blank">Discord</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<!-- Main Content -->
+<main class="main">
+  
+  <!-- Hero Section -->
+  <section class="hero">
+    <svg class="hero-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+      <rect width="100" height="100" fill="#1f6feb" rx="12"/>
+      <circle cx="30" cy="30" r="12" fill="#e6edf3"/>
+      <circle cx="70" cy="30" r="12" fill="#e6edf3"/>
+      <path d="M 30 60 Q 50 75 70 60" stroke="#e6edf3" stroke-width="4" fill="none" stroke-linecap="round"/>
+    </svg>
+    
+    <div class="hero-content">
+      <h1>Welcome to Nerd or Geek</h1>
+      <p class="hero-desc">
+        Your go-to hub for technology projects, tutorials, and development resources. 
+        Explore guides on Raspberry Pi, coding techniques, and more.
+      </p>
+      <a href="#projects" class="promo-btn">Explore Projects</a>
+    </div>
+  </section>
+
+  <!-- Featured Projects -->
+  <section id="projects">
+    <h2>Featured Projects</h2>
+    <div class="card-list">
+      
+      <div class="card">
+        <svg class="card-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <rect width="64" height="64" fill="#1f6feb" rx="8"/>
+          <text x="32" y="40" font-size="28" font-weight="bold" fill="#e6edf3" text-anchor="middle">🎮</text>
+        </svg>
+        <h3 class="card-title">Pinecraft on Raspberry Pi</h3>
+        <p class="card-desc">
+          Complete installation and setup guide for running Minecraft on Raspberry Pi. 
+          Learn configuration, optimization, and troubleshooting.
+        </p>
+        <a href="projects/pinecraft-raspberry-pi.html" class="card-link">View Guide →</a>
       </div>
-    </section>
-    <section id="projects">
-      <h2>Featured Projects</h2>
-      <div class="card-list">
-        <div class="card">
-          <img src="assets/img/Pinecraft-nbg.png" alt="Pinecraft Project" class="card-img"/>
-          <div class="card-title">Pinecraft on Raspberry Pi</div>
-          <div class="card-desc">Step-by-step guide for running Minecraft Java Edition on Raspberry Pi. Includes hardware support, installation, and troubleshooting.</div>
-          <a class="card-link" href="projects/pinecraft-raspberry-pi.html">View Project</a>
-        </div>
+
+      <div class="card">
+        <svg class="card-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <rect width="64" height="64" fill="#1f6feb" rx="8"/>
+          <text x="32" y="40" font-size="28" font-weight="bold" fill="#e6edf3" text-anchor="middle">🛠️</text>
+        </svg>
+        <h3 class="card-title">Development Tools</h3>
+        <p class="card-desc">
+          Collection of utilities and tools for modern development. 
+          Scripts, libraries, and resources to boost your productivity.
+        </p>
+        <a href="#" class="card-link">Coming Soon</a>
       </div>
-    </section>
-    <section id="other-work">
-      <h2>Other Work</h2>
-      <div class="card-list">
-        <div class="card">
-          <img src="assets/img/Photo-Metadata.png" alt="Photo Metadata App Icon" class="card-img"/>
-          <div class="card-title">Photo Metadata App</div>
-          <div class="card-desc">A cross-platform app for viewing and editing photo metadata. <br><em>(Not a Nerd-or-Geek project, just other work.)</em></div>
-          <a class="card-link" href="https://github.com/michael6gledhill/Photo_Metadata_App_By_Gledhill" target="_blank" rel="noopener">GitHub Repo</a>
-          <a class="card-link" href="https://michael6gledhill.github.io/Photo_Metadata_App_By_Gledhill/docs/index.html" target="_blank" rel="noopener">Documentation</a>
-        </div>
+
+      <div class="card">
+        <svg class="card-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <rect width="64" height="64" fill="#1f6feb" rx="8"/>
+          <text x="32" y="40" font-size="28" font-weight="bold" fill="#e6edf3" text-anchor="middle">📚</text>
+        </svg>
+        <h3 class="card-title">Learning Resources</h3>
+        <p class="card-desc">
+          Curated tutorials and educational content on programming, 
+          systems design, and technology best practices.
+        </p>
+        <a href="#" class="card-link">Explore</a>
       </div>
-    </section>
-  </main>
-  <footer class="footer">
-    &copy; 2026 <a href="https://github.com/Nerd-or-Geek" target="_blank" rel="noopener">Nerd-or-Geek</a> &mdash; <a href="mailto:contact@example.com">Contact</a>
-  </footer>
-  <script src="assets/js/main.js"></script>
+
+    </div>
+  </section>
+
+  <!-- Resources Section -->
+  <section id="resources">
+    <h2>Resources & References</h2>
+    <div class="card-list">
+      
+      <div class="card">
+        <svg class="card-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <rect width="64" height="64" fill="#1f6feb" rx="8"/>
+          <text x="32" y="40" font-size="28" font-weight="bold" fill="#e6edf3" text-anchor="middle">📖</text>
+        </svg>
+        <h3 class="card-title">Documentation</h3>
+        <p class="card-desc">
+          Comprehensive documentation covering setup, configuration, 
+          and advanced topics for all projects.
+        </p>
+      </div>
+
+      <div class="card">
+        <svg class="card-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <rect width="64" height="64" fill="#1f6feb" rx="8"/>
+          <text x="32" y="40" font-size="28" font-weight="bold" fill="#e6edf3" text-anchor="middle">💡</text>
+        </svg>
+        <h3 class="card-title">Tips & Tricks</h3>
+        <p class="card-desc">
+          Practical advice and best practices to optimize your workflow 
+          and solve common development challenges.
+        </p>
+      </div>
+
+      <div class="card">
+        <svg class="card-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+          <rect width="64" height="64" fill="#1f6feb" rx="8"/>
+          <text x="32" y="40" font-size="28" font-weight="bold" fill="#e6edf3" text-anchor="middle">🔗</text>
+        </svg>
+        <h3 class="card-title">Links & Tools</h3>
+        <p class="card-desc">
+          Curated list of external resources, tools, and community links 
+          for continuous learning and development.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section id="about">
+    <h2>About This Site</h2>
+    <p>
+      Nerd or Geek is a personal tech hub dedicated to sharing knowledge about software development, 
+      hardware projects, and technology exploration. Whether you're looking for detailed tutorials, 
+      troubleshooting guides, or community resources, you'll find comprehensive content here.
+    </p>
+    <p>
+      This site is built with clean, modern design principles prioritizing clarity and usability. 
+      All content is free and open to the community.
+    </p>
+  </section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>&copy; 2026 Nerd or Geek. All rights reserved. | 
+    <a href="https://github.com" target="_blank">GitHub</a> | 
+    <a href="#">Privacy Policy</a> | 
+    <a href="#">Contact</a>
+  </p>
+</footer>
+
+<!-- Scripts -->
+<script src="assets/js/main.js"></script>
+
 </body>
 </html>

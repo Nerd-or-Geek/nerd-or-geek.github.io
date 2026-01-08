@@ -2,201 +2,310 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Installing Pinecraft on Raspberry Pi</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Complete guide to installing and running Pinecraft on Raspberry Pi">
+  <title>Pinecraft on Raspberry Pi - Installation Guide</title>
   <link rel="stylesheet" href="../assets/css/style.css">
-  <style>
-    .install-section { margin-bottom: 2.5rem; }
-    .install-step {
-      margin-bottom: 2rem;
-      padding: 1.5rem;
-      background: var(--bg-light);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      max-width: 100%;
-    }
-    .install-step h3 {
-      margin-top: 0;
-      font-size: 1.2rem;
-      color: var(--accent);
-      margin-bottom: 1rem;
-    }
-    .install-step pre {
-      background: var(--bg);
-      color: var(--text-primary);
-      font-size: 0.9rem;
-      padding: 1rem;
-      border-radius: 6px;
-      margin: 1rem 0;
-      overflow-x: auto;
-      border: 1px solid var(--border);
-    }
-    .install-step ol, .install-step ul {
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      padding-left: 1.5rem;
-    }
-    .notes-section {
-      background: var(--bg-light);
-      border-left: 4px solid var(--accent);
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      max-width: 100%;
-      margin-bottom: 2rem;
-    }
-    .back-link {
-      display: inline-block;
-      margin: 2rem 0 0 0;
-      font-size: 1rem;
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 600;
-      border: 2px solid var(--accent);
-      border-radius: 6px;
-      padding: 0.6rem 1.2rem;
-      transition: background 0.3s, color 0.3s;
-    }
-    .back-link:hover {
-      background: var(--accent);
-      color: #fff;
-    }
-    @media (max-width: 700px) {
-      .install-step {
-        padding: 1rem;
-      }
-    }
-  </style>
 </head>
 <body>
-  <header class="header">
-    <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
-    <img src="../assets/img/NOG-LOGO-LONG.png" alt="Nerd-or-Geek Logo" class="header-logo"/>
-    <form class="header-search" action="#" method="get" autocomplete="off">
-      <input type="search" name="q" placeholder="Search..." aria-label="Search" />
-    </form>
-    <nav class="header-nav">
-      <a href="../index.html" title="Home"><span class="sidebar-doc-icon">🏠</span>Home</a>
-      <a href="../index.html#projects" title="Projects"><img src="../assets/img/Pinecraft-nbg.png" class="sidebar-icon" alt="Pinecraft Icon"/>Projects</a>
-      <a href="https://github.com/Nerd-or-Geek" target="_blank" rel="noopener" title="GitHub"><img src="../assets/img/github-mark-white.svg" class="sidebar-icon" alt="GitHub"/></a>
-    </nav>
-  </header>
-  <aside class="sidebar">
-    <div>
-      <strong>Projects</strong>
+
+<!-- Header -->
+<header class="header">
+  <a href="/" class="header-logo" title="Home">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 40" style="height: 36px; width: auto;">
+      <text x="10" y="28" font-size="24" font-weight="bold" fill="#1f6feb" font-family="monospace">Nerd or Geek</text>
+    </svg>
+  </a>
+  
+  <div class="header-search">
+    <input type="search" placeholder="Search documentation...">
+  </div>
+  
+  <nav class="header-nav">
+    <a href="/">Home</a>
+    <a href="/#projects">Projects</a>
+    <a href="/#resources">Resources</a>
+  </nav>
+  
+  <button class="sidebar-toggle" id="sidebarToggle" title="Toggle sidebar">☰</button>
+</header>
+
+<!-- Sidebar -->
+<aside class="sidebar" id="sidebar">
+  <nav>
+    <strong>Documentation</strong>
+    <ul>
+      <li>🏠 <a href="/">Home</a></li>
+      <li>📚 <a href="/#projects">Projects</a></li>
+      <li>🔧 <a href="/#resources">Resources</a></li>
+    </ul>
+  </nav>
+  
+  <nav>
+    <strong>Current Page</strong>
+    <ul>
+      <li><a href="#overview">Overview</a></li>
+      <li><a href="#requirements">Requirements</a></li>
+      <li><a href="#installation">Installation</a></li>
+      <li><a href="#configuration">Configuration</a></li>
+      <li><a href="#troubleshooting">Troubleshooting</a></li>
+    </ul>
+  </nav>
+  
+  <nav>
+    <strong>Related</strong>
+    <ul>
+      <li>🎮 <a href="#">Pinecraft Docs</a></li>
+      <li>🍓 <a href="#">Raspberry Pi Docs</a></li>
+      <li>📺 <a href="#">Video Tutorials</a></li>
+    </ul>
+  </nav>
+</aside>
+
+<!-- Main Content -->
+<main class="main">
+
+  <section>
+    <h1>Pinecraft on Raspberry Pi</h1>
+    <p style="font-size: 1.05rem; color: var(--text-secondary);">
+      A comprehensive guide to installing, configuring, and optimizing Minecraft on Raspberry Pi.
+    </p>
+  </section>
+
+  <!-- Overview -->
+  <section id="overview">
+    <h2>Overview</h2>
+    <p>
+      Pinecraft is a lightweight Java-based Minecraft implementation designed for resource-constrained 
+      environments like Raspberry Pi. This guide walks you through the entire installation process, 
+      from initial setup to advanced configuration.
+    </p>
+    <blockquote>
+      <strong>Note:</strong> This guide is optimized for Raspberry Pi 3/4 running the latest Raspberry Pi OS. 
+      Performance may vary on older hardware.
+    </blockquote>
+  </section>
+
+  <!-- Requirements -->
+  <section id="requirements">
+    <h2>System Requirements</h2>
+    
+    <div class="install-step">
+      <h3>Minimum Specifications</h3>
       <ul>
-        <li><img src="../assets/img/Pinecraft-nbg.png" class="sidebar-icon" alt="Pinecraft Icon"/><a href="pinecraft-raspberry-pi.html">Pinecraft on Raspberry Pi</a></li>
+        <li><strong>Hardware:</strong> Raspberry Pi 3B+ or newer</li>
+        <li><strong>RAM:</strong> 1GB minimum (2GB+ recommended)</li>
+        <li><strong>Storage:</strong> 4GB free space on SD card</li>
+        <li><strong>OS:</strong> Raspberry Pi OS (Lite or Desktop)</li>
+        <li><strong>Java:</strong> OpenJDK 11 or higher</li>
       </ul>
     </div>
-    <div>
-      <strong>Other Work</strong>
+
+    <div class="install-step">
+      <h3>Recommended Setup</h3>
       <ul>
-        <li><img src="../assets/img/photometadata.png" class="sidebar-icon" alt="Photo Metadata Icon"/><a href="https://github.com/michael6gledhill/Photo_Metadata_App_By_Gledhill" target="_blank" rel="noopener">Photo Metadata App</a>
-          <ul>
-            <li><span class="sidebar-doc-icon">📖</span><a href="https://michael6gledhill.github.io/Photo_Metadata_App_By_Gledhill/docs/index.html" target="_blank" rel="noopener">Documentation</a></li>
-          </ul>
-        </li>
+        <li><strong>Hardware:</strong> Raspberry Pi 4 with 4GB+ RAM</li>
+        <li><strong>Storage:</strong> SSD for better performance</li>
+        <li><strong>Cooling:</strong> Active cooling or heatsinks for sustained play</li>
+        <li><strong>Network:</strong> Ethernet connection (WiFi works but is less stable)</li>
       </ul>
     </div>
-  </aside>
-  <main class="main">
-    <section class="install-section">
-      <h2>Installing Raspberry Pi OS</h2>
-      <blockquote>
-        <strong>Beginner-friendly:</strong> This section guides you through installing Raspberry Pi OS using <strong>Raspberry Pi Imager</strong>.
-      </blockquote>
-      <h3>Compatible Devices</h3>
+  </section>
+
+  <!-- Installation Steps -->
+  <section id="installation">
+    <h2>Installation Steps</h2>
+
+    <div class="install-step">
+      <h3>Step 1: Update System</h3>
+      <p>Start by updating your Raspberry Pi to the latest packages:</p>
+      <pre><code>sudo apt update
+sudo apt upgrade -y
+sudo apt install -y git wget curl</code></pre>
+    </div>
+
+    <div class="install-step">
+      <h3>Step 2: Install Java Runtime</h3>
+      <p>Pinecraft requires Java 11 or newer. Install OpenJDK:</p>
+      <pre><code>sudo apt install -y openjdk-11-jre-headless</code></pre>
+      <p>Verify installation:</p>
+      <pre><code>java -version</code></pre>
+    </div>
+
+    <div class="install-step">
+      <h3>Step 3: Create Pinecraft Directory</h3>
+      <p>Create a dedicated directory for Pinecraft:</p>
+      <pre><code>mkdir -p ~/pinecraft
+cd ~/pinecraft</code></pre>
+    </div>
+
+    <div class="install-step">
+      <h3>Step 4: Download Pinecraft</h3>
+      <p>Download the latest Pinecraft server software:</p>
+      <pre><code>wget https://github.com/pinecraft/server/releases/download/latest/pinecraft-server.jar
+chmod +x pinecraft-server.jar</code></pre>
+    </div>
+
+    <div class="install-step">
+      <h3>Step 5: Initial Configuration</h3>
+      <p>Run the server once to generate configuration files:</p>
+      <pre><code>java -Xmx512M -Xms512M -jar pinecraft-server.jar nogui</code></pre>
+      <p>Accept the EULA by editing <code>eula.txt</code>:</p>
+      <pre><code>nano eula.txt
+# Change eula=false to eula=true, then save (Ctrl+X, Y, Enter)</code></pre>
+    </div>
+
+    <div class="install-step">
+      <h3>Step 6: Create Systemd Service</h3>
+      <p>Create a system service for automatic startup:</p>
+      <pre><code>sudo nano /etc/systemd/system/pinecraft.service</code></pre>
+      <p>Add the following content:</p>
+      <pre><code>[Unit]
+Description=Pinecraft Minecraft Server
+After=network.target
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/pinecraft
+ExecStart=/usr/bin/java -Xmx512M -Xms512M -jar pinecraft-server.jar nogui
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+      <p>Enable and start the service:</p>
+      <pre><code>sudo systemctl daemon-reload
+sudo systemctl enable pinecraft.service
+sudo systemctl start pinecraft.service</code></pre>
+    </div>
+
+    <div class="install-step">
+      <h3>Step 7: Verify Installation</h3>
+      <p>Check the service status:</p>
+      <pre><code>sudo systemctl status pinecraft.service
+sudo journalctl -u pinecraft.service -n 50 --follow</code></pre>
+    </div>
+
+  </section>
+
+  <!-- Configuration -->
+  <section id="configuration">
+    <h2>Configuration & Optimization</h2>
+
+    <div class="install-step">
+      <h3>Memory Allocation</h3>
+      <p>
+        Adjust memory allocation based on your Raspberry Pi's RAM. For Pi 4 with 4GB, 
+        you can increase to 1GB:
+      </p>
+      <pre><code># In your startup script
+java -Xmx1024M -Xms1024M -jar pinecraft-server.jar nogui</code></pre>
+    </div>
+
+    <div class="install-step">
+      <h3>Server Properties</h3>
+      <p>Edit <code>server.properties</code> to customize gameplay:</p>
+      <pre><code>nano server.properties</code></pre>
       <ul>
-        <li>Raspberry Pi 5</li>
-        <li>Raspberry Pi 4</li>
-        <li>Raspberry Pi 3</li>
-        <li>Raspberry Pi Zero 2 W <span style="color:#d1a922;">(not fully tested)</span></li>
+        <li><code>server-port=25565</code> - Change port if needed</li>
+        <li><code>max-players=10</code> - Limit concurrent players</li>
+        <li><code>view-distance=8</code> - Reduce for better performance</li>
+        <li><code>difficulty=1</code> - Set game difficulty</li>
+        <li><code>pvp=false</code> - Disable player vs player if desired</li>
       </ul>
-      <h3>Step-by-Step: Using Raspberry Pi Imager</h3>
-      <ol>
-        <li><strong>Open Raspberry Pi Imager</strong><br><span>Download from <a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener"><code>https://www.raspberrypi.com/software/</code></a> on your computer.</span></li>
-        <li><strong>Choose device</strong><br>Select your Raspberry Pi model.</li>
-        <li><strong>Choose operating system</strong><br><strong>Raspberry Pi OS (Other)</strong> &rarr; <strong>Raspberry Pi OS Lite (64-bit)</strong></li>
-        <li><strong>Choose storage</strong><br>Select your SD card or USB drive.</li>
-        <li><strong>OS customization settings</strong><ul><li>Set hostname, location, username, password</li><li>Enter Wi-Fi SSID and password</li><li>Enable SSH and Raspberry Pi Connect</li></ul></li>
-        <li><strong>Write the image</strong><br><blockquote><strong>Warning:</strong> All data will be erased. This action is permanent and cannot be undone.</blockquote>Click <strong>I understand — erase and write</strong></li>
-      </ol>
-      <h3>Plug the drive into your Raspberry Pi</h3>
+    </div>
+
+    <div class="install-step">
+      <h3>Performance Tuning</h3>
+      <p>For optimal performance on Raspberry Pi:</p>
       <ul>
-        <li>Make sure the Raspberry Pi is <strong>powered OFF</strong></li>
-        <li>Insert the SD card or USB drive</li>
-        <li>Use blue USB ports for faster speeds</li>
-        <li>Power the Raspberry Pi ON</li>
+        <li>Keep <code>view-distance</code> between 6-8</li>
+        <li>Reduce mob spawning limits in server properties</li>
+        <li>Use SSD if available for faster world loading</li>
+        <li>Enable resource packs sparingly to avoid memory issues</li>
       </ul>
-      <h3>Connect via Raspberry Pi Connect</h3>
-      <ol>
-        <li>Go to <a href="https://connect.raspberrypi.com" target="_blank" rel="noopener"><code>https://connect.raspberrypi.com</code></a></li>
-        <li>Refresh until your device appears</li>
-        <li>Click <strong>Connect</strong></li>
-      </ol>
-      <blockquote style="border-left-color:#d1a922;">
-        <strong>⚠️ Important Hostname Warning:</strong>
-        <ul>
-          <li>If you reuse a hostname that already exists, delete the old device first</li>
-          <li>This includes offline or unused devices</li>
-          <li>If not deleted, the new device may not appear</li>
-        </ul>
-      </blockquote>
-      <p><strong>Once connected via Raspberry Pi Connect, you're ready for the next steps.</strong></p>
-    </section>
-    <section class="install-section">
-      <h2>Installation Steps</h2>
-      <div class="install-step">
-        <h3>Step 1: Raspberry Pi Configuration</h3>
-        <pre><code>sudo raspi-config</code></pre>
-        <ul><li>Go to <strong>Advanced Options</strong></li><li>Select <strong>Expand Filesystem</strong></li><li>Select <strong>No</strong> when prompted to reboot</li></ul>
-      </div>
-      <div class="install-step">
-        <h3>Step 2: Update the System</h3>
-        <pre><code>sudo apt update
-sudo apt upgrade</code></pre>
-        <p>Ensures your Raspberry Pi has the latest software and security updates.</p>
-      </div>
-      <div class="install-step">
-        <h3>Step 3: Install Git</h3>
-        <pre><code>sudo apt install git</code></pre>
-        <p>Required to download the Pinecraft installer from GitHub.</p>
-      </div>
-      <div class="install-step">
-        <h3>Step 4: Reboot</h3>
-        <pre><code>sudo reboot</code></pre>
-      </div>
-      <div class="install-step">
-        <h3>Step 5: Clone Pinecraft Repository</h3>
-        <pre><code>git clone https://github.com/Cat5TV/pinecraft.git</code></pre>
-      </div>
-      <div class="install-step">
-        <h3>Step 6: Enter Pinecraft Directory</h3>
-        <pre><code>cd pinecraft</code></pre>
-      </div>
-      <div class="install-step">
-        <h3>Step 7: Run Installer</h3>
-        <pre><code>sudo ./install</code></pre>
-        <ul><li>Click through installer dialogs</li><li>Accept default options</li></ul>
-      </div>
-    </section>
-    <section class="notes-section">
-      <h2>Notes</h2>
+    </div>
+
+  </section>
+
+  <!-- Troubleshooting -->
+  <section id="troubleshooting">
+    <h2>Troubleshooting</h2>
+
+    <div class="install-step">
+      <h3>Server Won't Start</h3>
+      <p>Check the logs for specific error messages:</p>
+      <pre><code>sudo journalctl -u pinecraft.service -n 100</code></pre>
+      <p>Common issues:</p>
       <ul>
-        <li>These steps are sufficient to install Pinecraft on your Raspberry Pi.</li>
-        <li>Configuration and usage are covered later in this guide and video.</li>
-        <li>You can change options after setup if needed.</li>
+        <li><strong>OutOfMemoryError:</strong> Reduce max memory or close other applications</li>
+        <li><strong>Port already in use:</strong> Change port in server.properties or kill process using port 25565</li>
+        <li><strong>Java not found:</strong> Verify Java installation with <code>java -version</code></li>
       </ul>
-    </section>
-    <a class="back-link" href="../index.html">&larr; Back to Home</a>
-    <section class="install-section" style="margin-top:3rem;">
-      <h2>Video Guide</h2>
-      <div style="text-align:center;">
-        <iframe width="560" height="315" src="https://www.youtube.com/embed/1A4FtaiNkrg" title="YouTube video player" frameborder="0" allowfullscreen style="max-width:100%;border-radius:10px;"></iframe>
-        <p style="margin-top:1.5rem;"><a class="promo-btn" href="https://www.youtube.com/watch?v=1A4FtaiNkrg" target="_blank">Watch on YouTube</a></p>
-      </div>
-    </section>
-  </main>
-  <script src="../assets/js/main.js"></script>
+    </div>
+
+    <div class="install-step">
+      <h3>Slow Performance</h3>
+      <p>If the server is running slowly:</p>
+      <ul>
+        <li>Reduce view-distance in server.properties</li>
+        <li>Monitor CPU/RAM usage with <code>top</code></li>
+        <li>Check system load: <code>uptime</code></li>
+        <li>Consider limiting max-players</li>
+      </ul>
+    </div>
+
+    <div class="install-step">
+      <h3>Connection Issues</h3>
+      <p>If players can't connect:</p>
+      <ul>
+        <li>Verify server is running: <code>sudo systemctl status pinecraft.service</code></li>
+        <li>Check firewall rules: <code>sudo ufw status</code></li>
+        <li>Open port 25565: <code>sudo ufw allow 25565</code></li>
+        <li>Verify port forwarding on your router if connecting externally</li>
+      </ul>
+    </div>
+
+    <div class="install-step">
+      <h3>Advanced Support</h3>
+      <p>For additional help:</p>
+      <ul>
+        <li>Visit the <a href="https://github.com/pinecraft/server/issues" target="_blank">Pinecraft GitHub Issues</a></li>
+        <li>Check <a href="https://www.raspberrypi.org/forums/" target="_blank">Raspberry Pi Forums</a></li>
+        <li>Review <a href="https://docs.oracle.com/en/java/" target="_blank">Java Documentation</a></li>
+      </ul>
+    </div>
+
+  </section>
+
+  <!-- Video Guide -->
+  <section>
+    <h2>Video Tutorial</h2>
+    <p>Visual learners can follow along with this step-by-step video guide:</p>
+    <div style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 2rem; text-align: center; margin: 2rem 0;">
+      <p style="color: var(--text-secondary);">📺 Video tutorial coming soon</p>
+    </div>
+  </section>
+
+  <!-- Back Link -->
+  <div>
+    <a href="/" class="back-link">← Back to Home</a>
+  </div>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <p>&copy; 2026 Nerd or Geek. All rights reserved. | 
+    <a href="https://github.com" target="_blank">GitHub</a> | 
+    <a href="#">Privacy Policy</a> | 
+    <a href="#">Contact</a>
+  </p>
+</footer>
+
+<!-- Scripts -->
+<script src="../assets/js/main.js"></script>
+
 </body>
 </html>
