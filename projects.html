@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nerd or Geek?</title>
+    <title>All Projects - Nerd or Geek?</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicons/favicon.ico">
     <link rel="stylesheet" href="src/styles/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -68,8 +68,8 @@
             <ul class="nav-list">
                 <li><a href="index.html" class="nav-link">Home</a></li>
                 <li><a href="projects.html" class="nav-link">All Projects</a></li>
-                <li><a href="#youtube" class="nav-link">YouTube</a></li>
-                <li><a href="#affiliates" class="nav-link">Affiliates</a></li>
+                <li><a href="index.html#youtube" class="nav-link">YouTube</a></li>
+                <li><a href="index.html#affiliates" class="nav-link">Affiliates</a></li>
                 <li><a href="#about" class="nav-link">About</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
@@ -81,82 +81,55 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <section class="hero">
-            <h1>Welcome to Nerd or Geek?</h1>
-            <p>Your destination for tech, projects, and awesome content</p>
-            <a href="https://www.youtube.com/@Nerd-or-Geek" 
-               class="youtube-button" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Visit YouTube Channel">
-                <i class="fab fa-youtube"></i> Subscribe on YouTube
-            </a>
+        <section class="page-header">
+            <h1>All Projects</h1>
+            <p>Explore all of my projects, apps, and software creations</p>
         </section>
 
-        <section class="content-section youtube-section" id="youtube">
-            <h2>Latest on YouTube</h2>
-            <p class="section-description">Subscribe to my channel for tech tutorials, project walkthroughs, and more!</p>
-            <a href="https://www.youtube.com/@Nerd-or-Geek" 
-               class="cta-button youtube-cta" 
-               target="_blank" 
-               rel="noopener noreferrer">
-                <i class="fab fa-youtube"></i> Subscribe Now
-            </a>
-        </section>
-
-        <section class="content-section affiliates-section" id="affiliates">
-            <h2>Affiliate Links</h2>
-            <div class="affiliates-grid">
-                <div class="affiliate-card">
-                    <h3>Add Your Affiliate Links Here</h3>
-                    <p>Place your affiliate links and descriptions here. You can add products, services, or platforms you recommend.</p>
-                </div>
-                <div class="affiliate-card">
-                    <h3>Affiliate Link 2</h3>
-                    <p>Add a second affiliate link with details about what it is and why you recommend it.</p>
-                </div>
-                <div class="affiliate-card">
-                    <h3>Affiliate Link 3</h3>
-                    <p>Continue adding more affiliate links as needed to showcase products and services.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="content-section featured-projects-section" id="featured-projects">
-            <h2>Featured Projects</h2>
-            <p class="section-description">Check out some of my best work</p>
-            <div class="projects-grid">
+        <section class="projects-section" id="all-projects">
+            <div class="projects-grid-full">
+                <!-- Add your projects here -->
                 <div class="project-card">
                     <div class="project-image-container">
                         <img src="assets/img/projects/project-1.png" alt="Project One" class="project-image">
                     </div>
                     <h3>Project One</h3>
                     <p>Description goes here</p>
+                    <a href="#" class="project-link">View Project</a>
                 </div>
+
                 <div class="project-card">
                     <div class="project-image-container">
                         <img src="assets/img/projects/project-2.png" alt="Project Two" class="project-image">
                     </div>
                     <h3>Project Two</h3>
                     <p>Description goes here</p>
+                    <a href="#" class="project-link">View Project</a>
                 </div>
+
                 <div class="project-card">
                     <div class="project-image-container">
                         <img src="assets/img/projects/project-3.png" alt="Project Three" class="project-image">
                     </div>
                     <h3>Project Three</h3>
                     <p>Description goes here</p>
+                    <a href="#" class="project-link">View Project</a>
                 </div>
-            </div>
-            <div class="view-all-projects">
-                <a href="projects.html" class="cta-button">View All Projects</a>
+
+                <!-- Add more projects as needed -->
+                <div class="project-card">
+                    <div class="project-image-container">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <h3>Add Your Project</h3>
+                    <p>Add more projects to this page by duplicating this card and updating the details</p>
+                </div>
             </div>
         </section>
 
-        <section class="content-section apps-section" id="other-apps">
+        <section class="projects-section" id="other-apps">
             <h2>Other Apps & Software</h2>
-            <p class="section-description">Other tools and applications I've created</p>
-            <div class="apps-grid">
+            <div class="apps-grid-full">
                 <div class="app-card">
                     <div class="app-icon">
                         <i class="fas fa-cube"></i>
@@ -165,6 +138,7 @@
                     <p>Description of your application or software project goes here</p>
                     <a href="#" class="app-link">Learn More</a>
                 </div>
+
                 <div class="app-card">
                     <div class="app-icon">
                         <i class="fas fa-tool"></i>
@@ -173,6 +147,7 @@
                     <p>Description of your application or software project goes here</p>
                     <a href="#" class="app-link">Learn More</a>
                 </div>
+
                 <div class="app-card">
                     <div class="app-icon">
                         <i class="fas fa-cogs"></i>
@@ -180,6 +155,14 @@
                     <h3>App Name 3</h3>
                     <p>Description of your application or software project goes here</p>
                     <a href="#" class="app-link">Learn More</a>
+                </div>
+
+                <div class="app-card">
+                    <div class="app-icon">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <h3>Add Your App</h3>
+                    <p>Add more apps to this page by duplicating this card and updating the details</p>
                 </div>
             </div>
         </section>

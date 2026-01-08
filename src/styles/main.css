@@ -425,6 +425,176 @@ button {
     color: #1e293b;
 }
 
+.section-description {
+    font-size: 1rem;
+    color: #64748b;
+    margin-bottom: 2rem;
+}
+
+/* ============================================
+   YouTube Section
+   ============================================ */
+.youtube-section {
+    background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), rgba(255, 0, 0, 0.05));
+    padding: 2rem;
+    border-radius: 1rem;
+    border-left: 4px solid #ff0000;
+    text-align: center;
+}
+
+.youtube-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: #ff0000;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.youtube-cta:hover {
+    background-color: #cc0000;
+    transform: translateY(-2px);
+}
+
+/* ============================================
+   Affiliates Section
+   ============================================ */
+.affiliates-section {
+    background-color: #f1f5f9;
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.affiliates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.affiliate-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    border-top: 3px solid #0ea5e9;
+    transition: all 0.3s ease;
+}
+
+.affiliate-card h3 {
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.affiliate-card p {
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.affiliate-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* ============================================
+   Featured Projects Section
+   ============================================ */
+.featured-projects-section h2 {
+    color: #1e293b;
+}
+
+.view-all-projects {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.75rem 2rem;
+    background-color: #0ea5e9;
+    color: white;
+    border-radius: 0.5rem;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.cta-button:hover {
+    background-color: #0284c7;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
+}
+
+/* ============================================
+   Apps & Software Section
+   ============================================ */
+.apps-section {
+    background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    padding: 2rem;
+    border-radius: 1rem;
+}
+
+.apps-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.app-card {
+    background-color: white;
+    padding: 1.5rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.app-card .app-icon {
+    font-size: 3rem;
+    color: #0ea5e9;
+    margin-bottom: 1rem;
+}
+
+.app-card h3 {
+    color: #1e293b;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+.app-card p {
+    color: #64748b;
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+}
+
+.app-card .app-link {
+    display: inline-block;
+    color: #0ea5e9;
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border: 2px solid #0ea5e9;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.app-card .app-link:hover {
+    background-color: #0ea5e9;
+    color: white;
+}
+
+.app-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -501,6 +671,105 @@ button {
     padding: 0 1rem 1rem 1rem;
     color: #64748b;
     font-size: 0.9rem;
+}
+
+/* ============================================
+   Projects Page Styles
+   ============================================ */
+.page-header {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    color: white;
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+}
+
+.page-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+    .page-header h1 {
+        font-size: 1.75rem;
+    }
+}
+
+.page-header p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+}
+
+@media (max-width: 768px) {
+    .page-header p {
+        font-size: 0.95rem;
+    }
+}
+
+.projects-section {
+    margin-bottom: 3rem;
+}
+
+.projects-section h2 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+    color: #1e293b;
+}
+
+.projects-grid-full {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .projects-grid-full {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .projects-grid-full {
+        grid-template-columns: 1fr;
+    }
+}
+
+.project-link {
+    display: inline-block;
+    color: #0ea5e9;
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 2px solid #0ea5e9;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.project-link:hover {
+    background-color: #0ea5e9;
+    color: white;
+}
+
+.apps-grid-full {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .apps-grid-full {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .apps-grid-full {
+        grid-template-columns: 1fr;
+    }
 }
 
 /* ============================================
