@@ -1,8 +1,9 @@
 project:
   type: website
-  output-dir: _site
-website:
+  output-dir: docs
+site:
   title: "Nerd-or-Geek Documentation Hub"
+website:
   favicon: NOG.png
   navbar:
     left:
