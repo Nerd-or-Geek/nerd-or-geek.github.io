@@ -4,37 +4,6 @@ format: html
 ---
 
 :::: custom-header
-<header>
-
-::: header-left
-```         
-<a href="https://github.com/Nerd-or-Geek" target="_blank" rel="noopener">
-  <img src="NOG-LOGO-LONG.png" alt="Nerd-or-Geek Logo" class="header-logo"/>
-  Nerd-or-Geek
-</a>
-<input class="search-bar" type="text" id="search" placeholder="Search projects..." aria-label="Search projects">
-```
-:::
-
-<button class="side-btn" id="openPanel" aria-label="Open menu">
-
-☰
-
-</button>
-
-</header>
-::::
-
-
-::: youtube-promo
-<a href="https://www.youtube.com/channel/UCFhCQIfDHHwHRNog1RnEsyA" target="_blank" rel="noopener">
-  <img src="NOG-LOGO-LONG.png" alt="YouTube Channel Logo" />
-  Visit my YouTube Channel
-</a>
-:::
-
-::: main-content-card
-
 
 # Nerd-or-Geek Projects
 
@@ -43,27 +12,16 @@ Welcome to the documentation hub for Nerd-or-Geek YouTube projects. Explore guid
 ## Projects
 
 - [Pinecraft on Raspberry Pi](pinecraft-raspberry-pi/pinecraft-raspberry-pi.qmd)
-:::
 
-::::: custom-footer
-<footer>
+---
 
-<div>
+> [!TIP]
+> **Visit my YouTube Channel:**
+>
+> ![](NOG-LOGO-LONG.png){fig-align="left" width=120px}
+> [Nerd-or-Geek on YouTube](https://www.youtube.com/channel/UCFhCQIfDHHwHRNog1RnEsyA)
 
-```         
-&copy; 2026 <a href="https://github.com/Nerd-or-Geek" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;">Nerd-or-Geek</a>
-&mdash; <a href="https://github.com/Nerd-or-Geek/Nerd-or-Geek.github.io" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;">Repository</a>
-```
+---
 
-</div>
-
-::: footer-links
-```         
-<a href="mailto:contact@example.com">Contact</a>
-<a href="https://youtube.com/@Nerd-or-Geek" target="_blank" rel="noopener">YouTube</a>
-<a href="https://twitter.com/NerdorGeek" target="_blank" rel="noopener">Twitter</a>
-```
-:::
-
-</footer>
-:::::
+&copy; 2026 [Nerd-or-Geek](https://github.com/Nerd-or-Geek) &mdash; [Repository](https://github.com/Nerd-or-Geek/Nerd-or-Geek.github.io)  
+[Contact](mailto:contact@example.com) | [YouTube](https://youtube.com/@Nerd-or-Geek) | [Twitter](https://twitter.com/NerdorGeek)
