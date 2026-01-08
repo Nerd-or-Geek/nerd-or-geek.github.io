@@ -1,0 +1,413 @@
+// ============================================
+// Variables
+// ============================================
+$primary-color: #0ea5e9;
+$primary-dark: #0284c7;
+$secondary-color: #1e293b;
+$text-light: #f1f5f9;
+$text-dark: #1e293b;
+$border-light: #e2e8f0;
+$shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// ============================================
+// Reset and Base Styles
+// ============================================
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8fafc;
+    color: $text-dark;
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+a {
+    color: $primary-color;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+        color: $primary-dark;
+    }
+}
+
+button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: inherit;
+}
+
+// ============================================
+// Header Styles
+// ============================================
+.header {
+    background-color: white;
+    box-shadow: $shadow;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    border-bottom: 2px solid $border-light;
+}
+
+.header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    @media (max-width: $breakpoint-md) {
+        flex-wrap: nowrap;
+    }
+}
+
+.sidebar-toggle {
+    display: none;
+    font-size: 1.5rem;
+    color: $secondary-color;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    &:hover {
+        background-color: #f1f5f9;
+        color: $primary-color;
+    }
+
+    @media (max-width: $breakpoint-md) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.logo-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    text-decoration: none;
+    color: $secondary-color;
+    flex-shrink: 0;
+
+    &:hover {
+        color: $primary-color;
+    }
+}
+
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    background-color: #e2e8f0;
+    border: 2px solid $border-light;
+}
+
+.site-name {
+    font-size: 1.25rem;
+    font-weight: 700;
+    white-space: nowrap;
+
+    @media (max-width: 480px) {
+        font-size: 1rem;
+    }
+}
+
+// ============================================
+// Search Bar Styles
+// ============================================
+.search-container {
+    display: flex;
+    align-items: center;
+    background-color: #f1f5f9;
+    border: 2px solid $border-light;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    flex: 1;
+    max-width: 300px;
+
+    @media (max-width: $breakpoint-md) {
+        max-width: none;
+        flex: 0 1 100%;
+    }
+}
+
+.search-input {
+    flex: 1;
+    border: none;
+    background: none;
+    padding: 0.5rem 0.75rem;
+    outline: none;
+    font-size: 0.95rem;
+
+    &::placeholder {
+        color: #94a3b8;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+.search-button {
+    padding: 0.5rem 0.75rem;
+    color: $secondary-color;
+    font-size: 1rem;
+
+    &:hover {
+        color: $primary-color;
+    }
+
+    &:active {
+        color: $primary-dark;
+    }
+}
+
+// ============================================
+// GitHub Link Styles
+// ============================================
+.github-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: $secondary-color;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.3s ease;
+
+    &:hover {
+        color: $primary-color;
+        background-color: #f1f5f9;
+        transform: scale(1.1);
+    }
+}
+
+// ============================================
+// Sidebar Styles
+// ============================================
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 260px;
+    height: 100vh;
+    background-color: $secondary-color;
+    color: $text-light;
+    z-index: 200;
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    padding-top: 3rem;
+
+    &.active {
+        transform: translateX(0);
+    }
+
+    @media (max-width: $breakpoint-md) {
+        width: 220px;
+    }
+
+    @media (max-width: 480px) {
+        width: 80%;
+        max-width: 260px;
+    }
+}
+
+.sidebar-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.5rem;
+    color: $text-light;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: $primary-color;
+    }
+}
+
+.sidebar-nav {
+    padding: 1.5rem 0;
+}
+
+.nav-list {
+    list-style: none;
+
+    li {
+        margin: 0;
+    }
+}
+
+.nav-link {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: $text-light;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: rgba(255, 255, 255, 0.1);
+        color: $primary-color;
+        border-left: 4px solid $primary-color;
+        padding-left: calc(1.5rem - 4px);
+    }
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 150;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+
+    &.active {
+        opacity: 1;
+        visibility: visible;
+    }
+}
+
+// ============================================
+// Main Content Styles
+// ============================================
+.main-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+
+    @media (max-width: $breakpoint-md) {
+        padding: 1.5rem 1rem;
+    }
+}
+
+.hero {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: linear-gradient(135deg, $primary-color, $primary-dark);
+    color: white;
+    border-radius: 1rem;
+    margin-bottom: 3rem;
+
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+
+        @media (max-width: $breakpoint-md) {
+            font-size: 1.75rem;
+        }
+    }
+
+    p {
+        font-size: 1.1rem;
+        opacity: 0.95;
+
+        @media (max-width: $breakpoint-md) {
+            font-size: 0.95rem;
+        }
+    }
+}
+
+.content-section {
+    margin-bottom: 3rem;
+
+    h2 {
+        font-size: 1.75rem;
+        margin-bottom: 1.5rem;
+        color: $secondary-color;
+    }
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+
+    @media (max-width: $breakpoint-md) {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 1rem;
+    }
+
+    @media (max-width: 480px) {
+        grid-template-columns: 1fr;
+    }
+}
+
+.project-card {
+    background-color: white;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: $shadow;
+    transition: all 0.3s ease;
+
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: $shadow-lg;
+    }
+}
+
+.project-placeholder {
+    width: 100%;
+    height: 180px;
+    background: linear-gradient(135deg, #e0f2fe, #0ea5e9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    color: $secondary-color;
+    font-weight: 600;
+}
+
+.project-card h3 {
+    padding: 1rem 1rem 0 1rem;
+    color: $secondary-color;
+    font-size: 1.1rem;
+}
+
+.project-card p {
+    padding: 0 1rem 1rem 1rem;
+    color: #64748b;
+    font-size: 0.9rem;
+}
+
+// ============================================
+// Utility Classes
+// ============================================
+.hidden {
+    display: none !important;
+}
+
+.visible {
+    display: block !important;
+}
