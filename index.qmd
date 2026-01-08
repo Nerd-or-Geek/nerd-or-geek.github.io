@@ -13,13 +13,12 @@ Welcome to the documentation hub for Nerd-or-Geek YouTube projects. Explore guid
 
 - [Pinecraft on Raspberry Pi](pinecraft-raspberry-pi/pinecraft-raspberry-pi.qmd)
 
----
-
-> [!TIP]
-> **Visit my YouTube Channel:**
->
-> ![](NOG-LOGO-LONG.png){fig-align="left" width=120px}
-> [Nerd-or-Geek on YouTube](https://www.youtube.com/channel/UCFhCQIfDHHwHRNog1RnEsyA)
+:::{.yt-promo}
+[<span style="display:contents">
+	<img src="NOG-LOGO-LONG.png" alt="YouTube Channel Logo" class="yt-promo-logo"/>
+	<span style="margin-top:0.7rem;">Visit my Nerd-or-Geek YouTube Channel</span>
+</span>](https://www.youtube.com/channel/UCFhCQIfDHHwHRNog1RnEsyA){.yt-promo-link target="_blank" rel="noopener"}
+:::
 
 ---
 

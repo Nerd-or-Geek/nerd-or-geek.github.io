@@ -4,14 +4,19 @@ author: Nerd-or-Geek
 date: 2026-01-08
 description: Starter page for Pinecraft YouTube video tutorial
 
+
 [← Back to main page](../index.qmd)
 
 # Pinecraft on Raspberry Pi
 
 _Step-by-step installation guide for Raspberry Pi 4 and Pi Zero_
 
-::: {.video-center}
-{{< video https://www.youtube.com/embed/dQw4w9WgXcQ >}}
+:::{.yt-promo}
+[<span style="display:contents">
+	<img src="../NOG-LOGO-LONG.png" alt="YouTube Channel Logo" class="yt-promo-logo"/>
+	<iframe class="yt-promo-video" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="YouTube video player" allowfullscreen></iframe>
+	<span style="margin-top:0.7rem;">Watch on Nerd-or-Geek YouTube Channel</span>
+</span>](https://www.youtube.com/channel/UCFhCQIfDHHwHRNog1RnEsyA){.yt-promo-link target="_blank" rel="noopener"}
 :::
 
 ## Supported Hardware
