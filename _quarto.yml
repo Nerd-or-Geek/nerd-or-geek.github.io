@@ -1,19 +1,17 @@
 project:
   type: website
-site:
-  title: "Nerd-or-Geek Documentation Hub"
+  site-dir: _site
 website:
+  title: "Nerd-or-Geek Portfolio"
   favicon: NOG.png
   navbar:
     left:
-      - text: Home
-        file: index.qmd
-      - text: Projects
-        menu:
-          - text: Pinecraft on Raspberry Pi
-            file: pinecraft-raspberry-pi/pinecraft-raspberry-pi.qmd
+      - text: "Home"
+        href: index.qmd
+      - text: "Projects"
+        href: "#projects"
     right:
-      - icon: github
+      - text: "GitHub"
         href: https://github.com/Nerd-or-Geek
   search: true
   sidebar:
@@ -29,6 +27,6 @@ website:
       [Contact](mailto:contact@example.com) | [YouTube](https://youtube.com/@Nerd-or-Geek) | [Twitter](https://twitter.com/NerdorGeek)
 format:
   html:
-    theme: default
+    theme: cosmo
     css: styles.css
     toc: true
