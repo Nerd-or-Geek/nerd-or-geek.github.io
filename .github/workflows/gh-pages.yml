@@ -1,5 +1,5 @@
-# GitHub Actions workflow to build and deploy Quarto site from root to gh-pages branch
-name: Deploy Quarto site to GitHub Pages
+# Deploy static site to GitHub Pages
+name: Deploy static site to GitHub Pages
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-deploy:
+  deploy:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -15,21 +15,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Quarto
-        uses: quarto-dev/quarto-actions/setup@v2
-        with:
-          version: 1.9.16
-
-      - name: Install Pandoc (for Quarto)
-        uses: r-lib/actions/setup-pandoc@v2
-
-      - name: Render Quarto site
-        run: quarto render
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./_site
+          publish_dir: .
           publish_branch: gh-pages
           force_orphan: true

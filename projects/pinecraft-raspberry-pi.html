@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Pinecraft on Raspberry Pi | Nerd-or-Geek</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <header class="header">
+    <div class="header-title">Nerd-or-Geek</div>
+    <nav class="header-nav">
+      <a href="../index.html">Home</a>
+      <a href="../index.html#projects">Projects</a>
+      <a href="https://github.com/Nerd-or-Geek" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </header>
+  <button class="sidebar-toggle" aria-label="Toggle sidebar">☰</button>
+  <aside class="sidebar">
+    <div>
+      <strong>Projects</strong>
+      <ul>
+        <li><a href="pinecraft-raspberry-pi.html">Pinecraft on Raspberry Pi</a></li>
+      </ul>
+    </div>
+    <div>
+      <strong>Other Projects</strong>
+      <ul>
+        <li><a href="#">Project Placeholder 1</a></li>
+        <li><a href="#">Project Placeholder 2</a></li>
+      </ul>
+    </div>
+  </aside>
+  <main class="main">
+    <h1>Pinecraft on Raspberry Pi</h1>
+    <p><strong>Pinecraft</strong> is a project that enables you to run Minecraft Java Edition on a Raspberry Pi. This guide covers hardware requirements, installation steps, and troubleshooting tips.</p>
+    <section>
+      <h2>Hardware Requirements</h2>
+      <ul>
+        <li>Raspberry Pi 4 (4GB or 8GB recommended)</li>
+        <li>MicroSD card (32GB+)</li>
+        <li>Active cooling (fan or heatsink)</li>
+        <li>USB keyboard and mouse</li>
+        <li>HDMI display</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Installation Steps</h2>
+      <ol>
+        <li>Flash Raspberry Pi OS (64-bit) to your SD card.</li>
+        <li>Update system packages: <code>sudo apt update && sudo apt upgrade</code></li>
+        <li>Install Java (OpenJDK 17 recommended): <code>sudo apt install openjdk-17-jre</code></li>
+        <li>Download and run <a href="https://github.com/pinecraft/pinecraft-installer" target="_blank">Pinecraft Installer</a>.</li>
+        <li>Follow on-screen instructions to install Minecraft.</li>
+      </ol>
+    </section>
+    <section>
+      <h2>Troubleshooting</h2>
+      <ul>
+        <li>Ensure you have enough RAM and cooling.</li>
+        <li>Use the latest Raspberry Pi OS and Java version.</li>
+        <li>Check the <a href="https://github.com/pinecraft/pinecraft-installer/issues" target="_blank">GitHub Issues</a> for help.</li>
+      </ul>
+    </section>
+    <section>
+      <h2>Video Guide</h2>
+      <div class="video-embed">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/VIDEO_ID" title="YouTube video player" frameborder="0" allowfullscreen></iframe>
+      </div>
+      <p><a class="promo-btn" href="https://www.youtube.com/@Nerd-or-Geek" target="_blank">Watch on YouTube</a></p>
+    </section>
+  </main>
+  <footer class="footer">
+    &copy; 2026 <a href="https://github.com/Nerd-or-Geek" target="_blank" rel="noopener">Nerd-or-Geek</a> &mdash; <a href="mailto:contact@example.com">Contact</a>
+  </footer>
+  <script src="../assets/js/main.js"></script>
+</body>
+</html>

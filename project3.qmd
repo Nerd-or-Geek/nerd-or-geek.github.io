@@ -1,8 +1,0 @@
----
-title: "Project Three"
-format: html
----
-
-# Project Three
-
-Details about Project Three go here.
