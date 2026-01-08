@@ -25,10 +25,21 @@ body {
   justify-content: space-between;
   padding: 1.2rem 2rem;
 }
+.header-logo-title {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.header-logo {
+  height: 48px;
+  width: auto;
+  display: block;
+}
 .header-title {
   font-size: 2rem;
   font-weight: 700;
   letter-spacing: 1px;
+  color: #fff;
 }
 .header-nav {
   display: flex;
@@ -91,6 +102,14 @@ body {
   .sidebar-toggle {
     display: block;
   }
+  .hero {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+  .hero-logo {
+    margin: 0 auto;
+  }
 }
 @media (max-width: 700px) {
   .header {
@@ -113,11 +132,47 @@ body {
   width: 100%;
   box-sizing: border-box;
 }
-@media (max-width: 900px) {
-  .main {
-    margin-left: 0;
-    padding: 2rem 0.5rem 2rem 0.5rem;
-  }
+.hero {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+  background: linear-gradient(90deg, #f6f8fa 60%, #e3eaf6 100%);
+  border-radius: var(--radius);
+  padding: 2.5rem 2rem 2.5rem 2rem;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+}
+.hero-logo {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  object-fit: contain;
+}
+.hero-content {
+  flex: 1;
+}
+.hero-desc {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1.2rem;
+}
+.promo-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #fff;
+  padding: 0.7rem 1.6rem;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(3,102,214,0.08);
+  transition: background var(--transition), box-shadow var(--transition);
+}
+.promo-btn:hover {
+  background: #0056b3;
+  box-shadow: 0 4px 16px rgba(3,102,214,0.13);
 }
 .card-list {
   display: grid;
@@ -133,6 +188,16 @@ body {
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  align-items: flex-start;
+}
+.card-img {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  border-radius: 12px;
+  margin-bottom: 0.7rem;
+  background: #f6f8fa;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.04);
 }
 .card-title {
   font-size: 1.3rem;

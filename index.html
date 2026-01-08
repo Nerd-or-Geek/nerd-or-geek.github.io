@@ -8,7 +8,10 @@
 </head>
 <body>
   <header class="header">
-    <div class="header-title">Nerd-or-Geek</div>
+    <div class="header-logo-title">
+      <img src="img/NOG-LOGO-LONG.png" alt="Nerd-or-Geek Logo" class="header-logo"/>
+      <span class="header-title">Nerd-or-Geek</span>
+    </div>
     <nav class="header-nav">
       <a href="index.html">Home</a>
       <a href="#projects">Projects</a>
@@ -24,23 +27,46 @@
       </ul>
     </div>
     <div>
-      <strong>Other Projects</strong>
+      <strong>Other Work</strong>
       <ul>
-        <li><a href="#">Project Placeholder 1</a></li>
-        <li><a href="#">Project Placeholder 2</a></li>
+        <li>
+          <a href="https://github.com/michael6gledhill/Photo_Metadata_App_By_Gledhill" target="_blank" rel="noopener">Photo Metadata App</a>
+          <ul>
+            <li><a href="https://michael6gledhill.github.io/Photo_Metadata_App_By_Gledhill/docs/index.html" target="_blank" rel="noopener">Documentation</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </aside>
   <main class="main">
-    <h1>Nerd-or-Geek Portfolio</h1>
-    <p>This is the portfolio and documentation hub for Nerd-or-Geek YouTube projects. Explore guides, tutorials, and resources for each project featured on the channel.</p>
+    <section class="hero">
+      <img src="img/NOG.png" alt="Nerd-or-Geek Icon" class="hero-logo"/>
+      <div class="hero-content">
+        <h1>Welcome to Nerd-or-Geek</h1>
+        <p class="hero-desc">Portfolio and documentation hub for <strong>Nerd-or-Geek</strong> YouTube projects. Explore guides, tutorials, and resources for each project featured on the channel.</p>
+        <a class="promo-btn" href="https://www.youtube.com/@Nerd-or-Geek" target="_blank">Watch on YouTube</a>
+      </div>
+    </section>
     <section id="projects">
-      <h2>Projects</h2>
+      <h2>Featured Projects</h2>
       <div class="card-list">
         <div class="card">
+          <img src="img/NOG.png" alt="Pinecraft Project" class="card-img"/>
           <div class="card-title">Pinecraft on Raspberry Pi</div>
           <div class="card-desc">Step-by-step guide for running Minecraft Java Edition on Raspberry Pi. Includes hardware support, installation, and troubleshooting.</div>
           <a class="card-link" href="projects/pinecraft-raspberry-pi.html">View Project</a>
+        </div>
+      </div>
+    </section>
+    <section id="other-work">
+      <h2>Other Work</h2>
+      <div class="card-list">
+        <div class="card">
+          <img src="https://raw.githubusercontent.com/michael6gledhill/Photo_Metadata_App_By_Gledhill/main/docs/assets/photo_metadata_logo.png" alt="Photo Metadata App Logo" class="card-img"/>
+          <div class="card-title">Photo Metadata App</div>
+          <div class="card-desc">A cross-platform app for viewing and editing photo metadata. <br><em>(Not a Nerd-or-Geek project, just other work I've done.)</em></div>
+          <a class="card-link" href="https://github.com/michael6gledhill/Photo_Metadata_App_By_Gledhill" target="_blank" rel="noopener">GitHub Repo</a>
+          <a class="card-link" href="https://michael6gledhill.github.io/Photo_Metadata_App_By_Gledhill/docs/index.html" target="_blank" rel="noopener">Documentation</a>
         </div>
       </div>
     </section>
