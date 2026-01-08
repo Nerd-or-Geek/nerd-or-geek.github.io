@@ -1,0 +1,8 @@
+---
+title: "Other Project 2"
+format: html
+---
+
+# Other Project 2
+
+Details about Other Project 2 go here.

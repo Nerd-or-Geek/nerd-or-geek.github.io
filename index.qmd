@@ -1,0 +1,47 @@
+---
+title: "Nerd-or-Geek Projects"
+format: html
+---
+
+:::{.custom-header}
+<header>
+  <div class="header-left">
+    <a href="https://github.com/Nerd-or-Geek" target="_blank" rel="noopener">
+      <img src="NOG-LOGO-LONG.png" alt="Nerd-or-Geek Logo" class="header-logo"/>
+      Nerd-or-Geek
+    </a>
+    <input class="search-bar" type="text" id="search" placeholder="Search projects..." aria-label="Search projects">
+  </div>
+  <button class="side-btn" id="openPanel" aria-label="Open menu">&#9776;</button>
+</header>
+:::
+
+# Nerd-or-Geek Projects
+
+Welcome to the documentation hub for Nerd-or-Geek YouTube projects. Explore guides, tutorials, and resources for each project featured on the channel.
+
+## Projects
+
+- [Pinecraft on Raspberry Pi](pinecraft-raspberry-pi.qmd)
+- [Project Two](project2.qmd)
+- [Project Three](project3.qmd)
+
+## Other Projects
+
+- [Other Project 1](other1.qmd)
+- [Other Project 2](other2.qmd)
+
+:::{.custom-footer}
+<footer>
+  <div>
+    &copy; 2026 <a href="https://github.com/Nerd-or-Geek" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;">Nerd-or-Geek</a>
+    &mdash; <a href="https://github.com/Nerd-or-Geek/Nerd-or-Geek.github.io" target="_blank" rel="noopener" style="color:#fff;text-decoration:underline;">Repository</a>
+  </div>
+  <div class="footer-links">
+    <a href="mailto:contact@example.com">Contact</a>
+    <a href="https://youtube.com/@Nerd-or-Geek" target="_blank" rel="noopener">YouTube</a>
+    <a href="https://twitter.com/NerdorGeek" target="_blank" rel="noopener">Twitter</a>
+  </div>
+</footer>
+:::
+

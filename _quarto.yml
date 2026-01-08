@@ -1,0 +1,54 @@
+project:
+  type: website
+  output-dir: _site
+website:
+  title: "Nerd-or-Geek Documentation Hub"
+  favicon: NOG.png
+  navbar:
+    left:
+      - text: Home
+        file: index.qmd
+      - text: Projects
+        menu:
+          - text: Pinecraft on Raspberry Pi
+            file: pinecraft-raspberry-pi.qmd
+          - text: Project Two
+            file: project2.qmd
+          - text: Project Three
+            file: project3.qmd
+      - text: Other Projects
+        menu:
+          - text: Other Project 1
+            file: other1.qmd
+          - text: Other Project 2
+            file: other2.qmd
+          - text: Photo Metadata App by Gledhill
+            url: https://michael6gledhill.github.io/Photo_Metadata_App_By_Gledhill/docs/index.html
+    right:
+      - icon: github
+        href: https://github.com/Nerd-or-Geek
+  search: true
+  sidebar:
+    style: "docked"
+    contents:
+      - section: Projects
+        contents:
+          - pinecraft-raspberry-pi.qmd
+          - project2.qmd
+          - project3.qmd
+      - section: Other Projects
+        contents:
+          - other1.qmd
+          - other2.qmd
+          - text: Photo Metadata App by Gledhill
+            url: https://michael6gledhill.github.io/Photo_Metadata_App_By_Gledhill/docs/index.html
+  page-footer:
+    left: |
+      &copy; 2026 [Nerd-or-Geek](https://github.com/Nerd-or-Geek) &mdash; [Repository](https://github.com/Nerd-or-Geek/Nerd-or-Geek.github.io)
+    right: |
+      [Contact](mailto:contact@example.com) | [YouTube](https://youtube.com/@Nerd-or-Geek) | [Twitter](https://twitter.com/NerdorGeek)
+format:
+  html:
+    theme: default
+    css: styles.css
+    toc: true
