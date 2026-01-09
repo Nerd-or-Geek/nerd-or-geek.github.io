@@ -702,8 +702,9 @@ button {
 }
 
 .project-card .cta-button {
-  align-self: center;
-  margin: 0 1rem 1rem 1rem;
+  display: block;
+  width: fit-content;
+  margin: 0 auto 1rem auto;
 }
 
 .page-header {
