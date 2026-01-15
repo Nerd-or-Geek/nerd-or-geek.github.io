@@ -1,0 +1,750 @@
+"use strict";
+const STORAGE_KEY = 'nerdOrGeekAdminData';
+function getAdminData() {
+    const data = localStorage.getItem(STORAGE_KEY);
+    if (data) {
+        return JSON.parse(data);
+    }
+    return { affiliates: [], projects: [], software: [] };
+}
+function saveAdminData(data) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+function generateId() {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+}
+function showToast(message, isError = false) {
+    const toast = document.getElementById('toast');
+    const toastMessage = document.getElementById('toastMessage');
+    if (toast && toastMessage) {
+        toastMessage.textContent = message;
+        toast.classList.toggle('error', isError);
+        toast.classList.add('active');
+        setTimeout(() => {
+            toast.classList.remove('active');
+        }, 3000);
+    }
+}
+function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal?.classList.add('active');
+}
+function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    modal?.classList.remove('active');
+}
+function setupModalCloseHandlers() {
+    document.querySelectorAll('.modal-close, .btn-cancel').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const modalId = btn.getAttribute('data-modal');
+            if (modalId) {
+                closeModal(modalId);
+            }
+        });
+    });
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.classList.remove('active');
+            }
+        });
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            document.querySelectorAll('.modal.active').forEach(modal => {
+                modal.classList.remove('active');
+            });
+        }
+    });
+}
+function setupIconSelectors() {
+    document.querySelectorAll('.icon-options').forEach(container => {
+        container.querySelectorAll('.icon-option').forEach(option => {
+            option.addEventListener('click', () => {
+                container.querySelectorAll('.icon-option').forEach(opt => opt.classList.remove('active'));
+                option.classList.add('active');
+                const icon = option.getAttribute('data-icon');
+                const hiddenInput = container.closest('.icon-selector')?.parentElement?.querySelector('input[type="hidden"]');
+                if (hiddenInput && icon) {
+                    hiddenInput.value = icon;
+                }
+                const customInput = container.closest('.icon-selector')?.querySelector('input[type="text"]');
+                if (customInput) {
+                    customInput.value = '';
+                }
+            });
+        });
+    });
+    document.querySelectorAll('.custom-icon-input input').forEach(input => {
+        input.addEventListener('input', () => {
+            const container = input.closest('.icon-selector');
+            if (container) {
+                container.querySelectorAll('.icon-option').forEach(opt => opt.classList.remove('active'));
+            }
+        });
+    });
+}
+function setupNavigation() {
+    const navBtns = document.querySelectorAll('.admin-nav-btn');
+    const sections = document.querySelectorAll('.admin-section');
+    navBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const sectionId = btn.getAttribute('data-section');
+            navBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            sections.forEach(section => {
+                section.classList.toggle('active', section.id === `section-${sectionId}`);
+            });
+        });
+    });
+}
+function renderAffiliates() {
+    const container = document.getElementById('affiliatesList');
+    if (!container)
+        return;
+    const data = getAdminData();
+    if (data.affiliates.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-handshake"></i>
+                <h4>No Affiliates Yet</h4>
+                <p>Click "Add Affiliate" to create your first affiliate partner.</p>
+            </div>
+        `;
+        return;
+    }
+    container.innerHTML = data.affiliates.map(affiliate => `
+        <div class="item-card" data-id="${affiliate.id}">
+            <div class="item-card-header">
+                <div class="item-icon">
+                    ${affiliate.customImage
+        ? `<img src="${affiliate.customImage}" alt="${affiliate.name}">`
+        : `<i class="fas ${affiliate.icon}"></i>`}
+                </div>
+                <div class="item-info">
+                    <h4>
+                        ${escapeHtml(affiliate.name)}
+                        ${affiliate.comingSoon ? '<span class="item-badge coming-soon">Coming Soon</span>' : ''}
+                    </h4>
+                    <p>${escapeHtml(affiliate.description)}</p>
+                </div>
+            </div>
+            <div class="item-actions">
+                <button class="item-action-btn edit-btn" data-id="${affiliate.id}" data-type="affiliate">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="item-action-btn delete-btn" data-id="${affiliate.id}" data-type="affiliate">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+    `).join('');
+    setupItemActions();
+}
+function openAffiliateModal(affiliate) {
+    const modal = document.getElementById('affiliateModal');
+    const title = document.getElementById('affiliateModalTitle');
+    const form = document.getElementById('affiliateForm');
+    if (!modal || !title || !form)
+        return;
+    form.reset();
+    const iconOptions = modal.querySelectorAll('.icon-option');
+    iconOptions.forEach(opt => opt.classList.remove('active'));
+    iconOptions[0]?.classList.add('active');
+    if (affiliate) {
+        title.textContent = 'Edit Affiliate';
+        document.getElementById('affiliateId').value = affiliate.id;
+        document.getElementById('affiliateName').value = affiliate.name;
+        document.getElementById('affiliateDescription').value = affiliate.description;
+        document.getElementById('affiliateLink').value = affiliate.link;
+        document.getElementById('affiliateIcon').value = affiliate.icon;
+        document.getElementById('affiliateComingSoon').checked = affiliate.comingSoon;
+        if (affiliate.customImage) {
+            document.getElementById('affiliateCustomIcon').value = affiliate.customImage;
+            iconOptions.forEach(opt => opt.classList.remove('active'));
+        }
+        else {
+            const iconOpt = modal.querySelector(`[data-icon="${affiliate.icon}"]`);
+            if (iconOpt) {
+                iconOptions.forEach(opt => opt.classList.remove('active'));
+                iconOpt.classList.add('active');
+            }
+        }
+    }
+    else {
+        title.textContent = 'Add Affiliate';
+        document.getElementById('affiliateId').value = '';
+        document.getElementById('affiliateIcon').value = 'fa-graduation-cap';
+    }
+    openModal('affiliateModal');
+}
+function saveAffiliate(e) {
+    e.preventDefault();
+    const id = document.getElementById('affiliateId').value;
+    const name = document.getElementById('affiliateName').value.trim();
+    const description = document.getElementById('affiliateDescription').value.trim();
+    const link = document.getElementById('affiliateLink').value.trim();
+    const icon = document.getElementById('affiliateIcon').value;
+    const customIcon = document.getElementById('affiliateCustomIcon').value.trim();
+    const comingSoon = document.getElementById('affiliateComingSoon').checked;
+    const data = getAdminData();
+    const affiliate = {
+        id: id || generateId(),
+        name,
+        description,
+        link,
+        icon: customIcon ? 'custom' : icon,
+        customImage: customIcon || undefined,
+        comingSoon,
+        createdAt: id ? (data.affiliates.find(a => a.id === id)?.createdAt || Date.now()) : Date.now()
+    };
+    if (id) {
+        const index = data.affiliates.findIndex(a => a.id === id);
+        if (index !== -1) {
+            data.affiliates[index] = affiliate;
+        }
+    }
+    else {
+        data.affiliates.push(affiliate);
+    }
+    saveAdminData(data);
+    closeModal('affiliateModal');
+    renderAffiliates();
+    showToast(id ? 'Affiliate updated!' : 'Affiliate added!');
+}
+function renderProjects() {
+    const container = document.getElementById('projectsList');
+    if (!container)
+        return;
+    const data = getAdminData();
+    if (data.projects.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-folder-open"></i>
+                <h4>No Projects Yet</h4>
+                <p>Click "Add Project" to create your first project.</p>
+            </div>
+        `;
+        return;
+    }
+    container.innerHTML = data.projects.map(project => `
+        <div class="item-card" data-id="${project.id}">
+            <div class="item-card-header">
+                <div class="item-icon">
+                    ${project.customImage
+        ? `<img src="${project.customImage}" alt="${project.name}">`
+        : `<i class="fas ${project.icon}"></i>`}
+                </div>
+                <div class="item-info">
+                    <h4>
+                        ${escapeHtml(project.name)}
+                        ${project.badge ? `<span class="item-badge">${project.badge}</span>` : ''}
+                    </h4>
+                    <p>${escapeHtml(project.description)}</p>
+                </div>
+            </div>
+            ${project.tags.length > 0 ? `
+                <div class="item-tags">
+                    ${project.tags.map(tag => `<span class="item-tag">${escapeHtml(tag)}</span>`).join('')}
+                </div>
+            ` : ''}
+            <div class="item-actions">
+                <button class="item-action-btn edit-btn" data-id="${project.id}" data-type="project">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="item-action-btn docs-btn" data-id="${project.id}" data-type="project">
+                    <i class="fas fa-file-alt"></i> Docs
+                </button>
+                <button class="item-action-btn delete-btn" data-id="${project.id}" data-type="project">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
+    setupItemActions();
+}
+function openProjectModal(project) {
+    const modal = document.getElementById('projectModal');
+    const title = document.getElementById('projectModalTitle');
+    const form = document.getElementById('projectForm');
+    if (!modal || !title || !form)
+        return;
+    form.reset();
+    const iconOptions = modal.querySelectorAll('.icon-option');
+    iconOptions.forEach(opt => opt.classList.remove('active'));
+    iconOptions[0]?.classList.add('active');
+    if (project) {
+        title.textContent = 'Edit Project';
+        document.getElementById('projectId').value = project.id;
+        document.getElementById('projectName').value = project.name;
+        document.getElementById('projectDescription').value = project.description;
+        document.getElementById('projectBadge').value = project.badge;
+        document.getElementById('projectTags').value = project.tags.join(', ');
+        document.getElementById('projectIcon').value = project.icon;
+        if (project.customImage) {
+            document.getElementById('projectCustomImage').value = project.customImage;
+            iconOptions.forEach(opt => opt.classList.remove('active'));
+        }
+        else {
+            const iconOpt = modal.querySelector(`[data-icon="${project.icon}"]`);
+            if (iconOpt) {
+                iconOptions.forEach(opt => opt.classList.remove('active'));
+                iconOpt.classList.add('active');
+            }
+        }
+    }
+    else {
+        title.textContent = 'Add Project';
+        document.getElementById('projectId').value = '';
+        document.getElementById('projectIcon').value = 'fa-cube';
+    }
+    openModal('projectModal');
+}
+function saveProject(e) {
+    e.preventDefault();
+    const id = document.getElementById('projectId').value;
+    const name = document.getElementById('projectName').value.trim();
+    const description = document.getElementById('projectDescription').value.trim();
+    const badge = document.getElementById('projectBadge').value;
+    const tagsStr = document.getElementById('projectTags').value;
+    const icon = document.getElementById('projectIcon').value;
+    const customImage = document.getElementById('projectCustomImage').value.trim();
+    const tags = tagsStr.split(',').map(t => t.trim()).filter(t => t);
+    const data = getAdminData();
+    const existingProject = data.projects.find(p => p.id === id);
+    const project = {
+        id: id || generateId(),
+        name,
+        description,
+        badge,
+        tags,
+        icon: customImage ? 'custom' : icon,
+        customImage: customImage || undefined,
+        sections: existingProject?.sections || [],
+        createdAt: existingProject?.createdAt || Date.now()
+    };
+    if (id) {
+        const index = data.projects.findIndex(p => p.id === id);
+        if (index !== -1) {
+            data.projects[index] = project;
+        }
+    }
+    else {
+        data.projects.push(project);
+    }
+    saveAdminData(data);
+    closeModal('projectModal');
+    renderProjects();
+    showToast(id ? 'Project updated!' : 'Project added!');
+}
+let currentEditingSection = null;
+function openDocsEditor(projectId) {
+    const data = getAdminData();
+    const project = data.projects.find(p => p.id === projectId);
+    if (!project) {
+        showToast('Project not found', true);
+        return;
+    }
+    document.getElementById('docsProjectId').value = projectId;
+    document.getElementById('docsModalTitle').textContent = `Documentation: ${project.name}`;
+    renderDocsSections(project);
+    openModal('docsModal');
+}
+function renderDocsSections(project) {
+    const container = document.getElementById('docsSectionsList');
+    if (!container)
+        return;
+    if (project.sections.length === 0) {
+        container.innerHTML = '<p class="no-section-selected">No sections yet. Add one to get started.</p>';
+        return;
+    }
+    const sortedSections = [...project.sections].sort((a, b) => a.order - b.order);
+    container.innerHTML = sortedSections.map(section => `
+        <div class="docs-section-item" data-id="${section.id}">
+            <span>${escapeHtml(section.title)}</span>
+            <div class="section-actions">
+                <button class="edit-section" data-id="${section.id}"><i class="fas fa-edit"></i></button>
+                <button class="delete-section" data-id="${section.id}"><i class="fas fa-trash"></i></button>
+            </div>
+        </div>
+    `).join('');
+    container.querySelectorAll('.docs-section-item').forEach(item => {
+        item.addEventListener('click', (e) => {
+            const target = e.target;
+            if (target.closest('.section-actions'))
+                return;
+            const sectionId = item.getAttribute('data-id');
+            const section = project.sections.find(s => s.id === sectionId);
+            if (section) {
+                selectSection(section, project.id);
+            }
+        });
+        item.querySelector('.edit-section')?.addEventListener('click', () => {
+            const sectionId = item.getAttribute('data-id');
+            const section = project.sections.find(s => s.id === sectionId);
+            if (section) {
+                openSectionModal(section, project.id);
+            }
+        });
+        item.querySelector('.delete-section')?.addEventListener('click', () => {
+            const sectionId = item.getAttribute('data-id');
+            if (confirm('Delete this section?')) {
+                deleteSection(sectionId, project.id);
+            }
+        });
+    });
+}
+function selectSection(section, projectId) {
+    const container = document.getElementById('currentSectionEditor');
+    if (!container)
+        return;
+    document.querySelectorAll('.docs-section-item').forEach(item => {
+        item.classList.toggle('active', item.getAttribute('data-id') === section.id);
+    });
+    container.innerHTML = `
+        <div class="section-preview">
+            <h3>${escapeHtml(section.title)}</h3>
+            <p class="section-type"><strong>Type:</strong> ${section.type}</p>
+            <div class="section-content-preview">
+                <strong>Content:</strong>
+                <pre>${escapeHtml(section.content)}</pre>
+            </div>
+            <button class="btn-primary" onclick="openSectionModalById('${section.id}', '${projectId}')">
+                <i class="fas fa-edit"></i> Edit Section
+            </button>
+        </div>
+    `;
+}
+function openSectionModal(section, projectId) {
+    const form = document.getElementById('sectionForm');
+    const title = document.getElementById('sectionModalTitle');
+    if (!form || !title)
+        return;
+    form.reset();
+    if (section) {
+        title.textContent = 'Edit Section';
+        document.getElementById('sectionId').value = section.id;
+        document.getElementById('sectionProjectId').value = projectId || '';
+        document.getElementById('sectionTitle').value = section.title;
+        document.getElementById('sectionType').value = section.type;
+        document.getElementById('sectionContent').value = section.content;
+    }
+    else {
+        title.textContent = 'Add Section';
+        document.getElementById('sectionId').value = '';
+        document.getElementById('sectionProjectId').value =
+            document.getElementById('docsProjectId')?.value || '';
+    }
+    openModal('sectionModal');
+}
+function saveSection(e) {
+    e.preventDefault();
+    const id = document.getElementById('sectionId').value;
+    const projectId = document.getElementById('sectionProjectId').value;
+    const title = document.getElementById('sectionTitle').value.trim();
+    const type = document.getElementById('sectionType').value;
+    const content = document.getElementById('sectionContent').value;
+    const data = getAdminData();
+    const projectIndex = data.projects.findIndex(p => p.id === projectId);
+    if (projectIndex === -1) {
+        showToast('Project not found', true);
+        return;
+    }
+    const project = data.projects[projectIndex];
+    const section = {
+        id: id || generateId(),
+        title,
+        type,
+        content,
+        order: id
+            ? (project.sections.find(s => s.id === id)?.order || project.sections.length)
+            : project.sections.length
+    };
+    if (id) {
+        const sectionIndex = project.sections.findIndex(s => s.id === id);
+        if (sectionIndex !== -1) {
+            project.sections[sectionIndex] = section;
+        }
+    }
+    else {
+        project.sections.push(section);
+    }
+    saveAdminData(data);
+    closeModal('sectionModal');
+    renderDocsSections(project);
+    showToast(id ? 'Section updated!' : 'Section added!');
+}
+function deleteSection(sectionId, projectId) {
+    const data = getAdminData();
+    const project = data.projects.find(p => p.id === projectId);
+    if (!project)
+        return;
+    project.sections = project.sections.filter(s => s.id !== sectionId);
+    saveAdminData(data);
+    renderDocsSections(project);
+    const editor = document.getElementById('currentSectionEditor');
+    if (editor) {
+        editor.innerHTML = '<p class="no-section-selected">Select a section to edit or add a new one.</p>';
+    }
+    showToast('Section deleted!');
+}
+function renderSoftware() {
+    const container = document.getElementById('softwareList');
+    if (!container)
+        return;
+    const data = getAdminData();
+    if (data.software.length === 0) {
+        container.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-code"></i>
+                <h4>No Software Yet</h4>
+                <p>Click "Add Software" to add your first software or tool.</p>
+            </div>
+        `;
+        return;
+    }
+    container.innerHTML = data.software.map(sw => `
+        <div class="item-card" data-id="${sw.id}">
+            <div class="item-card-header">
+                <div class="item-icon">
+                    ${sw.customImage
+        ? `<img src="${sw.customImage}" alt="${sw.name}">`
+        : `<i class="fas ${sw.icon}"></i>`}
+                </div>
+                <div class="item-info">
+                    <h4>
+                        ${escapeHtml(sw.name)}
+                        ${sw.underDevelopment ? '<span class="item-badge under-dev">Under Development</span>' : ''}
+                    </h4>
+                    <p>${escapeHtml(sw.description)}</p>
+                </div>
+            </div>
+            <div class="item-actions">
+                <button class="item-action-btn edit-btn" data-id="${sw.id}" data-type="software">
+                    <i class="fas fa-edit"></i> Edit
+                </button>
+                <button class="item-action-btn delete-btn" data-id="${sw.id}" data-type="software">
+                    <i class="fas fa-trash"></i> Delete
+                </button>
+            </div>
+        </div>
+    `).join('');
+    setupItemActions();
+}
+function openSoftwareModal(software) {
+    const modal = document.getElementById('softwareModal');
+    const title = document.getElementById('softwareModalTitle');
+    const form = document.getElementById('softwareForm');
+    if (!modal || !title || !form)
+        return;
+    form.reset();
+    const iconOptions = modal.querySelectorAll('.icon-option');
+    iconOptions.forEach(opt => opt.classList.remove('active'));
+    iconOptions[0]?.classList.add('active');
+    if (software) {
+        title.textContent = 'Edit Software';
+        document.getElementById('softwareId').value = software.id;
+        document.getElementById('softwareName').value = software.name;
+        document.getElementById('softwareDescription').value = software.description;
+        document.getElementById('softwareLink').value = software.link;
+        document.getElementById('softwareIcon').value = software.icon;
+        document.getElementById('softwareUnderDev').checked = software.underDevelopment;
+        if (software.customImage) {
+            document.getElementById('softwareCustomImage').value = software.customImage;
+            iconOptions.forEach(opt => opt.classList.remove('active'));
+        }
+        else {
+            const iconOpt = modal.querySelector(`[data-icon="${software.icon}"]`);
+            if (iconOpt) {
+                iconOptions.forEach(opt => opt.classList.remove('active'));
+                iconOpt.classList.add('active');
+            }
+        }
+    }
+    else {
+        title.textContent = 'Add Software';
+        document.getElementById('softwareId').value = '';
+        document.getElementById('softwareIcon').value = 'fa-code';
+    }
+    openModal('softwareModal');
+}
+function saveSoftware(e) {
+    e.preventDefault();
+    const id = document.getElementById('softwareId').value;
+    const name = document.getElementById('softwareName').value.trim();
+    const description = document.getElementById('softwareDescription').value.trim();
+    const link = document.getElementById('softwareLink').value.trim();
+    const icon = document.getElementById('softwareIcon').value;
+    const customImage = document.getElementById('softwareCustomImage').value.trim();
+    const underDevelopment = document.getElementById('softwareUnderDev').checked;
+    const data = getAdminData();
+    const software = {
+        id: id || generateId(),
+        name,
+        description,
+        link,
+        icon: customImage ? 'custom' : icon,
+        customImage: customImage || undefined,
+        underDevelopment,
+        createdAt: id ? (data.software.find(s => s.id === id)?.createdAt || Date.now()) : Date.now()
+    };
+    if (id) {
+        const index = data.software.findIndex(s => s.id === id);
+        if (index !== -1) {
+            data.software[index] = software;
+        }
+    }
+    else {
+        data.software.push(software);
+    }
+    saveAdminData(data);
+    closeModal('softwareModal');
+    renderSoftware();
+    showToast(id ? 'Software updated!' : 'Software added!');
+}
+function setupItemActions() {
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            const type = btn.getAttribute('data-type');
+            const data = getAdminData();
+            if (type === 'affiliate') {
+                const affiliate = data.affiliates.find(a => a.id === id);
+                if (affiliate)
+                    openAffiliateModal(affiliate);
+            }
+            else if (type === 'project') {
+                const project = data.projects.find(p => p.id === id);
+                if (project)
+                    openProjectModal(project);
+            }
+            else if (type === 'software') {
+                const software = data.software.find(s => s.id === id);
+                if (software)
+                    openSoftwareModal(software);
+            }
+        });
+    });
+    document.querySelectorAll('.docs-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            if (id)
+                openDocsEditor(id);
+        });
+    });
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            const type = btn.getAttribute('data-type');
+            if (!confirm('Are you sure you want to delete this item?'))
+                return;
+            const data = getAdminData();
+            if (type === 'affiliate') {
+                data.affiliates = data.affiliates.filter(a => a.id !== id);
+                saveAdminData(data);
+                renderAffiliates();
+            }
+            else if (type === 'project') {
+                data.projects = data.projects.filter(p => p.id !== id);
+                saveAdminData(data);
+                renderProjects();
+            }
+            else if (type === 'software') {
+                data.software = data.software.filter(s => s.id !== id);
+                saveAdminData(data);
+                renderSoftware();
+            }
+            showToast('Item deleted!');
+        });
+    });
+}
+function exportData() {
+    const data = getAdminData();
+    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `nerd-or-geek-data-${new Date().toISOString().split('T')[0]}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Data exported!');
+}
+function importData(file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const data = JSON.parse(e.target?.result);
+            if (!data.affiliates || !data.projects || !data.software) {
+                throw new Error('Invalid data structure');
+            }
+            saveAdminData(data);
+            renderAffiliates();
+            renderProjects();
+            renderSoftware();
+            showToast('Data imported successfully!');
+        }
+        catch (error) {
+            showToast('Failed to import data. Invalid file format.', true);
+        }
+    };
+    reader.readAsText(file);
+}
+function clearAllData() {
+    if (!confirm('Are you sure you want to delete ALL data? This cannot be undone!'))
+        return;
+    if (!confirm('This will permanently delete all affiliates, projects, and software. Continue?'))
+        return;
+    localStorage.removeItem(STORAGE_KEY);
+    renderAffiliates();
+    renderProjects();
+    renderSoftware();
+    showToast('All data cleared!');
+}
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+window.openSectionModalById = (sectionId, projectId) => {
+    const data = getAdminData();
+    const project = data.projects.find(p => p.id === projectId);
+    const section = project?.sections.find(s => s.id === sectionId);
+    if (section) {
+        openSectionModal(section, projectId);
+    }
+};
+function init() {
+    setupNavigation();
+    setupModalCloseHandlers();
+    setupIconSelectors();
+    renderAffiliates();
+    renderProjects();
+    renderSoftware();
+    document.getElementById('affiliateForm')?.addEventListener('submit', saveAffiliate);
+    document.getElementById('projectForm')?.addEventListener('submit', saveProject);
+    document.getElementById('softwareForm')?.addEventListener('submit', saveSoftware);
+    document.getElementById('sectionForm')?.addEventListener('submit', saveSection);
+    document.getElementById('addAffiliate')?.addEventListener('click', () => openAffiliateModal());
+    document.getElementById('addProject')?.addEventListener('click', () => openProjectModal());
+    document.getElementById('addSoftware')?.addEventListener('click', () => openSoftwareModal());
+    document.getElementById('addDocsSection')?.addEventListener('click', () => openSectionModal());
+    document.getElementById('exportData')?.addEventListener('click', exportData);
+    document.getElementById('exportAllData')?.addEventListener('click', exportData);
+    document.getElementById('importData')?.addEventListener('click', () => {
+        document.getElementById('importFile')?.click();
+    });
+    document.getElementById('importFile')?.addEventListener('change', (e) => {
+        const file = e.target.files?.[0];
+        if (file)
+            importData(file);
+    });
+    document.getElementById('clearAllData')?.addEventListener('click', clearAllData);
+    console.log('Admin Portal initialized');
+}
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+}
+else {
+    init();
+}
+//# sourceMappingURL=admin.js.map

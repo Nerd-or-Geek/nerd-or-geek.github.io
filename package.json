@@ -7,7 +7,7 @@
     "dev": "npm run watch:ts && npm run watch:scss",
     "build": "npm run build:ts && npm run build:scss",
     "build:ts": "tsc",
-    "build:scss": "sass src/styles/main.scss src/styles/main.css",
+    "build:scss": "sass src/styles/main.scss src/styles/main.css && sass src/styles/admin.scss src/styles/admin.css",
     "watch:ts": "tsc --watch",
     "watch:scss": "sass --watch src/styles:src/styles",
     "deploy": "npm run build && git add . && git commit -m 'Build deploy' && git push"

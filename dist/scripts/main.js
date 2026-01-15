@@ -43,7 +43,7 @@ function getBasePath() {
 }
 function getMainSearchData() {
     const basePath = getBasePath();
-    return [
+    const results = [
         {
             title: 'Pinecraft',
             url: `${basePath}projects/project-one.html`,
@@ -101,6 +101,39 @@ function getMainSearchData() {
             icon: 'fa-microchip'
         }
     ];
+    const adminData = getAdminData();
+    if (adminData) {
+        adminData.projects.forEach(project => {
+            results.push({
+                title: project.name,
+                url: `javascript:showDynamicProjectDocs('${project.id}')`,
+                description: project.description,
+                category: 'project',
+                icon: project.icon === 'custom' ? 'fa-folder' : project.icon
+            });
+        });
+        adminData.software.forEach(sw => {
+            results.push({
+                title: sw.name,
+                url: sw.link,
+                description: sw.description,
+                category: 'software',
+                icon: sw.icon === 'custom' ? 'fa-code' : sw.icon
+            });
+        });
+        adminData.affiliates.forEach(affiliate => {
+            if (!affiliate.comingSoon) {
+                results.push({
+                    title: affiliate.name,
+                    url: affiliate.link,
+                    description: affiliate.description,
+                    category: 'affiliate',
+                    icon: affiliate.icon === 'custom' ? 'fa-link' : affiliate.icon
+                });
+            }
+        });
+    }
+    return results;
 }
 function getDocsSearchData() {
     const sections = [];
@@ -326,8 +359,213 @@ const logoLink = document.querySelector('.logo-link');
 logoLink?.addEventListener('click', (_event) => {
     window.location.href = 'index.html';
 });
+const ADMIN_STORAGE_KEY = 'nerdOrGeekAdminData';
+function getAdminData() {
+    const data = localStorage.getItem(ADMIN_STORAGE_KEY);
+    if (data) {
+        try {
+            return JSON.parse(data);
+        }
+        catch {
+            return null;
+        }
+    }
+    return null;
+}
+function escapeHtmlForRender(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+function renderDynamicAffiliates() {
+    const data = getAdminData();
+    if (!data || data.affiliates.length === 0)
+        return;
+    const container = document.querySelector('.affiliates-grid');
+    if (!container)
+        return;
+    data.affiliates.forEach(affiliate => {
+        const card = document.createElement('div');
+        card.className = 'affiliate-card' + (affiliate.comingSoon ? ' affiliate-card-coming' : '');
+        card.innerHTML = `
+            <div class="affiliate-icon">
+                ${affiliate.customImage
+            ? `<img src="${affiliate.customImage}" alt="${escapeHtmlForRender(affiliate.name)}" style="width:40px;height:40px;object-fit:contain;">`
+            : `<i class="fas ${affiliate.icon}"></i>`}
+            </div>
+            <h3>${escapeHtmlForRender(affiliate.name)}</h3>
+            <p>${escapeHtmlForRender(affiliate.description)}</p>
+            ${affiliate.comingSoon
+            ? '<span class="coming-soon-badge">Coming Soon</span>'
+            : `<a href="${affiliate.link}" class="app-link" target="_blank" rel="noopener noreferrer">Visit ${escapeHtmlForRender(affiliate.name)} <i class="fas fa-arrow-right"></i></a>`}
+        `;
+        container.appendChild(card);
+    });
+}
+function renderDynamicProjects() {
+    const data = getAdminData();
+    if (!data || data.projects.length === 0)
+        return;
+    const containers = document.querySelectorAll('.projects-grid');
+    if (containers.length === 0)
+        return;
+    const container = containers[0];
+    data.projects.forEach(project => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        card.innerHTML = `
+            <div class="project-image-container">
+                ${project.customImage
+            ? `<img src="${project.customImage}" alt="${escapeHtmlForRender(project.name)}" class="project-image">`
+            : `<div class="project-icon-placeholder"><i class="fas ${project.icon}"></i></div>`}
+                ${project.badge ? `<span class="project-badge">${project.badge}</span>` : ''}
+            </div>
+            <div class="project-content">
+                <h3>${escapeHtmlForRender(project.name)}</h3>
+                <p>${escapeHtmlForRender(project.description)}</p>
+                ${project.tags.length > 0 ? `
+                    <div class="project-tags">
+                        ${project.tags.map(tag => `<span class="project-tag">${escapeHtmlForRender(tag)}</span>`).join('')}
+                    </div>
+                ` : ''}
+                <a href="projects/dynamic-${project.id}.html" class="cta-button" onclick="showDynamicProjectDocs('${project.id}'); return false;">
+                    <i class="fas fa-book"></i> View Details
+                </a>
+            </div>
+        `;
+        container.appendChild(card);
+    });
+}
+function renderDynamicSoftware() {
+    const data = getAdminData();
+    if (!data || data.software.length === 0)
+        return;
+    const container = document.querySelector('.apps-grid');
+    if (!container)
+        return;
+    data.software.forEach(software => {
+        const card = document.createElement('div');
+        card.className = 'app-card';
+        card.innerHTML = `
+            <div class="app-logo-wrap">
+                ${software.customImage
+            ? `<img src="${software.customImage}" alt="${escapeHtmlForRender(software.name)}" class="app-logo">`
+            : `<div class="app-icon-placeholder"><i class="fas ${software.icon}"></i></div>`}
+            </div>
+            ${software.underDevelopment ? '<span class="app-badge app-badge-warn">Under Development</span>' : ''}
+            <h3>${escapeHtmlForRender(software.name)}</h3>
+            <p>${escapeHtmlForRender(software.description)}</p>
+            <a href="${software.link}" class="app-link" target="_blank" rel="noopener noreferrer">View on GitHub <i class="fas fa-arrow-right"></i></a>
+        `;
+        container.appendChild(card);
+    });
+}
+function showDynamicProjectDocs(projectId) {
+    const data = getAdminData();
+    if (!data)
+        return;
+    const project = data.projects.find(p => p.id === projectId);
+    if (!project)
+        return;
+    const fullData = localStorage.getItem(ADMIN_STORAGE_KEY);
+    if (!fullData)
+        return;
+    const parsedData = JSON.parse(fullData);
+    const fullProject = parsedData.projects.find((p) => p.id === projectId);
+    const overlay = document.createElement('div');
+    overlay.className = 'dynamic-docs-overlay';
+    overlay.innerHTML = `
+        <div class="dynamic-docs-modal">
+            <div class="dynamic-docs-header">
+                <h2>${escapeHtmlForRender(project.name)}</h2>
+                <button class="dynamic-docs-close">&times;</button>
+            </div>
+            <div class="dynamic-docs-content">
+                <div class="docs-hero">
+                    <p class="docs-subtitle">${escapeHtmlForRender(project.description)}</p>
+                    <div class="docs-meta">
+                        ${project.tags.map(tag => `<span class="docs-badge">${escapeHtmlForRender(tag)}</span>`).join('')}
+                    </div>
+                </div>
+                <div class="docs-sections">
+                    ${fullProject.sections && fullProject.sections.length > 0
+        ? fullProject.sections.map((section) => `
+                            <section class="docs-section">
+                                <h3 class="docs-heading">${escapeHtmlForRender(section.title)}</h3>
+                                <div class="section-content">${formatSectionContent(section)}</div>
+                            </section>
+                        `).join('')
+        : '<p class="no-docs">No documentation available yet.</p>'}
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+    overlay.querySelector('.dynamic-docs-close')?.addEventListener('click', () => {
+        overlay.remove();
+        document.body.style.overflow = '';
+    });
+    overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+            overlay.remove();
+            document.body.style.overflow = '';
+        }
+    });
+}
+function formatSectionContent(section) {
+    switch (section.type) {
+        case 'text':
+            return `<p>${escapeHtmlForRender(section.content).replace(/\n/g, '</p><p>')}</p>`;
+        case 'code':
+            return `
+                <div class="docs-code-block">
+                    <div class="code-header">
+                        <span>Code</span>
+                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                    </div>
+                    <pre><code>${escapeHtmlForRender(section.content)}</code></pre>
+                </div>
+            `;
+        case 'callout':
+            return `
+                <div class="docs-callout docs-callout-info">
+                    <i class="fas fa-info-circle"></i>
+                    <div>${escapeHtmlForRender(section.content)}</div>
+                </div>
+            `;
+        case 'cards-2':
+        case 'cards-3':
+            const cards = section.content.split('---').map((card) => card.trim()).filter((c) => c);
+            const gridClass = section.type === 'cards-2' ? 'docs-grid-2' : 'docs-grid-3';
+            return `
+                <div class="${gridClass}">
+                    ${cards.map((card) => {
+                const parts = card.split('|').map((p) => p.trim());
+                return `
+                            <div class="docs-card">
+                                <h4>${escapeHtmlForRender(parts[0] || '')}</h4>
+                                <p>${escapeHtmlForRender(parts[1] || '')}</p>
+                                ${parts[2] ? `
+                                    <div class="docs-code-block">
+                                        <pre><code>${escapeHtmlForRender(parts[2])}</code></pre>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        `;
+            }).join('')}
+                </div>
+            `;
+        default:
+            return `<p>${escapeHtmlForRender(section.content)}</p>`;
+    }
+}
+window.showDynamicProjectDocs = showDynamicProjectDocs;
 function init() {
     console.log('Nerd or Geek? Website Initialized');
+    renderDynamicAffiliates();
+    renderDynamicProjects();
+    renderDynamicSoftware();
 }
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
