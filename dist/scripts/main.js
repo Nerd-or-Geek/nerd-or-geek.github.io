@@ -41,72 +41,24 @@ function getBasePath() {
     }
     return '';
 }
-function getMainSearchData() {
+function getProjectLinkForSearch(project) {
     const basePath = getBasePath();
-    const results = [
-        {
-            title: 'Pinecraft',
-            url: `${basePath}projects/project-one.html`,
-            description: 'Minecraft Java server on Raspberry Pi 4',
-            category: 'project',
-            icon: 'fa-cube'
-        },
-        {
-            title: 'P4wnP1',
-            url: `${basePath}projects/p4wnp1.html`,
-            description: 'USB attack platform for Raspberry Pi Zero',
-            category: 'project',
-            icon: 'fa-usb'
-        },
-        {
-            title: 'Photo Metadata App',
-            url: 'https://github.com/michael6gledhill/Photo_Metadata_App_By_Gledhill',
-            description: 'Tool to view and manage photo metadata',
-            category: 'software',
-            icon: 'fa-image'
-        },
-        {
-            title: 'CyberPatriot Runbook',
-            url: 'https://github.com/michael6gledhill/cyberpatriot-runbook',
-            description: 'Runbook for CyberPatriot competition prep',
-            category: 'software',
-            icon: 'fa-shield-halved'
-        },
-        {
-            title: 'TransportMod',
-            url: 'https://github.com/Nerd-or-Geek/TransportMod',
-            description: 'Transportation modification mod for games',
-            category: 'software',
-            icon: 'fa-car'
-        },
-        {
-            title: 'Raspberry Pi Tips School',
-            url: 'https://school.raspberrytips.com/a/v8jsr',
-            description: 'Comprehensive Raspberry Pi courses and tutorials',
-            category: 'affiliate',
-            icon: 'fa-graduation-cap'
-        },
-        {
-            title: 'SunFounder',
-            url: 'https://www.sunfounder.com/?ref=ormqdqda',
-            description: 'Electronic kits, robotics, and STEM products',
-            category: 'affiliate',
-            icon: 'fa-robot'
-        },
-        {
-            title: 'Tech Explorations',
-            url: 'https://techexplorations.com/pc/?ref=hbwnc9',
-            description: 'Electronics, Arduino, and Raspberry Pi courses',
-            category: 'affiliate',
-            icon: 'fa-microchip'
-        }
-    ];
+    if (project.id === 'static-project-1') {
+        return `${basePath}projects/project-one.html`;
+    }
+    else if (project.id === 'static-project-2') {
+        return `${basePath}projects/p4wnp1.html`;
+    }
+    return `javascript:showDynamicProjectDocs('${project.id}')`;
+}
+function getMainSearchData() {
+    const results = [];
     const adminData = getAdminData();
     if (adminData) {
         adminData.projects.forEach(project => {
             results.push({
                 title: project.name,
-                url: `javascript:showDynamicProjectDocs('${project.id}')`,
+                url: getProjectLinkForSearch(project),
                 description: project.description,
                 category: 'project',
                 icon: project.icon === 'custom' ? 'fa-folder' : project.icon
@@ -384,6 +336,7 @@ function renderDynamicAffiliates() {
     const container = document.querySelector('.affiliates-grid');
     if (!container)
         return;
+    container.innerHTML = '';
     data.affiliates.forEach(affiliate => {
         const card = document.createElement('div');
         card.className = 'affiliate-card' + (affiliate.comingSoon ? ' affiliate-card-coming' : '');
@@ -402,6 +355,16 @@ function renderDynamicAffiliates() {
         container.appendChild(card);
     });
 }
+function getProjectLink(project) {
+    const staticProjectPages = {
+        'static-project-1': 'projects/project-one.html',
+        'static-project-2': 'projects/p4wnp1.html'
+    };
+    if (staticProjectPages[project.id]) {
+        return staticProjectPages[project.id];
+    }
+    return `javascript:showDynamicProjectDocs('${project.id}')`;
+}
 function renderDynamicProjects() {
     const data = getAdminData();
     if (!data || data.projects.length === 0)
@@ -409,31 +372,35 @@ function renderDynamicProjects() {
     const containers = document.querySelectorAll('.projects-grid');
     if (containers.length === 0)
         return;
-    const container = containers[0];
-    data.projects.forEach(project => {
-        const card = document.createElement('div');
-        card.className = 'project-card';
-        card.innerHTML = `
-            <div class="project-image-container">
-                ${project.customImage
-            ? `<img src="${project.customImage}" alt="${escapeHtmlForRender(project.name)}" class="project-image">`
-            : `<div class="project-icon-placeholder"><i class="fas ${project.icon}"></i></div>`}
-                ${project.badge ? `<span class="project-badge">${project.badge}</span>` : ''}
-            </div>
-            <div class="project-content">
-                <h3>${escapeHtmlForRender(project.name)}</h3>
-                <p>${escapeHtmlForRender(project.description)}</p>
-                ${project.tags.length > 0 ? `
-                    <div class="project-tags">
-                        ${project.tags.map(tag => `<span class="project-tag">${escapeHtmlForRender(tag)}</span>`).join('')}
-                    </div>
-                ` : ''}
-                <a href="projects/dynamic-${project.id}.html" class="cta-button" onclick="showDynamicProjectDocs('${project.id}'); return false;">
-                    <i class="fas fa-book"></i> View Details
-                </a>
-            </div>
-        `;
-        container.appendChild(card);
+    containers.forEach(container => {
+        container.innerHTML = '';
+        data.projects.forEach(project => {
+            const projectLink = getProjectLink(project);
+            const isStaticProject = project.id.startsWith('static-project');
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.innerHTML = `
+                <div class="project-image-container">
+                    ${project.customImage
+                ? `<img src="${project.customImage}" alt="${escapeHtmlForRender(project.name)}" class="project-image">`
+                : `<div class="project-icon-placeholder"><i class="fas ${project.icon}"></i></div>`}
+                    ${project.badge ? `<span class="project-badge">${project.badge}</span>` : ''}
+                </div>
+                <div class="project-content">
+                    <h3>${escapeHtmlForRender(project.name)}</h3>
+                    <p>${escapeHtmlForRender(project.description)}</p>
+                    ${project.tags.length > 0 ? `
+                        <div class="project-tags">
+                            ${project.tags.map(tag => `<span class="project-tag">${escapeHtmlForRender(tag)}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    ${isStaticProject
+                ? `<a href="${projectLink}" class="cta-button"><i class="fas fa-book"></i> Install Guide</a>`
+                : `<a href="#" class="cta-button" onclick="showDynamicProjectDocs('${project.id}'); return false;"><i class="fas fa-book"></i> View Details</a>`}
+                </div>
+            `;
+            container.appendChild(card);
+        });
     });
 }
 function renderDynamicSoftware() {
@@ -443,6 +410,7 @@ function renderDynamicSoftware() {
     const container = document.querySelector('.apps-grid');
     if (!container)
         return;
+    container.innerHTML = '';
     data.software.forEach(software => {
         const card = document.createElement('div');
         card.className = 'app-card';

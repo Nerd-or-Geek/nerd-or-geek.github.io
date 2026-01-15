@@ -40,9 +40,14 @@ interface AdminData {
     affiliates: Affiliate[];
     projects: Project[];
     software: Software[];
+    initialized?: boolean;
 }
 declare const STORAGE_KEY = "nerdOrGeekAdminData";
+declare const DEFAULT_AFFILIATES: Affiliate[];
+declare const DEFAULT_PROJECTS: Project[];
+declare const DEFAULT_SOFTWARE: Software[];
 declare function getAdminData(): AdminData;
+declare function initializeDefaultData(): AdminData;
 declare function saveAdminData(data: AdminData): void;
 declare function generateId(): string;
 declare function showToast(message: string, isError?: boolean): void;

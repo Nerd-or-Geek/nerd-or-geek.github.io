@@ -1,11 +1,118 @@
 "use strict";
 const STORAGE_KEY = 'nerdOrGeekAdminData';
+const DEFAULT_AFFILIATES = [
+    {
+        id: 'static-affiliate-1',
+        name: 'Raspberry Pi Tips School',
+        description: 'Learn everything about Raspberry Pi with comprehensive courses and tutorials. Perfect for beginners and advanced users!',
+        link: 'https://school.raspberrytips.com/a/v8jsr',
+        icon: 'fa-graduation-cap',
+        comingSoon: false,
+        createdAt: Date.now()
+    },
+    {
+        id: 'static-affiliate-2',
+        name: 'SunFounder',
+        description: 'Explore innovative electronic kits, robotics, and educational STEM products for makers and hobbyists of all levels.',
+        link: 'https://www.sunfounder.com/?ref=ormqdqda',
+        icon: 'fa-robot',
+        comingSoon: false,
+        createdAt: Date.now()
+    },
+    {
+        id: 'static-affiliate-3',
+        name: 'Tech Explorations',
+        description: 'Learn electronics, Arduino, Raspberry Pi, and practical engineering through hands-on courses.',
+        link: 'https://techexplorations.com/pc/?ref=hbwnc9',
+        icon: 'fa-microchip',
+        comingSoon: false,
+        createdAt: Date.now()
+    },
+    {
+        id: 'static-affiliate-4',
+        name: 'eBay Shop',
+        description: 'Coming soon: my eBay store with affordable Raspberry Pis, respeaker hats, speakers, and Pi-ready accessories.',
+        link: '',
+        icon: 'fa-store',
+        comingSoon: true,
+        createdAt: Date.now()
+    }
+];
+const DEFAULT_PROJECTS = [
+    {
+        id: 'static-project-1',
+        name: 'Pinecraft',
+        description: 'Step-by-step guide to install and run a Minecraft Java server on Raspberry Pi 4.',
+        badge: 'Popular',
+        tags: ['Raspberry Pi', 'Minecraft'],
+        icon: 'fa-cube',
+        customImage: 'assets/img/projects/Pinecraft.png',
+        sections: [],
+        createdAt: Date.now()
+    },
+    {
+        id: 'static-project-2',
+        name: 'P4wnP1',
+        description: 'Highly customizable USB attack platform for Raspberry Pi Zero and Zero W.',
+        badge: 'Security',
+        tags: ['Pi Zero', 'Security'],
+        icon: 'fa-usb',
+        customImage: 'assets/img/projects/p4wnp1.png',
+        sections: [],
+        createdAt: Date.now()
+    }
+];
+const DEFAULT_SOFTWARE = [
+    {
+        id: 'static-software-1',
+        name: 'Photo Metadata App',
+        description: 'A clean, self-built tool to view and manage photo metadata quickly. Built by me from scratch.',
+        link: 'https://github.com/michael6gledhill/Photo_Metadata_App_By_Gledhill',
+        icon: 'fa-image',
+        customImage: 'assets/img/projects/photo-metadata.png',
+        underDevelopment: false,
+        createdAt: Date.now()
+    },
+    {
+        id: 'static-software-2',
+        name: 'CyberPatriot Runbook',
+        description: 'A practical runbook for CyberPatriot prep with checklists and steps to streamline competition readiness.',
+        link: 'https://github.com/michael6gledhill/cyberpatriot-runbook',
+        icon: 'fa-shield-halved',
+        customImage: 'assets/img/projects/cyberpatriot.png',
+        underDevelopment: true,
+        createdAt: Date.now()
+    },
+    {
+        id: 'static-software-3',
+        name: 'TransportMod',
+        description: 'A comprehensive transportation modification mod for enhanced game mechanics.',
+        link: 'https://github.com/Nerd-or-Geek/TransportMod',
+        icon: 'fa-car',
+        customImage: 'assets/img/projects/TransportMod.png',
+        underDevelopment: true,
+        createdAt: Date.now()
+    }
+];
 function getAdminData() {
     const data = localStorage.getItem(STORAGE_KEY);
     if (data) {
-        return JSON.parse(data);
+        const parsed = JSON.parse(data);
+        if (parsed.initialized) {
+            return parsed;
+        }
     }
-    return { affiliates: [], projects: [], software: [] };
+    return initializeDefaultData();
+}
+function initializeDefaultData() {
+    const data = {
+        affiliates: [...DEFAULT_AFFILIATES],
+        projects: [...DEFAULT_PROJECTS],
+        software: [...DEFAULT_SOFTWARE],
+        initialized: true
+    };
+    saveAdminData(data);
+    return data;
 }
 function saveAdminData(data) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
