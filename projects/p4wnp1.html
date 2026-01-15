@@ -39,11 +39,7 @@
                     <li><a href="#overview" class="docs-link">Overview</a></li>
                     <li><a href="#estimated-time" class="docs-link">Estimated Time</a></li>
                     <li><a href="#prerequisites" class="docs-link">Prerequisites</a></li>
-                    <li><a href="#install" class="docs-link">Installation Guide</a></li>
-                    <li><a href="#install-step-1" class="docs-sublink">4.1 Download & Flash Image</a></li>
-                    <li><a href="#install-step-2" class="docs-sublink">4.2 First Boot</a></li>
-                    <li><a href="#install-step-3" class="docs-sublink">4.3 Initial Access</a></li>
-                    <li><a href="#install-step-4" class="docs-sublink">4.4 Advanced Setup</a></li>
+                    <li><a href="#install" class="docs-link">Installation</a></li>
                     <li><a href="#resources" class="docs-link">Resources</a></li>
                 </ul>
             </nav>
@@ -101,23 +97,24 @@
                 <!-- Prerequisites -->
                 <section id="prerequisites" class="docs-section">
                     <h2 class="docs-heading">Prerequisites</h2>
-                    <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.1rem;">Hardware Requirements</h3>
-                    <div class="docs-checklist">
-                        <div class="checklist-item">
-                            <input type="checkbox" disabled>
-                            <span>Raspberry Pi Zero or Zero W</span>
+                    <p>Verify you have all necessary hardware before starting installation.</p>
+                    
+                    <div class="docs-grid-2">
+                        <div class="docs-card">
+                            <h3>Required Hardware</h3>
+                            <ul>
+                                <li>Raspberry Pi Zero or Zero W</li>
+                                <li>MicroSD card (8GB+ recommended)</li>
+                                <li>Micro USB cable (data & power capable)</li>
+                                <li>Computer (Windows, macOS, or Linux)</li>
+                            </ul>
                         </div>
-                        <div class="checklist-item">
-                            <input type="checkbox" disabled>
-                            <span>microSD card (8GB+ recommended)</span>
-                        </div>
-                        <div class="checklist-item">
-                            <input type="checkbox" disabled>
-                            <span>Micro USB cable (for data & power)</span>
-                        </div>
-                        <div class="checklist-item">
-                            <input type="checkbox" disabled>
-                            <span>Computer (Windows, macOS, or Linux)</span>
+                        <div class="docs-card">
+                            <h3>Optional Hardware</h3>
+                            <ul>
+                                <li>USB OTG adapter for additional devices</li>
+                                <li>Compact case for portability</li>
+                            </ul>
                         </div>
                     </div>
                 </section>
@@ -125,48 +122,94 @@
                 <!-- Installation Guide -->
                 <section id="install" class="docs-section">
                     <h2 class="docs-heading">Installation Guide</h2>
-                    <div class="docs-step" id="install-step-1">
-                        <div class="docs-step-title"><span class="step-number">1</span> Download & Flash P4wnP1 Image</div>
-                        <ol>
-                            <li>Download the latest P4wnP1 A.L.O.A. image from the <a href="https://github.com/RoganDawes/P4wnP1/releases" target="_blank" rel="noopener noreferrer">GitHub Releases page</a>.</li>
-                            <li>Use <a href="https://www.balena.io/etcher/" target="_blank" rel="noopener noreferrer">balenaEtcher</a> or a similar tool to flash the image to your microSD card.</li>
-                        </ol>
+                    <p>Follow these steps to set up P4wnP1 on your Raspberry Pi Zero.</p>
+                    
+                    <h3>Download & Flash</h3>
+                    <div class="docs-grid-3">
+                        <div class="docs-card">
+                            <h4>Download Image</h4>
+                            <p>Get the latest P4wnP1 A.L.O.A. image from GitHub.</p>
+                            <p><a href="https://github.com/RoganDawes/P4wnP1/releases" target="_blank">Download from Releases</a></p>
+                        </div>
+                        <div class="docs-card">
+                            <h4>Flash to SD Card</h4>
+                            <p>Use balenaEtcher to write the image to your microSD card.</p>
+                            <p><a href="https://www.balena.io/etcher/" target="_blank">Get balenaEtcher</a></p>
+                        </div>
+                        <div class="docs-card">
+                            <h4>Insert & Connect</h4>
+                            <p>Insert the SD card into Pi Zero. Connect via USB data port (not power-only).</p>
+                        </div>
                     </div>
-                    <div class="docs-step" id="install-step-2">
-                        <div class="docs-step-title"><span class="step-number">2</span> First Boot</div>
-                        <ol>
-                            <li>Insert the microSD card into your Pi Zero.</li>
-                            <li>Connect the Pi Zero to your computer using the USB data port (not the power-only port).</li>
-                            <li>Wait for the Pi to boot. It will appear as a network and/or HID device on your computer.</li>
-                        </ol>
-                    </div>
-                    <div class="docs-step" id="install-step-3">
-                        <div class="docs-step-title"><span class="step-number">3</span> Initial Access</div>
-                        <ol>
-                            <li>Default credentials (if needed):<br>
-                                <strong>Username:</strong> pi<br>
-                                <strong>Password:</strong> raspberry
-                            </li>
-                            <li>For advanced setup, customization, and payloads, see the <a href="https://github.com/RoganDawes/P4wnP1/wiki" target="_blank" rel="noopener noreferrer">P4wnP1 Wiki</a>.</li>
-                        </ol>
-                    </div>
-                    <div class="docs-step" id="install-step-4">
-                        <div class="docs-step-title"><span class="step-number">4</span> Advanced Setup (Optional)</div>
-                        <p>Refer to the <a href="https://github.com/RoganDawes/P4wnP1/wiki" target="_blank" rel="noopener noreferrer">P4wnP1 Wiki</a> for payloads, customizations, and advanced features.</p>
+                    
+                    <h3>Initial Setup</h3>
+                    <div class="docs-grid-3">
+                        <div class="docs-card">
+                            <h4>Wait for Boot</h4>
+                            <p>The Pi will boot and appear as a network/HID device on your computer.</p>
+                        </div>
+                        <div class="docs-card">
+                            <h4>Default Credentials</h4>
+                            <p>Username: <code>pi</code><br>Password: <code>raspberry</code></p>
+                        </div>
+                        <div class="docs-card">
+                            <h4>Access Web UI</h4>
+                            <p>Open browser and navigate to the P4wnP1 web interface for configuration.</p>
+                        </div>
                     </div>
                 </section>
 
                 <!-- Resources -->
                 <section id="resources" class="docs-section">
                     <h2 class="docs-heading">Resources</h2>
-                    <ul>
-                        <li><a href="https://github.com/RoganDawes/P4wnP1" target="_blank" rel="noopener noreferrer">P4wnP1 GitHub Repository</a></li>
-                        <li><a href="https://github.com/RoganDawes/P4wnP1/wiki" target="_blank" rel="noopener noreferrer">P4wnP1 Wiki</a></li>
-                        <li><a href="https://www.balena.io/etcher/" target="_blank" rel="noopener noreferrer">balenaEtcher (SD Card Flasher)</a></li>
-                    </ul>
+                    <p>Additional documentation and tools for P4wnP1.</p>
+                    
+                    <div class="docs-grid-3">
+                        <div class="docs-card">
+                            <h3>GitHub Repo</h3>
+                            <p>Source code, issues, and releases.</p>
+                            <p><a href="https://github.com/RoganDawes/P4wnP1" target="_blank">View Repository</a></p>
+                        </div>
+                        <div class="docs-card">
+                            <h3>Wiki & Docs</h3>
+                            <p>Payloads, customizations, and advanced features.</p>
+                            <p><a href="https://github.com/RoganDawes/P4wnP1/wiki" target="_blank">Read the Wiki</a></p>
+                        </div>
+                        <div class="docs-card">
+                            <h3>balenaEtcher</h3>
+                            <p>Cross-platform SD card flasher tool.</p>
+                            <p><a href="https://www.balena.io/etcher/" target="_blank">Download Etcher</a></p>
+                        </div>
+                    </div>
                 </section>
             </article>
         </main>
     </div>
+    
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="../assets/img/Logo-With-Name.png" alt="Nerd or Geek Logo" class="footer-logo">
+                <p>Tech tutorials, Raspberry Pi projects, and open-source tools.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>Quick Links</h4>
+                    <a href="../index.html">Home</a>
+                    <a href="../projects.html">Projects</a>
+                    <a href="../index.html#affiliates">Affiliates</a>
+                </div>
+                <div class="footer-column">
+                    <h4>Connect</h4>
+                    <a href="https://www.youtube.com/@Nerd-or-Geek" target="_blank"><i class="fab fa-youtube"></i> YouTube</a>
+                    <a href="https://github.com/Nerd-or-Geek" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Nerd or Geek? All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>
