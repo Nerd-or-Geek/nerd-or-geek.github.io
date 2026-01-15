@@ -219,22 +219,6 @@
         }
       ],
       "createdAt": 1768499201280
-    },
-    {
-      "id": "mkfr7lutrg8m12fc5rf",
-      "name": "test",
-      "description": "test",
-      "badge": "Popular",
-      "tags": [
-        "test",
-        "lol"
-      ],
-      "icon": "fa-gamepad",
-      "sections": [],
-      "theme": {
-        "preset": "sunset"
-      },
-      "createdAt": 1768499954021
     }
   ],
   "software": [
@@ -270,5 +254,5 @@
     }
   ],
   "initialized": true,
-  "lastUpdated": 1768500387499
+  "lastUpdated": 1768501538391
 }
