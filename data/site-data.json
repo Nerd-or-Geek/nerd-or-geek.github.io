@@ -161,6 +161,13 @@
           "content": "Server Won't Start|Check logs for startup errors and diagnostics|tail -f /var/log/pinecraft.log\n---\nConnection Issues|Verify server is running and network is properly configured. LAN: Confirm same network. Remote: Check port 25565 is forwarded to Pi's local IP.\n---\nCheck Disk Space|Low storage can cause crashes and world corruption|df -h\n---\nPerformance Issues|Reduce server load for smoother gameplay. Lower `view-distance` in `server.properties`. Limit max players. Use Paper for optimizations.\n---\nJava Errors|Ensure correct Java version is installed|java -version\n---\nGet Help|Community support for advanced issues. Visit [Pinecraft GitHub Issues](https://github.com/cat5TV/pinecraft/issues)",
           "codeLanguage": "",
           "order": 13
+        },
+        {
+          "id": "mkg13ep25g6w6nbdpsu",
+          "title": "My Plugin List",
+          "type": "list",
+          "content": "WorldEdit\nSimple Voice Chat\n**ViaVersion\nViaBackwards**\nTAB\nShulkerPlus\nPlaceholderAPI\nOrbitalStrike\nLifestealZ\nLagFixer\nEmotePaper\nClickVillagers\nClickMobs\n**Chunky**\nAxiom\nAxGraves\nAdvancedServerList",
+          "order": 14
         }
       ],
       "createdAt": 1768499201280
@@ -254,5 +261,5 @@
     }
   ],
   "initialized": true,
-  "lastUpdated": 1768503253932
+  "lastUpdated": 1768516592073
 }
