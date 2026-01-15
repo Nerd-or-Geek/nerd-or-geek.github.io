@@ -150,7 +150,7 @@ searchInput?.addEventListener('keypress', (event: KeyboardEvent) => {
 // Logo Link Handler
 // ============================================
 const logoLink = document.querySelector('.logo-link');
-logoLink?.addEventListener('click', (event: Event) => {
+logoLink?.addEventListener('click', (_event: Event) => {
     // Navigate to homepage
     window.location.href = 'index.html';
 });
@@ -180,6 +180,43 @@ if (document.readyState === 'loading') {
 }
 
 // ============================================
+// Copy Code Function (for documentation pages)
+// ============================================
+
+/**
+ * Copy code block content to clipboard
+ */
+function copyCode(button: HTMLButtonElement): void {
+    const codeBlock = button.closest('.docs-code-block');
+    if (!codeBlock) return;
+
+    const codeElement = codeBlock.querySelector('code');
+    if (!codeElement) return;
+
+    const text = codeElement.textContent || '';
+    
+    navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+            button.textContent = originalText;
+            button.classList.remove('copied');
+        }, 2000);
+    }).catch((err) => {
+        console.error('Failed to copy:', err);
+        button.textContent = 'Failed';
+        setTimeout(() => {
+            button.textContent = 'Copy';
+        }, 2000);
+    });
+}
+
+// Make copyCode available globally for onclick handlers
+(window as unknown as { copyCode: typeof copyCode }).copyCode = copyCode;
+
+// ============================================
 // Export for module usage
 // ============================================
-export { toggleSidebar, closeSidebar, openSidebar, performSearch, handleSearch };
+export { toggleSidebar, closeSidebar, openSidebar, performSearch, handleSearch, copyCode };

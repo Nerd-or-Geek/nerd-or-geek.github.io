@@ -450,6 +450,12 @@
     color: white;
 }
 
+.copy-btn.copied {
+    background-color: #22c55e;
+    border-color: #22c55e;
+    color: white;
+}
+
 .docs-code-block pre {
     padding: var(--space-md);
     margin: 0;
