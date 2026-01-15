@@ -132,6 +132,15 @@ interface ProjectSection {
     codeLanguage?: string;
 }
 
+interface ProjectTheme {
+    preset: 'default' | 'ocean' | 'forest' | 'sunset' | 'midnight' | 'custom';
+    primaryColor?: string;
+    accentColor?: string;
+    textColor?: string;
+    cardBgColor?: string;
+    heroBgColor?: string;
+}
+
 interface Project {
     id: string;
     name: string;
@@ -141,6 +150,7 @@ interface Project {
     icon: string;
     customImage?: string;
     sections: ProjectSection[];
+    theme?: ProjectTheme;
     createdAt: number;
 }
 
@@ -218,6 +228,9 @@ const DEFAULT_PROJECTS: Project[] = [
         tags: ['Raspberry Pi', 'Minecraft'],
         icon: 'fa-cube',
         customImage: 'assets/img/projects/Pinecraft.png',
+        theme: {
+            preset: 'forest'
+        },
         sections: [
             {
                 id: 'sec-1',
@@ -228,14 +241,28 @@ const DEFAULT_PROJECTS: Project[] = [
                 order: 0
             },
             {
-                id: 'sec-2',
-                title: 'Requirements',
-                type: 'cards-2',
-                content: `Required Hardware|**Raspberry Pi 4** (4GB or 8GB RAM recommended), MicroSD card (32GB+ Class 10/UHS-1) or USB drive, Official Raspberry Pi power supply (3A USB-C), Computer for setup (Windows, macOS, or Linux)
----
-Optional Hardware|Heatsink and fan for cooling, External SSD for improved performance, Case with ventilation`,
+                id: 'sec-1b',
+                title: 'Estimated Time',
+                type: 'callout-info',
+                content: '**30–60 minutes** depending on download speeds and hardware. The process involves flashing an OS, configuration, and server setup.',
                 codeLanguage: '',
                 order: 1
+            },
+            {
+                id: 'sec-2',
+                title: 'Hardware Requirements',
+                type: 'text',
+                content: '### Required Hardware\n\n- **Raspberry Pi 4** (4GB or 8GB RAM recommended)\n- MicroSD card (32GB+ Class 10/UHS-1) or USB drive\n- Official Raspberry Pi power supply (3A USB-C)\n- Computer for setup (Windows, macOS, or Linux)\n\n### Optional Hardware\n\n- Heatsink and fan for cooling\n- External SSD for improved performance\n- Case with ventilation',
+                codeLanguage: '',
+                order: 2
+            },
+            {
+                id: 'sec-2b',
+                title: 'Important Note',
+                type: 'callout-warning',
+                content: 'Do **not** use a Raspberry Pi Zero or older Pi models. Pinecraft requires a **Raspberry Pi 4** for adequate performance. Minecraft servers are memory and CPU intensive.',
+                codeLanguage: '',
+                order: 3
             },
             {
                 id: 'sec-3',
@@ -243,7 +270,7 @@ Optional Hardware|Heatsink and fan for cooling, External SSD for improved perfor
                 type: 'text',
                 content: '**Raspberry Pi Imager** is the official tool for flashing operating system images to SD cards and USB drives. It is required to install Raspberry Pi OS on your storage device.\n\nDownload Raspberry Pi Imager from the official website:\n\n[https://www.raspberrypi.com/software/](https://www.raspberrypi.com/software/)\n\nRaspberry Pi Imager is available for **Windows**, **macOS**, and **Linux**. Download and install the version for your operating system.',
                 codeLanguage: '',
-                order: 2
+                order: 4
             },
             {
                 id: 'sec-4',
@@ -265,7 +292,15 @@ Optional Hardware|Heatsink and fan for cooling, External SSD for improved perfor
 ---
 **Safely Eject** - When flashing is complete, safely eject the drive from your computer.`,
                 codeLanguage: '',
-                order: 3
+                order: 5
+            },
+            {
+                id: 'sec-4b',
+                title: 'Why Lite 64-bit?',
+                type: 'callout-success',
+                content: 'We use **Raspberry Pi OS Lite (64-bit)** because it has no desktop environment, freeing up RAM and CPU for the Minecraft server. The 64-bit version provides better Java performance.',
+                codeLanguage: '',
+                order: 6
             },
             {
                 id: 'sec-5',
@@ -279,31 +314,88 @@ Optional Hardware|Heatsink and fan for cooling, External SSD for improved perfor
 ---
 **Sign in and connect** - Sign in with your Raspberry Pi account and connect to your Pi remotely.`,
                 codeLanguage: '',
-                order: 4
+                order: 7
             },
             {
                 id: 'sec-6',
                 title: 'Step 4: Initial Raspberry Pi Configuration',
+                type: 'code',
+                content: `# Open Raspberry Pi Configuration
+sudo raspi-config
+
+# Navigate to: Advanced Options → Expand Filesystem
+# Then exit raspi-config
+
+# Update the System
+sudo apt update
+sudo apt upgrade -y
+
+# Install Git
+sudo apt install git -y
+
+# Reboot
+sudo reboot`,
+                codeLanguage: 'bash',
+                order: 8
+            },
+            {
+                id: 'sec-6b',
+                title: 'Configuration Steps',
                 type: 'text',
-                content: 'Run the following commands in order to configure your Raspberry Pi.\n\n### Open Raspberry Pi Configuration\n\n```bash\nsudo raspi-config\n```\n\nNavigate to:\n- **Advanced Options**\n- **Expand Filesystem**\n- Exit raspi-config\n\n### Update the System\n\n```bash\nsudo apt update\nsudo apt upgrade -y\n```\n\n### Install Git\n\n```bash\nsudo apt install git -y\n```\n\n### Reboot\n\n```bash\nsudo reboot\n```\n\nAfter the reboot, reconnect via Raspberry Pi Connect.',
+                content: 'In raspi-config, navigate to:\n\n1. **Advanced Options**\n2. **Expand Filesystem**\n3. Exit raspi-config\n\nAfter the reboot, reconnect via Raspberry Pi Connect to continue.',
                 codeLanguage: '',
-                order: 5
+                order: 9
             },
             {
                 id: 'sec-7',
                 title: 'Step 5: Download Pinecraft',
-                type: 'text',
-                content: 'Pinecraft is installed by cloning the official GitHub repository.\n\n**Repository:** [https://github.com/cat5tv/Pinecraft](https://github.com/cat5tv/Pinecraft)\n\nRun the following commands:\n\n```bash\ngit clone https://github.com/cat5tv/Pinecraft.git\ncd Pinecraft\n```',
+                type: 'code',
+                content: `# Clone the Pinecraft repository
+git clone https://github.com/cat5tv/Pinecraft.git
+
+# Enter the Pinecraft directory
+cd Pinecraft`,
+                codeLanguage: 'bash',
+                order: 10
+            },
+            {
+                id: 'sec-7b',
+                title: 'GitHub Repository',
+                type: 'links',
+                content: `Pinecraft GitHub|https://github.com/cat5tv/Pinecraft|Official repository with source code and documentation`,
                 codeLanguage: '',
-                order: 6
+                order: 11
             },
             {
                 id: 'sec-8',
                 title: 'Step 6: Run the Pinecraft Installer',
-                type: 'text',
-                content: 'The Pinecraft installer is interactive and automated. It will guide you through the configuration process.\n\nRun the installer:\n\n```bash\nsudo ./install\n```\n\n### Installation Flow\n\n1. Click **OK** when prompted\n2. Click **OK** again\n3. Select **Main / Home directory** for the installation location\n4. Choose your preferred **Minecraft server version**\n5. Enter a **world seed** (or leave blank for random)\n6. Select your preferred **game mode**\n7. Confirm when prompted about **RAM overclocking**\n\nThe installer handles all dependencies automatically. Wait for the installation to complete.',
+                type: 'code',
+                content: `# Run the installer with sudo
+sudo ./install`,
+                codeLanguage: 'bash',
+                order: 12
+            },
+            {
+                id: 'sec-8b',
+                title: 'Installation Flow',
+                type: 'steps',
+                content: `**Click OK** - When the welcome screen appears, click OK to continue.
+---
+**Click OK again** - Acknowledge the information prompt.
+---
+**Select installation location** - Choose **Main / Home directory** for the installation.
+---
+**Choose Minecraft version** - Select your preferred Minecraft server version.
+---
+**Enter world seed** - Provide a seed or leave blank for random generation.
+---
+**Select game mode** - Choose Survival, Creative, or Adventure mode.
+---
+**Confirm RAM overclocking** - Confirm when prompted about memory settings.
+---
+**Wait for installation** - The installer handles all dependencies automatically.`,
                 codeLanguage: '',
-                order: 7
+                order: 13
             },
             {
                 id: 'sec-9',
@@ -311,15 +403,21 @@ Optional Hardware|Heatsink and fan for cooling, External SSD for improved perfor
                 type: 'callout-warning',
                 content: '**Important:** Only these two commands are valid with the init.d script:\n\n`/etc/init.d/pinecraft status` - Check if the server is running\n\n`/etc/init.d/pinecraft stop` - Stop the server\n\n**There is no start or restart command in init.d.** Server control is handled differently (see next section).',
                 codeLanguage: '',
-                order: 8
+                order: 14
             },
             {
                 id: 'sec-10',
-                title: 'Step 8: Starting, Stopping, and Restarting',
-                type: 'text',
-                content: 'Server control commands must be run from inside the Minecraft directory created by Pinecraft.\n\n### Start the Server\n\n```bash\n./server\n```\n\n### Restart the Server\n\n```bash\n./restart\n```\n\n### Stop the Server\n\n```bash\n/etc/init.d/pinecraft stop\n```\n\n**Note:** The `./server` and `./restart` commands must be executed from within your Minecraft folder.',
+                title: 'Step 8: Server Control Commands',
+                type: 'cards-2',
+                content: `Start Server|Navigate to your Minecraft folder and run \`./server\` to start the server.
+---
+Restart Server|Run \`./restart\` from within the Minecraft directory to restart.
+---
+Stop Server|Use \`/etc/init.d/pinecraft stop\` to gracefully shut down the server.
+---
+Check Status|Use \`/etc/init.d/pinecraft status\` to verify if the server is running.`,
                 codeLanguage: '',
-                order: 9
+                order: 15
             },
             {
                 id: 'sec-11',
@@ -335,7 +433,7 @@ Optional Hardware|Heatsink and fan for cooling, External SSD for improved perfor
 ---
 **Restart the server** - Run \`./restart\` to start the server with the updated Paper version.`,
                 codeLanguage: '',
-                order: 10
+                order: 16
             },
             {
                 id: 'sec-12',
@@ -349,25 +447,33 @@ Optional Hardware|Heatsink and fan for cooling, External SSD for improved perfor
 ---
 **Restart the server** - Run \`./restart\` to start the server with the new plugins loaded.`,
                 codeLanguage: '',
-                order: 11
+                order: 17
+            },
+            {
+                id: 'sec-12b',
+                title: 'Plugin Resources',
+                type: 'links',
+                content: `SpigotMC Resources|https://www.spigotmc.org/resources/|Thousands of free and premium plugins
+Hangar (PaperMC)|https://hangar.papermc.io/|Official Paper plugin repository
+Modrinth|https://modrinth.com/plugins|Modern plugin and mod platform`,
+                codeLanguage: '',
+                order: 18
             },
             {
                 id: 'sec-13',
-                title: 'Networking',
-                type: 'cards-3',
-                content: `Get Local IP|Find your Pi's local IP address for LAN connections|hostname -I
----
-Local Connection|Connect from the same network using your Pi's local IP. In Minecraft Java Edition: Multiplayer → Direct Connect → Enter local IP.
----
-Get External IP|Find your public IP for remote player connections|curl ifconfig.me
----
-Port Forwarding|Enable remote access by forwarding TCP port \`25565\` to your Pi's local IP address in your router admin panel.
----
-Remote Connection|Players outside your network connect using your external IP. Share your external IP and players enter it in Direct Connect.
----
-Security Tip|Protect your server from unauthorized access. Enable whitelist in \`server.properties\`: set \`white-list=true\` and add trusted players.`,
+                title: 'Networking Guide',
+                type: 'text',
+                content: '### Local Network Connection\n\nFor players on the same network, use your Pi\'s local IP address. Find it with:\n\n```bash\nhostname -I\n```\n\nIn Minecraft: **Multiplayer** → **Direct Connect** → Enter the local IP.\n\n### Remote Connection\n\nFor players outside your network:\n\n1. Find your public IP: `curl ifconfig.me`\n2. Forward TCP port **25565** in your router settings\n3. Share your public IP with players',
                 codeLanguage: '',
-                order: 12
+                order: 19
+            },
+            {
+                id: 'sec-13b',
+                title: 'Security Warning',
+                type: 'callout-warning',
+                content: 'Opening your server to the internet exposes it to potential attacks. Always:\n\n- Enable whitelist in `server.properties`: set `white-list=true`\n- Only add trusted players to your whitelist\n- Keep your server software updated\n- Consider using a firewall',
+                codeLanguage: '',
+                order: 20
             },
             {
                 id: 'sec-14',
@@ -385,7 +491,15 @@ Java Errors|Ensure correct Java version is installed|java -version
 ---
 Get Help|Community support for advanced issues. Visit [Pinecraft GitHub Issues](https://github.com/cat5TV/pinecraft/issues)`,
                 codeLanguage: '',
-                order: 13
+                order: 21
+            },
+            {
+                id: 'sec-15',
+                title: 'Congratulations!',
+                type: 'callout-success',
+                content: 'You now have a fully functional Minecraft Java server running on your Raspberry Pi! Invite your friends, explore, build, and have fun. Remember to back up your world files regularly.',
+                codeLanguage: '',
+                order: 22
             }
         ],
         createdAt: Date.now()
@@ -398,6 +512,9 @@ Get Help|Community support for advanced issues. Visit [Pinecraft GitHub Issues](
         tags: ['Pi Zero', 'Security'],
         icon: 'fa-usb',
         customImage: 'assets/img/projects/p4wnp1.png',
+        theme: {
+            preset: 'midnight'
+        },
         sections: [
             {
                 id: 'p4-sec-1',
@@ -632,6 +749,37 @@ function setupIconSelectors(): void {
 }
 
 // ============================================
+// Theme Selector
+// ============================================
+function setupThemeSelectors(): void {
+    document.querySelectorAll('.theme-preset').forEach(preset => {
+        preset.addEventListener('click', () => {
+            const container = preset.closest('.theme-presets');
+            if (!container) return;
+            
+            // Remove active from all presets
+            container.querySelectorAll('.theme-preset').forEach(p => p.classList.remove('active'));
+            
+            // Add active to clicked
+            preset.classList.add('active');
+            
+            // Update hidden input
+            const theme = preset.getAttribute('data-theme');
+            const themeInput = document.getElementById('projectThemePreset') as HTMLInputElement;
+            if (themeInput && theme) {
+                themeInput.value = theme;
+            }
+            
+            // Show/hide custom colors
+            const customColors = document.getElementById('customThemeColors');
+            if (customColors) {
+                customColors.style.display = theme === 'custom' ? 'block' : 'none';
+            }
+        });
+    });
+}
+
+// ============================================
 // Navigation
 // ============================================
 function setupNavigation(): void {
@@ -860,6 +1008,13 @@ function openProjectModal(project?: Project): void {
     iconOptions.forEach(opt => opt.classList.remove('active'));
     iconOptions[0]?.classList.add('active');
     
+    // Reset theme options
+    const themePresets = modal.querySelectorAll('.theme-preset');
+    themePresets.forEach(opt => opt.classList.remove('active'));
+    modal.querySelector('[data-theme="default"]')?.classList.add('active');
+    (document.getElementById('projectThemePreset') as HTMLInputElement).value = 'default';
+    (document.getElementById('customThemeColors') as HTMLElement).style.display = 'none';
+    
     if (project) {
         title.textContent = 'Edit Project';
         (document.getElementById('projectId') as HTMLInputElement).value = project.id;
@@ -877,6 +1032,23 @@ function openProjectModal(project?: Project): void {
             if (iconOpt) {
                 iconOptions.forEach(opt => opt.classList.remove('active'));
                 iconOpt.classList.add('active');
+            }
+        }
+        
+        // Load theme settings
+        if (project.theme) {
+            const themePreset = project.theme.preset || 'default';
+            themePresets.forEach(opt => opt.classList.remove('active'));
+            modal.querySelector(`[data-theme="${themePreset}"]`)?.classList.add('active');
+            (document.getElementById('projectThemePreset') as HTMLInputElement).value = themePreset;
+            
+            if (themePreset === 'custom') {
+                (document.getElementById('customThemeColors') as HTMLElement).style.display = 'block';
+                (document.getElementById('themePrimaryColor') as HTMLInputElement).value = project.theme.primaryColor || '#0ea5e9';
+                (document.getElementById('themeAccentColor') as HTMLInputElement).value = project.theme.accentColor || '#38bdf8';
+                (document.getElementById('themeTextColor') as HTMLInputElement).value = project.theme.textColor || '#f8fafc';
+                (document.getElementById('themeCardBgColor') as HTMLInputElement).value = project.theme.cardBgColor || '#1e293b';
+                (document.getElementById('themeHeroBgColor') as HTMLInputElement).value = project.theme.heroBgColor || '#0f172a';
             }
         }
     } else {
@@ -899,6 +1071,18 @@ function saveProject(e: Event): void {
     const icon = (document.getElementById('projectIcon') as HTMLInputElement).value;
     const customImage = (document.getElementById('projectCustomImage') as HTMLInputElement).value.trim();
     
+    // Get theme settings
+    const themePreset = (document.getElementById('projectThemePreset') as HTMLInputElement).value as ProjectTheme['preset'];
+    const theme: ProjectTheme = { preset: themePreset };
+    
+    if (themePreset === 'custom') {
+        theme.primaryColor = (document.getElementById('themePrimaryColor') as HTMLInputElement).value;
+        theme.accentColor = (document.getElementById('themeAccentColor') as HTMLInputElement).value;
+        theme.textColor = (document.getElementById('themeTextColor') as HTMLInputElement).value;
+        theme.cardBgColor = (document.getElementById('themeCardBgColor') as HTMLInputElement).value;
+        theme.heroBgColor = (document.getElementById('themeHeroBgColor') as HTMLInputElement).value;
+    }
+    
     const tags = tagsStr.split(',').map(t => t.trim()).filter(t => t);
     
     const data = getAdminData();
@@ -913,6 +1097,7 @@ function saveProject(e: Event): void {
         icon: customImage ? 'custom' : icon,
         customImage: customImage || undefined,
         sections: existingProject?.sections || [],
+        theme,
         createdAt: existingProject?.createdAt || Date.now()
     };
     
@@ -1333,14 +1518,20 @@ function setupItemActions(): void {
 // ============================================
 function exportData(): void {
     const data = getAdminData();
-    const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+    // Add timestamp for tracking
+    const exportData = {
+        ...data,
+        lastUpdated: Date.now()
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `nerd-or-geek-data-${new Date().toISOString().split('T')[0]}.json`;
+    // Name it site-data.json so it can be directly placed in the data folder
+    a.download = 'site-data.json';
     a.click();
     URL.revokeObjectURL(url);
-    showToast('Data exported!');
+    showToast('Data exported! Place this file in the data/ folder and push to GitHub.');
 }
 
 function importData(file: File): void {
@@ -1604,6 +1795,7 @@ function initializeAdminPortal(): void {
     setupNavigation();
     setupModalCloseHandlers();
     setupIconSelectors();
+    setupThemeSelectors();
     
     // Render initial data
     renderAffiliates();
@@ -1624,7 +1816,7 @@ function initializeAdminPortal(): void {
     
     // Import/Export
     document.getElementById('exportData')?.addEventListener('click', exportData);
-    document.getElementById('exportAllData')?.addEventListener('click', exportData);
+    document.getElementById('exportSiteData')?.addEventListener('click', exportData);
     document.getElementById('importData')?.addEventListener('click', () => {
         document.getElementById('importFile')?.click();
     });

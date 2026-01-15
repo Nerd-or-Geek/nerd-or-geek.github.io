@@ -306,7 +306,38 @@ logoLink?.addEventListener('click', (_event) => {
     window.location.href = 'index.html';
 });
 const ADMIN_STORAGE_KEY = 'nerdOrGeekAdminData';
+let cachedSiteData = null;
+async function fetchSiteData() {
+    if (cachedSiteData) {
+        return cachedSiteData;
+    }
+    try {
+        const basePath = getBasePath();
+        const response = await fetch(`${basePath}data/site-data.json`);
+        if (response.ok) {
+            cachedSiteData = await response.json();
+            return cachedSiteData;
+        }
+    }
+    catch (e) {
+        console.log('Could not fetch site-data.json, falling back to localStorage');
+    }
+    const data = localStorage.getItem(ADMIN_STORAGE_KEY);
+    if (data) {
+        try {
+            cachedSiteData = JSON.parse(data);
+            return cachedSiteData;
+        }
+        catch {
+            return null;
+        }
+    }
+    return null;
+}
 function getAdminData() {
+    if (cachedSiteData) {
+        return cachedSiteData;
+    }
     const data = localStorage.getItem(ADMIN_STORAGE_KEY);
     if (data) {
         try {
@@ -323,8 +354,8 @@ function escapeHtmlForRender(text) {
     div.textContent = text;
     return div.innerHTML;
 }
-function renderDynamicAffiliates() {
-    const data = getAdminData();
+async function renderDynamicAffiliates() {
+    const data = await fetchSiteData();
     if (!data || data.affiliates.length === 0)
         return;
     const container = document.querySelector('.affiliates-grid');
@@ -352,8 +383,8 @@ function renderDynamicAffiliates() {
 function getProjectLink(project) {
     return `projects/docs.html?id=${encodeURIComponent(project.id)}`;
 }
-function renderDynamicProjects() {
-    const data = getAdminData();
+async function renderDynamicProjects() {
+    const data = await fetchSiteData();
     if (!data || data.projects.length === 0)
         return;
     const containers = document.querySelectorAll('.projects-grid');
@@ -387,8 +418,8 @@ function renderDynamicProjects() {
         });
     });
 }
-function renderDynamicSoftware() {
-    const data = getAdminData();
+async function renderDynamicSoftware() {
+    const data = await fetchSiteData();
     if (!data || data.software.length === 0)
         return;
     const container = document.querySelector('.apps-grid');
@@ -423,11 +454,13 @@ function showDynamicProjectDocs(projectId) {
     window.location.href = `${basePath}projects/docs.html?id=${encodeURIComponent(projectId)}`;
 }
 window.showDynamicProjectDocs = showDynamicProjectDocs;
-function init() {
+async function init() {
     console.log('Nerd or Geek? Website Initialized');
-    renderDynamicAffiliates();
-    renderDynamicProjects();
-    renderDynamicSoftware();
+    await Promise.all([
+        renderDynamicAffiliates(),
+        renderDynamicProjects(),
+        renderDynamicSoftware()
+    ]);
 }
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);

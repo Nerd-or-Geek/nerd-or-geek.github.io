@@ -27,6 +27,14 @@ interface ProjectSection {
     order: number;
     codeLanguage?: string;
 }
+interface ProjectTheme {
+    preset: 'default' | 'ocean' | 'forest' | 'sunset' | 'midnight' | 'custom';
+    primaryColor?: string;
+    accentColor?: string;
+    textColor?: string;
+    cardBgColor?: string;
+    heroBgColor?: string;
+}
 interface Project {
     id: string;
     name: string;
@@ -36,6 +44,7 @@ interface Project {
     icon: string;
     customImage?: string;
     sections: ProjectSection[];
+    theme?: ProjectTheme;
     createdAt: number;
 }
 interface Software {
@@ -67,6 +76,7 @@ declare function openModal(modalId: string): void;
 declare function closeModal(modalId: string): void;
 declare function setupModalCloseHandlers(): void;
 declare function setupIconSelectors(): void;
+declare function setupThemeSelectors(): void;
 declare function setupNavigation(): void;
 declare function renderAffiliates(): void;
 declare function openAffiliateModal(affiliate?: Affiliate): void;

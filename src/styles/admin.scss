@@ -799,6 +799,11 @@ form {
         color: $text-light;
         font-size: 1.1rem;
         margin-bottom: 0.75rem;
+        
+        i {
+            margin-right: 0.5rem;
+            color: $primary-color;
+        }
     }
     
     p {
@@ -806,6 +811,45 @@ form {
         font-size: 0.9rem;
         line-height: 1.5;
         margin-bottom: 1rem;
+    }
+    
+    &.settings-card-primary {
+        border-color: $primary-color;
+        background: linear-gradient(135deg, rgba(14, 165, 233, 0.15) 0%, rgba(30, 41, 59, 0.9) 100%);
+    }
+}
+
+.publish-steps {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    line-height: 1.8;
+    margin: 1rem 0 1.5rem;
+    padding-left: 1.5rem;
+    
+    li {
+        margin-bottom: 0.5rem;
+    }
+    
+    code {
+        background: rgba(14, 165, 233, 0.2);
+        color: $primary-color;
+        padding: 0.15rem 0.4rem;
+        border-radius: 0.25rem;
+        font-family: 'Fira Code', 'Consolas', monospace;
+        font-size: 0.85rem;
+    }
+    
+    strong {
+        color: $text-light;
+    }
+}
+
+.btn-large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+    
+    i {
+        font-size: 1.25rem;
     }
 }
 
@@ -1128,5 +1172,133 @@ form {
     
     @media (max-width: 600px) {
         grid-template-columns: 1fr;
+    }
+}
+
+// Theme Settings
+.theme-settings {
+    margin-top: 1rem;
+}
+
+.theme-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.theme-preset {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    min-width: 80px;
+    
+    span:last-child {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.7);
+    }
+    
+    &:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    
+    &.active {
+        border-color: $primary-color;
+        background: rgba($primary-color, 0.15);
+        
+        span:last-child {
+            color: $primary-color;
+        }
+    }
+}
+
+.theme-preview {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    &.theme-default {
+        background: linear-gradient(135deg, #0ea5e9, #0284c7);
+    }
+    
+    &.theme-ocean {
+        background: linear-gradient(135deg, #06b6d4, #0891b2);
+    }
+    
+    &.theme-forest {
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+    }
+    
+    &.theme-sunset {
+        background: linear-gradient(135deg, #f97316, #ea580c);
+    }
+    
+    &.theme-midnight {
+        background: linear-gradient(135deg, #8b5cf6, #7c3aed);
+    }
+    
+    &.theme-custom {
+        background: linear-gradient(135deg, #ec4899, #db2777);
+        color: white;
+        font-size: 1rem;
+    }
+}
+
+.custom-theme-colors {
+    margin-top: 1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.color-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+    
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.color-input {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    
+    label {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.6);
+    }
+    
+    input[type="color"] {
+        width: 100%;
+        height: 36px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 0.375rem;
+        cursor: pointer;
+        background: transparent;
+        padding: 2px;
+        
+        &::-webkit-color-swatch-wrapper {
+            padding: 2px;
+        }
+        
+        &::-webkit-color-swatch {
+            border-radius: 0.25rem;
+            border: none;
+        }
     }
 }

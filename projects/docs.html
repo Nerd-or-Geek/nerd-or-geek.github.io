@@ -119,14 +119,116 @@
         // Dynamic Documentation Renderer
         const ADMIN_STORAGE_KEY = 'nerdOrGeekAdminData';
         
+        // Cache for site data
+        let cachedSiteData = null;
+        
         function getProjectIdFromUrl() {
             const params = new URLSearchParams(window.location.search);
             return params.get('id');
         }
         
+        async function fetchSiteData() {
+            // Return cached data if available
+            if (cachedSiteData) {
+                return cachedSiteData;
+            }
+            
+            // Try to fetch from static JSON file (works on GitHub Pages)
+            try {
+                const response = await fetch('../data/site-data.json');
+                if (response.ok) {
+                    cachedSiteData = await response.json();
+                    return cachedSiteData;
+                }
+            } catch (e) {
+                console.log('Could not fetch site-data.json, falling back to localStorage');
+            }
+            
+            // Fallback to localStorage for local development
+            const data = localStorage.getItem(ADMIN_STORAGE_KEY);
+            if (data) {
+                try {
+                    cachedSiteData = JSON.parse(data);
+                    return cachedSiteData;
+                } catch {
+                    return null;
+                }
+            }
+            return null;
+        }
+        
         function getAdminData() {
+            // Synchronous fallback for compatibility
             const data = localStorage.getItem(ADMIN_STORAGE_KEY);
             return data ? JSON.parse(data) : null;
+        }
+        
+        // Theme presets
+        const THEME_PRESETS = {
+            default: {
+                primaryColor: '#0ea5e9',
+                accentColor: '#38bdf8',
+                textColor: '#f8fafc',
+                cardBgColor: '#1e293b',
+                heroBgColor: '#0f172a'
+            },
+            ocean: {
+                primaryColor: '#06b6d4',
+                accentColor: '#22d3ee',
+                textColor: '#f0fdfa',
+                cardBgColor: '#134e4a',
+                heroBgColor: '#042f2e'
+            },
+            forest: {
+                primaryColor: '#22c55e',
+                accentColor: '#4ade80',
+                textColor: '#f0fdf4',
+                cardBgColor: '#14532d',
+                heroBgColor: '#052e16'
+            },
+            sunset: {
+                primaryColor: '#f97316',
+                accentColor: '#fb923c',
+                textColor: '#fff7ed',
+                cardBgColor: '#7c2d12',
+                heroBgColor: '#431407'
+            },
+            midnight: {
+                primaryColor: '#8b5cf6',
+                accentColor: '#a78bfa',
+                textColor: '#faf5ff',
+                cardBgColor: '#3b0764',
+                heroBgColor: '#1e1b4b'
+            }
+        };
+        
+        function applyTheme(theme) {
+            if (!theme) return;
+            
+            const root = document.documentElement;
+            let colors;
+            
+            if (theme.preset === 'custom') {
+                colors = {
+                    primaryColor: theme.primaryColor || '#0ea5e9',
+                    accentColor: theme.accentColor || '#38bdf8',
+                    textColor: theme.textColor || '#f8fafc',
+                    cardBgColor: theme.cardBgColor || '#1e293b',
+                    heroBgColor: theme.heroBgColor || '#0f172a'
+                };
+            } else {
+                colors = THEME_PRESETS[theme.preset] || THEME_PRESETS.default;
+            }
+            
+            // Apply CSS custom properties
+            root.style.setProperty('--theme-primary', colors.primaryColor);
+            root.style.setProperty('--theme-accent', colors.accentColor);
+            root.style.setProperty('--theme-text', colors.textColor);
+            root.style.setProperty('--theme-card-bg', colors.cardBgColor);
+            root.style.setProperty('--theme-hero-bg', colors.heroBgColor);
+            
+            // Add themed class to body
+            document.body.classList.add('themed-docs');
         }
         
         function escapeHtml(text) {
@@ -324,7 +426,7 @@
             return title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
         }
         
-        function renderDocumentation() {
+        async function renderDocumentation() {
             const projectId = getProjectIdFromUrl();
             
             if (!projectId) {
@@ -333,10 +435,10 @@
                 return;
             }
             
-            const adminData = getAdminData();
+            const adminData = await fetchSiteData();
             if (!adminData) {
                 document.getElementById('docsTitle').textContent = 'No Data';
-                document.getElementById('docsSubtitle').textContent = 'Admin data not found. Please visit the admin portal first.';
+                document.getElementById('docsSubtitle').textContent = 'Site data not found. Please try refreshing the page.';
                 return;
             }
             
@@ -346,6 +448,9 @@
                 document.getElementById('docsSubtitle').textContent = `Project with ID "${projectId}" was not found.`;
                 return;
             }
+            
+            // Apply theme
+            applyTheme(project.theme);
             
             // Update page title
             document.title = `${project.name} Documentation | Nerd or Geek?`;

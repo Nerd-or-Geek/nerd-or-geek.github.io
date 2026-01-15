@@ -509,7 +509,52 @@ interface AdminData {
 
 const ADMIN_STORAGE_KEY = 'nerdOrGeekAdminData';
 
+// Cache for site data to avoid multiple fetches
+let cachedSiteData: AdminData | null = null;
+
+/**
+ * Get admin data - first tries to fetch from static JSON, falls back to localStorage
+ */
+async function fetchSiteData(): Promise<AdminData | null> {
+    // Return cached data if available
+    if (cachedSiteData) {
+        return cachedSiteData;
+    }
+    
+    // Try to fetch from static JSON file (works on GitHub Pages)
+    try {
+        const basePath = getBasePath();
+        const response = await fetch(`${basePath}data/site-data.json`);
+        if (response.ok) {
+            cachedSiteData = await response.json();
+            return cachedSiteData;
+        }
+    } catch (e) {
+        console.log('Could not fetch site-data.json, falling back to localStorage');
+    }
+    
+    // Fallback to localStorage for local development
+    const data = localStorage.getItem(ADMIN_STORAGE_KEY);
+    if (data) {
+        try {
+            cachedSiteData = JSON.parse(data);
+            return cachedSiteData;
+        } catch {
+            return null;
+        }
+    }
+    return null;
+}
+
+/**
+ * Synchronous getter for admin data (for search - uses cached data)
+ */
 function getAdminData(): AdminData | null {
+    // First check cache
+    if (cachedSiteData) {
+        return cachedSiteData;
+    }
+    // Fallback to localStorage for immediate access
     const data = localStorage.getItem(ADMIN_STORAGE_KEY);
     if (data) {
         try {
@@ -530,8 +575,8 @@ function escapeHtmlForRender(text: string): string {
 /**
  * Render dynamic affiliates from admin portal
  */
-function renderDynamicAffiliates(): void {
-    const data = getAdminData();
+async function renderDynamicAffiliates(): Promise<void> {
+    const data = await fetchSiteData();
     if (!data || data.affiliates.length === 0) return;
     
     const container = document.querySelector('.affiliates-grid');
@@ -572,8 +617,8 @@ function getProjectLink(project: AdminProject): string {
 /**
  * Render dynamic projects from admin portal
  */
-function renderDynamicProjects(): void {
-    const data = getAdminData();
+async function renderDynamicProjects(): Promise<void> {
+    const data = await fetchSiteData();
     if (!data || data.projects.length === 0) return;
     
     // Find project grids on the page
@@ -617,8 +662,8 @@ function renderDynamicProjects(): void {
 /**
  * Render dynamic software from admin portal
  */
-function renderDynamicSoftware(): void {
-    const data = getAdminData();
+async function renderDynamicSoftware(): Promise<void> {
+    const data = await fetchSiteData();
     if (!data || data.software.length === 0) return;
     
     const container = document.querySelector('.apps-grid');
@@ -671,13 +716,15 @@ function showDynamicProjectDocs(projectId: string): void {
 /**
  * Initialize the application
  */
-function init(): void {
+async function init(): Promise<void> {
     console.log('Nerd or Geek? Website Initialized');
 
-    // Load dynamic content from admin portal
-    renderDynamicAffiliates();
-    renderDynamicProjects();
-    renderDynamicSoftware();
+    // Load dynamic content from site data (fetches from JSON file)
+    await Promise.all([
+        renderDynamicAffiliates(),
+        renderDynamicProjects(),
+        renderDynamicSoftware()
+    ]);
 }
 
 // Run initialization when DOM is ready

@@ -108,13 +108,25 @@
                         <h2><i class="fas fa-cog"></i> Settings</h2>
                     </div>
                     <div class="settings-content">
+                        <div class="settings-card settings-card-primary">
+                            <h3><i class="fas fa-cloud-upload-alt"></i> Publish Changes to Website</h3>
+                            <p>To make your changes visible on the live website for everyone:</p>
+                            <ol class="publish-steps">
+                                <li>Click <strong>"Export Site Data"</strong> below to download <code>site-data.json</code></li>
+                                <li>Move the downloaded file to your project's <code>data/</code> folder (replace the existing file)</li>
+                                <li>Commit and push the changes to GitHub</li>
+                                <li>Wait a few minutes for GitHub Pages to update</li>
+                            </ol>
+                            <div class="settings-actions">
+                                <button class="btn-primary btn-large" id="exportSiteData">
+                                    <i class="fas fa-download"></i> Export Site Data
+                                </button>
+                            </div>
+                        </div>
                         <div class="settings-card">
                             <h3>Data Management</h3>
                             <p>Export your site data as JSON to back it up or transfer to another device.</p>
                             <div class="settings-actions">
-                                <button class="btn-primary" id="exportAllData">
-                                    <i class="fas fa-download"></i> Export All Data
-                                </button>
                                 <button class="btn-secondary" id="clearAllData">
                                     <i class="fas fa-trash"></i> Clear All Data
                                 </button>
@@ -131,7 +143,7 @@
                         </div>
                         <div class="settings-card">
                             <h3>About Admin Portal</h3>
-                            <p>This admin portal stores data in your browser's local storage. Data will persist across sessions but is device-specific. Use the export feature to back up your data.</p>
+                            <p>This admin portal stores data in your browser's local storage for editing. To publish changes to the live site, you must export the data and push it to GitHub.</p>
                         </div>
                     </div>
                 </section>
@@ -250,6 +262,69 @@
                     </div>
                     <input type="hidden" id="projectIcon" value="fa-cube">
                 </div>
+                
+                <!-- Theme Settings -->
+                <div class="form-group theme-settings">
+                    <label>Documentation Theme</label>
+                    <div class="theme-presets">
+                        <button type="button" class="theme-preset active" data-theme="default">
+                            <span class="theme-preview theme-default"></span>
+                            <span>Default</span>
+                        </button>
+                        <button type="button" class="theme-preset" data-theme="ocean">
+                            <span class="theme-preview theme-ocean"></span>
+                            <span>Ocean</span>
+                        </button>
+                        <button type="button" class="theme-preset" data-theme="forest">
+                            <span class="theme-preview theme-forest"></span>
+                            <span>Forest</span>
+                        </button>
+                        <button type="button" class="theme-preset" data-theme="sunset">
+                            <span class="theme-preview theme-sunset"></span>
+                            <span>Sunset</span>
+                        </button>
+                        <button type="button" class="theme-preset" data-theme="midnight">
+                            <span class="theme-preview theme-midnight"></span>
+                            <span>Midnight</span>
+                        </button>
+                        <button type="button" class="theme-preset" data-theme="custom">
+                            <span class="theme-preview theme-custom"><i class="fas fa-palette"></i></span>
+                            <span>Custom</span>
+                        </button>
+                    </div>
+                    <input type="hidden" id="projectThemePreset" value="default">
+                    
+                    <!-- Custom Color Inputs (shown when custom is selected) -->
+                    <div class="custom-theme-colors" id="customThemeColors" style="display: none;">
+                        <div class="color-row">
+                            <div class="color-input">
+                                <label for="themePrimaryColor">Primary Color</label>
+                                <input type="color" id="themePrimaryColor" value="#0ea5e9">
+                            </div>
+                            <div class="color-input">
+                                <label for="themeAccentColor">Accent Color</label>
+                                <input type="color" id="themeAccentColor" value="#38bdf8">
+                            </div>
+                        </div>
+                        <div class="color-row">
+                            <div class="color-input">
+                                <label for="themeTextColor">Text Color</label>
+                                <input type="color" id="themeTextColor" value="#f8fafc">
+                            </div>
+                            <div class="color-input">
+                                <label for="themeCardBgColor">Card Background</label>
+                                <input type="color" id="themeCardBgColor" value="#1e293b">
+                            </div>
+                        </div>
+                        <div class="color-row">
+                            <div class="color-input">
+                                <label for="themeHeroBgColor">Hero Background</label>
+                                <input type="color" id="themeHeroBgColor" value="#0f172a">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
                 <div class="form-actions">
                     <button type="button" class="btn-cancel" data-modal="projectModal">Cancel</button>
                     <button type="submit" class="btn-primary">Save Project</button>

@@ -45,6 +45,80 @@
     --space-xl: 2rem;
     --space-2xl: 3rem;
     --space-3xl: 4rem;
+    
+    /* Theme Variables (can be overridden per-project) */
+    --theme-primary: #0ea5e9;
+    --theme-accent: #38bdf8;
+    --theme-text: #f8fafc;
+    --theme-card-bg: #1e293b;
+    --theme-hero-bg: #0f172a;
+}
+
+/* ============================================
+   Themed Documentation Overrides
+   ============================================ */
+.themed-docs .docs-hero {
+    background: linear-gradient(135deg, var(--theme-hero-bg) 0%, var(--theme-card-bg) 100%);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.themed-docs .docs-hero .docs-title,
+.themed-docs .docs-hero .docs-subtitle {
+    color: var(--theme-text);
+}
+
+.themed-docs .docs-badge {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--theme-accent);
+    border: 1px solid var(--theme-primary);
+}
+
+.themed-docs .docs-card {
+    background: var(--theme-card-bg);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--theme-text);
+}
+
+.themed-docs .docs-card h3,
+.themed-docs .docs-card h4 {
+    color: var(--theme-accent);
+}
+
+.themed-docs .docs-heading {
+    color: var(--theme-primary);
+    border-bottom-color: var(--theme-primary);
+}
+
+.themed-docs .docs-link:hover,
+.themed-docs .docs-toc a:hover {
+    color: var(--theme-primary);
+}
+
+.themed-docs .docs-callout-info {
+    background: rgba(var(--theme-primary), 0.1);
+    border-left-color: var(--theme-primary);
+}
+
+.themed-docs .step-number {
+    background: var(--theme-primary);
+}
+
+.themed-docs .docs-code-block .code-header {
+    background: var(--theme-hero-bg);
+}
+
+.themed-docs .docs-link-card {
+    background: var(--theme-card-bg);
+    border-color: rgba(255, 255, 255, 0.1);
+    color: var(--theme-text);
+}
+
+.themed-docs .docs-link-card:hover {
+    border-color: var(--theme-primary);
+}
+
+.themed-docs .docs-link-card i {
+    color: var(--theme-primary);
 }
 
 /* ============================================
