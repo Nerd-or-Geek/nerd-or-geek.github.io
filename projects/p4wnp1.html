@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P4wnP1 Documentation | Nerd or Geek?</title>
+    <link rel="icon" type="image/x-icon" href="../assets/img/favicons/favicon.ico?v=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../assets/img/favicons/favicon.ico?v=1">
+    <link rel="stylesheet" href="../src/styles/main.css">
+    <link rel="stylesheet" href="../src/styles/docs.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle Sidebar">
+                <i class="fas fa-bars"></i>
+            </button>
+            <a href="../index.html" class="logo-link">
+                <div class="logo-section">
+                    <img src="../assets/img/Logo-With-Name.png" alt="Nerd or Geek Logo" class="logo-img">
+                </div>
+            </a>
+            <nav class="header-nav">
+                <a href="../index.html" class="header-nav-link">Home</a>
+                <a href="../projects.html" class="header-nav-link active">Projects</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="docs-wrapper">
+        <!-- Sidebar Navigation -->
+        <aside class="docs-sidebar">
+            <nav class="docs-nav">
+                <div class="docs-nav-header">
+                    <h3>P4wnP1 Docs</h3>
+                </div>
+                <ul class="docs-toc">
+                    <li><a href="#overview" class="docs-link">Overview</a></li>
+                    <li><a href="#estimated-time" class="docs-link">Estimated Time</a></li>
+                    <li><a href="#prerequisites" class="docs-link">Prerequisites</a></li>
+                    <li><a href="#install" class="docs-link">Installation Guide</a></li>
+                    <li><a href="#install-step-1" class="docs-sublink">4.1 Download & Flash Image</a></li>
+                    <li><a href="#install-step-2" class="docs-sublink">4.2 First Boot</a></li>
+                    <li><a href="#install-step-3" class="docs-sublink">4.3 Initial Access</a></li>
+                    <li><a href="#install-step-4" class="docs-sublink">4.4 Advanced Setup</a></li>
+                    <li><a href="#resources" class="docs-link">Resources</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- Main Documentation Content -->
+        <main class="docs-main">
+            <!-- Breadcrumb -->
+            <div class="docs-breadcrumb">
+                <a href="../index.html">Home</a>
+                <span class="separator">/</span>
+                <a href="../projects.html">Projects</a>
+                <span class="separator">/</span>
+                <span class="current">P4wnP1 Docs</span>
+            </div>
+
+            <!-- Hero Section -->
+            <section class="docs-hero">
+                <div class="docs-hero-content">
+                    <h1 class="docs-title">P4wnP1</h1>
+                    <p class="docs-subtitle">A highly customizable USB attack platform for Raspberry Pi Zero/Zero W</p>
+                    <div class="docs-meta">
+                        <span class="docs-badge">Tutorial</span>
+                        <span class="docs-badge">Raspberry Pi</span>
+                        <span class="docs-badge">Offensive Security</span>
+                    </div>
+                </div>
+                <div class="docs-hero-image">
+                    <img src="../assets/img/projects/p4wnp1.png" alt="P4wnP1 logo">
+                </div>
+            </section>
+
+            <!-- Content Sections -->
+            <article class="docs-content">
+                <!-- Overview -->
+                <section id="overview" class="docs-section">
+                    <h2 class="docs-heading">Overview</h2>
+                    <p>
+                        P4wnP1 is an open-source, highly customizable USB attack platform for the Raspberry Pi Zero and Zero W. It enables HID attacks, network attacks, and more, all from a tiny, affordable device. <br>
+                        <a href="https://github.com/RoganDawes/P4wnP1" target="_blank" rel="noopener noreferrer">View the official GitHub repository</a>
+                    </p>
+                </section>
+
+                <!-- Estimated Time -->
+                <section id="estimated-time" class="docs-section">
+                    <h2 class="docs-heading">Estimated Time</h2>
+                    <div class="docs-callout docs-callout-info">
+                        <i class="fas fa-clock"></i>
+                        <div>
+                            <strong>15–30 minutes</strong> (including downloads and flashing)
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Prerequisites -->
+                <section id="prerequisites" class="docs-section">
+                    <h2 class="docs-heading">Prerequisites</h2>
+                    <h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.1rem;">Hardware Requirements</h3>
+                    <div class="docs-checklist">
+                        <div class="checklist-item">
+                            <input type="checkbox" disabled>
+                            <span>Raspberry Pi Zero or Zero W</span>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" disabled>
+                            <span>microSD card (8GB+ recommended)</span>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" disabled>
+                            <span>Micro USB cable (for data & power)</span>
+                        </div>
+                        <div class="checklist-item">
+                            <input type="checkbox" disabled>
+                            <span>Computer (Windows, macOS, or Linux)</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Installation Guide -->
+                <section id="install" class="docs-section">
+                    <h2 class="docs-heading">Installation Guide</h2>
+                    <div class="docs-step" id="install-step-1">
+                        <div class="docs-step-title"><span class="step-number">1</span> Download & Flash P4wnP1 Image</div>
+                        <ol>
+                            <li>Download the latest P4wnP1 A.L.O.A. image from the <a href="https://github.com/RoganDawes/P4wnP1/releases" target="_blank" rel="noopener noreferrer">GitHub Releases page</a>.</li>
+                            <li>Use <a href="https://www.balena.io/etcher/" target="_blank" rel="noopener noreferrer">balenaEtcher</a> or a similar tool to flash the image to your microSD card.</li>
+                        </ol>
+                    </div>
+                    <div class="docs-step" id="install-step-2">
+                        <div class="docs-step-title"><span class="step-number">2</span> First Boot</div>
+                        <ol>
+                            <li>Insert the microSD card into your Pi Zero.</li>
+                            <li>Connect the Pi Zero to your computer using the USB data port (not the power-only port).</li>
+                            <li>Wait for the Pi to boot. It will appear as a network and/or HID device on your computer.</li>
+                        </ol>
+                    </div>
+                    <div class="docs-step" id="install-step-3">
+                        <div class="docs-step-title"><span class="step-number">3</span> Initial Access</div>
+                        <ol>
+                            <li>Default credentials (if needed):<br>
+                                <strong>Username:</strong> pi<br>
+                                <strong>Password:</strong> raspberry
+                            </li>
+                            <li>For advanced setup, customization, and payloads, see the <a href="https://github.com/RoganDawes/P4wnP1/wiki" target="_blank" rel="noopener noreferrer">P4wnP1 Wiki</a>.</li>
+                        </ol>
+                    </div>
+                    <div class="docs-step" id="install-step-4">
+                        <div class="docs-step-title"><span class="step-number">4</span> Advanced Setup (Optional)</div>
+                        <p>Refer to the <a href="https://github.com/RoganDawes/P4wnP1/wiki" target="_blank" rel="noopener noreferrer">P4wnP1 Wiki</a> for payloads, customizations, and advanced features.</p>
+                    </div>
+                </section>
+
+                <!-- Resources -->
+                <section id="resources" class="docs-section">
+                    <h2 class="docs-heading">Resources</h2>
+                    <ul>
+                        <li><a href="https://github.com/RoganDawes/P4wnP1" target="_blank" rel="noopener noreferrer">P4wnP1 GitHub Repository</a></li>
+                        <li><a href="https://github.com/RoganDawes/P4wnP1/wiki" target="_blank" rel="noopener noreferrer">P4wnP1 Wiki</a></li>
+                        <li><a href="https://www.balena.io/etcher/" target="_blank" rel="noopener noreferrer">balenaEtcher (SD Card Flasher)</a></li>
+                    </ul>
+                </section>
+            </article>
+        </main>
+    </div>
+</body>
+</html>

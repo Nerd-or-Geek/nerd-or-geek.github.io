@@ -89,54 +89,105 @@
     <!-- Main Content -->
     <main class="main-content">
         <section class="hero">
+            <span class="hero-badge">🚀 Tech Enthusiast & Creator</span>
             <h1>Welcome to Nerd or Geek?</h1>
-            <p>Your destination for tech, projects, and awesome content</p>
-            <a href="https://www.youtube.com/@Nerd-or-Geek" 
-               class="youtube-button" 
-               target="_blank" 
-               rel="noopener noreferrer"
-               aria-label="Visit YouTube Channel">
-                <i class="fab fa-youtube"></i> View on YouTube
-            </a>
+            <p>Exploring tech projects, Raspberry Pi builds, and software development</p>
+            <div class="hero-cta-group">
+                <a href="https://www.youtube.com/@Nerd-or-Geek" 
+                   class="youtube-button" 
+                   target="_blank" 
+                   rel="noopener noreferrer"
+                   aria-label="Visit YouTube Channel">
+                    <i class="fab fa-youtube"></i> Subscribe on YouTube
+                </a>
+                <a href="projects.html" class="hero-secondary-btn">
+                    <i class="fas fa-folder-open"></i> Browse Projects
+                </a>
+            </div>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Projects</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-number">Pi</span>
+                    <span class="stat-label">Focused</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="stat-number">Open</span>
+                    <span class="stat-label">Source</span>
+                </div>
+            </div>
         </section>
 
         <section class="content-section affiliates-section" id="affiliates">
-            <h2>Affiliate Links</h2>
+            <div class="section-header">
+                <h2><i class="fas fa-handshake"></i> Affiliate Partners</h2>
+                <p class="section-description">Recommended resources for your learning journey</p>
+            </div>
             <div class="affiliates-grid">
                 <div class="affiliate-card">
+                    <div class="affiliate-icon"><i class="fas fa-graduation-cap"></i></div>
                     <h3>Raspberry Pi Tips School</h3>
                     <p>Learn everything about Raspberry Pi with comprehensive courses and tutorials. Perfect for beginners and advanced users!</p>
-                    <a href="https://school.raspberrytips.com/a/v8jsr" class="app-link" target="_blank" rel="noopener noreferrer">Visit School</a>
+                    <a href="https://school.raspberrytips.com/a/v8jsr" class="app-link" target="_blank" rel="noopener noreferrer">Visit School <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="affiliate-card">
+                    <div class="affiliate-icon"><i class="fas fa-robot"></i></div>
                     <h3>SunFounder</h3>
                     <p>Explore innovative electronic kits, robotics, and educational STEM products for makers and hobbyists of all levels.</p>
-                    <a href="https://www.sunfounder.com/?ref=ormqdqda" class="app-link" target="_blank" rel="noopener noreferrer">Visit SunFounder</a>
+                    <a href="https://www.sunfounder.com/?ref=ormqdqda" class="app-link" target="_blank" rel="noopener noreferrer">Visit SunFounder <i class="fas fa-arrow-right"></i></a>
                 </div>
                 <div class="affiliate-card">
+                    <div class="affiliate-icon"><i class="fas fa-microchip"></i></div>
                     <h3>Tech Explorations</h3>
                     <p>Learn electronics, Arduino, Raspberry Pi, and practical engineering through hands-on courses.</p>
-                    <a href="https://techexplorations.com/pc/?ref=hbwnc9" class="app-link" target="_blank" rel="noopener noreferrer">Visit Tech Explorations</a>
+                    <a href="https://techexplorations.com/pc/?ref=hbwnc9" class="app-link" target="_blank" rel="noopener noreferrer">Visit Site <i class="fas fa-arrow-right"></i></a>
                 </div>
-                <div class="affiliate-card">
-                    <h3>eBay Shop (Placeholder)</h3>
-                    <p>Coming soon: my eBay store with the cheapest Raspberry Pis on the market, respeaker Pi hats, speakers, and Raspberry Pi-ready accessories.</p>
-                    <a href="#" class="app-link">Shop on eBay</a>
+                <div class="affiliate-card affiliate-card-coming">
+                    <div class="affiliate-icon"><i class="fab fa-ebay"></i></div>
+                    <h3>eBay Shop</h3>
+                    <p>Coming soon: my eBay store with affordable Raspberry Pis, respeaker hats, speakers, and Pi-ready accessories.</p>
+                    <span class="coming-soon-badge">Coming Soon</span>
                 </div>
             </div>
         </section>
 
         <section class="content-section featured-projects-section" id="featured-projects">
-            <h2>Featured Projects</h2>
-            <p class="section-description">Check out some of my best work</p>
+            <div class="section-header">
+                <h2><i class="fas fa-star"></i> Featured Projects</h2>
+                <p class="section-description">Explore my top Raspberry Pi guides and tutorials</p>
+            </div>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image-container">
                         <img src="assets/img/projects/Pinecraft.png" alt="Pinecraft" class="project-image">
+                        <span class="project-badge">Popular</span>
                     </div>
-                    <h3>Pinecraft</h3>
-                    <p>Guide to install and run a Minecraft server on Raspberry Pi.</p>
-                    <a href="projects/project-one.html" class="cta-button">Install Guide</a>
+                    <div class="project-content">
+                        <h3>Pinecraft</h3>
+                        <p>Step-by-step guide to install and run a Minecraft Java server on Raspberry Pi 4.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Raspberry Pi</span>
+                            <span class="project-tag">Minecraft</span>
+                        </div>
+                        <a href="projects/project-one.html" class="cta-button"><i class="fas fa-book"></i> Install Guide</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image-container">
+                        <img src="assets/img/projects/p4wnp1.png" alt="P4wnP1" class="project-image">
+                        <span class="project-badge">Security</span>
+                    </div>
+                    <div class="project-content">
+                        <h3>P4wnP1</h3>
+                        <p>Highly customizable USB attack platform for Raspberry Pi Zero and Zero W.</p>
+                        <div class="project-tags">
+                            <span class="project-tag">Pi Zero</span>
+                            <span class="project-tag">Security</span>
+                        </div>
+                        <a href="projects/p4wnp1.html" class="cta-button"><i class="fas fa-book"></i> Install Guide</a>
+                    </div>
                 </div>
             </div>
             <div class="view-all-projects">
@@ -145,8 +196,10 @@
         </section>
 
         <section class="content-section apps-section" id="other-apps">
-            <h2>Other Apps & Software</h2>
-            <p class="section-description">Other tools and applications I've created</p>
+            <div class="section-header">
+                <h2><i class="fas fa-code"></i> Software & Tools</h2>
+                <p class="section-description">Open-source applications I've built</p>
+            </div>
             <div class="apps-grid">
                 <div class="app-card">
                     <div class="app-logo-wrap">
