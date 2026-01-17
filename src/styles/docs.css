@@ -182,6 +182,10 @@
 
 .docs-nav-header {
     padding: 0 1.5rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
 }
 
 .docs-nav-header h3 {
@@ -191,6 +195,42 @@
     margin: 0;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+}
+
+.docs-sidebar-toggle {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    min-height: 36px;
+    background: var(--docs-accent-light);
+    border: 1px solid var(--docs-accent);
+    border-radius: 0.5rem;
+    color: var(--docs-accent);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.docs-sidebar-toggle:hover {
+    background: var(--docs-accent);
+    color: white;
+}
+
+.docs-sidebar.collapsed .docs-sidebar-toggle i {
+    transform: rotate(180deg);
+}
+
+@media (max-width: 1024px) {
+    .docs-nav-header {
+        padding: 0 0 0.75rem;
+    }
+    
+    .docs-sidebar-toggle {
+        display: flex;
+    }
 }
 
 .docs-toc {

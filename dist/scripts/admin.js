@@ -1210,19 +1210,30 @@ function renderDocsSections(project) {
         return;
     }
     const sortedSections = [...project.sections].sort((a, b) => a.order - b.order);
-    container.innerHTML = sortedSections.map(section => `
-        <div class="docs-section-item" data-id="${section.id}">
-            <span>${escapeHtml(section.title)}</span>
+    container.innerHTML = sortedSections.map((section, index) => `
+        <div class="docs-section-item" data-id="${section.id}" draggable="true">
+            <div class="section-drag-handle" title="Drag to reorder">
+                <i class="fas fa-grip-vertical"></i>
+            </div>
+            <span class="section-label">${escapeHtml(section.title)}</span>
+            <div class="section-order-controls">
+                <button class="move-section-up" data-id="${section.id}" ${index === 0 ? 'disabled' : ''} title="Move up">
+                    <i class="fas fa-chevron-up"></i>
+                </button>
+                <button class="move-section-down" data-id="${section.id}" ${index === sortedSections.length - 1 ? 'disabled' : ''} title="Move down">
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
             <div class="section-actions">
-                <button class="edit-section" data-id="${section.id}"><i class="fas fa-edit"></i></button>
-                <button class="delete-section" data-id="${section.id}"><i class="fas fa-trash"></i></button>
+                <button class="edit-section" data-id="${section.id}" title="Edit section"><i class="fas fa-edit"></i></button>
+                <button class="delete-section" data-id="${section.id}" title="Delete section"><i class="fas fa-trash"></i></button>
             </div>
         </div>
     `).join('');
     container.querySelectorAll('.docs-section-item').forEach(item => {
         item.addEventListener('click', (e) => {
             const target = e.target;
-            if (target.closest('.section-actions'))
+            if (target.closest('.section-actions') || target.closest('.section-order-controls') || target.closest('.section-drag-handle'))
                 return;
             const sectionId = item.getAttribute('data-id');
             const section = project.sections.find(s => s.id === sectionId);
@@ -1243,7 +1254,16 @@ function renderDocsSections(project) {
                 deleteSection(sectionId, project.id);
             }
         });
+        item.querySelector('.move-section-up')?.addEventListener('click', () => {
+            const sectionId = item.getAttribute('data-id');
+            moveSectionOrder(sectionId, project.id, 'up');
+        });
+        item.querySelector('.move-section-down')?.addEventListener('click', () => {
+            const sectionId = item.getAttribute('data-id');
+            moveSectionOrder(sectionId, project.id, 'down');
+        });
     });
+    setupSectionDragDrop(project.id);
 }
 function selectSection(section, projectId) {
     const container = document.getElementById('currentSectionEditor');
@@ -1351,6 +1371,91 @@ function deleteSection(sectionId, projectId) {
         editor.innerHTML = '<p class="no-section-selected">Select a section to edit or add a new one.</p>';
     }
     showToast('Section deleted!');
+}
+function moveSectionOrder(sectionId, projectId, direction) {
+    const data = getAdminData();
+    const project = data.projects.find(p => p.id === projectId);
+    if (!project)
+        return;
+    const sortedSections = [...project.sections].sort((a, b) => a.order - b.order);
+    const currentIndex = sortedSections.findIndex(s => s.id === sectionId);
+    if (currentIndex === -1)
+        return;
+    const newIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+    if (newIndex < 0 || newIndex >= sortedSections.length)
+        return;
+    const currentSection = sortedSections[currentIndex];
+    const swapSection = sortedSections[newIndex];
+    const tempOrder = currentSection.order;
+    currentSection.order = swapSection.order;
+    swapSection.order = tempOrder;
+    saveAdminData(data);
+    renderDocsSections(project);
+    showToast('Section reordered!');
+}
+function setupSectionDragDrop(projectId) {
+    const container = document.getElementById('docsSectionsList');
+    if (!container)
+        return;
+    let draggedItem = null;
+    container.querySelectorAll('.docs-section-item').forEach((item) => {
+        const element = item;
+        element.addEventListener('dragstart', (e) => {
+            draggedItem = element;
+            element.classList.add('dragging');
+            e.dataTransfer.effectAllowed = 'move';
+        });
+        element.addEventListener('dragend', () => {
+            element.classList.remove('dragging');
+            draggedItem = null;
+            container.querySelectorAll('.docs-section-item').forEach(el => {
+                el.classList.remove('drag-over');
+            });
+        });
+        element.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = 'move';
+            if (draggedItem && element !== draggedItem) {
+                element.classList.add('drag-over');
+            }
+        });
+        element.addEventListener('dragleave', () => {
+            element.classList.remove('drag-over');
+        });
+        element.addEventListener('drop', (e) => {
+            e.preventDefault();
+            element.classList.remove('drag-over');
+            if (draggedItem && element !== draggedItem) {
+                const draggedId = draggedItem.getAttribute('data-id');
+                const targetId = element.getAttribute('data-id');
+                if (draggedId && targetId) {
+                    reorderSectionsByDrag(draggedId, targetId, projectId);
+                }
+            }
+        });
+    });
+}
+function reorderSectionsByDrag(draggedId, targetId, projectId) {
+    const data = getAdminData();
+    const project = data.projects.find(p => p.id === projectId);
+    if (!project)
+        return;
+    const sortedSections = [...project.sections].sort((a, b) => a.order - b.order);
+    const draggedIndex = sortedSections.findIndex(s => s.id === draggedId);
+    const targetIndex = sortedSections.findIndex(s => s.id === targetId);
+    if (draggedIndex === -1 || targetIndex === -1)
+        return;
+    const [draggedSection] = sortedSections.splice(draggedIndex, 1);
+    sortedSections.splice(targetIndex, 0, draggedSection);
+    sortedSections.forEach((section, index) => {
+        const originalSection = project.sections.find(s => s.id === section.id);
+        if (originalSection) {
+            originalSection.order = index;
+        }
+    });
+    saveAdminData(data);
+    renderDocsSections(project);
+    showToast('Sections reordered!');
 }
 function renderSoftware() {
     const container = document.getElementById('softwareList');

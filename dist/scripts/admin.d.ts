@@ -110,6 +110,9 @@ declare function selectSection(section: ProjectSection, projectId: string): void
 declare function openSectionModal(section?: ProjectSection, projectId?: string): void;
 declare function saveSection(e: Event): void;
 declare function deleteSection(sectionId: string, projectId: string): void;
+declare function moveSectionOrder(sectionId: string, projectId: string, direction: 'up' | 'down'): void;
+declare function setupSectionDragDrop(projectId: string): void;
+declare function reorderSectionsByDrag(draggedId: string, targetId: string, projectId: string): void;
 declare function renderSoftware(): void;
 declare function openSoftwareModal(software?: Software): void;
 declare function saveSoftware(e: Event): void;

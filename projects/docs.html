@@ -43,10 +43,13 @@
     </header>
     
     <div class="docs-wrapper">
-        <aside class="docs-sidebar">
+        <aside class="docs-sidebar" id="docsSidebar">
             <nav class="docs-nav">
                 <div class="docs-nav-header">
                     <h3 id="sidebarTitle">Documentation</h3>
+                    <button class="docs-sidebar-toggle" id="docsSidebarToggle" aria-label="Toggle table of contents">
+                        <i class="fas fa-chevron-up"></i>
+                    </button>
                 </div>
                 <ul class="docs-toc" id="docsToc">
                     <!-- Table of contents will be rendered here -->
@@ -546,8 +549,28 @@
         // Make copyCode available globally
         window.copyCode = copyCode;
         
+        // Docs sidebar toggle for mobile
+        function setupDocsSidebarToggle() {
+            const toggle = document.getElementById('docsSidebarToggle');
+            const sidebar = document.getElementById('docsSidebar');
+            
+            if (toggle && sidebar) {
+                // Start collapsed on mobile
+                if (window.innerWidth <= 1024) {
+                    sidebar.classList.add('collapsed');
+                }
+                
+                toggle.addEventListener('click', () => {
+                    sidebar.classList.toggle('collapsed');
+                });
+            }
+        }
+        
         // Initialize on page load
-        document.addEventListener('DOMContentLoaded', renderDocumentation);
+        document.addEventListener('DOMContentLoaded', () => {
+            renderDocumentation();
+            setupDocsSidebarToggle();
+        });
     </script>
 </body>
 </html>
