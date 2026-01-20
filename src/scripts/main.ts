@@ -732,8 +732,8 @@ async function renderDynamicSoftware(): Promise<void> {
 /**
  * Navigate to dynamic project documentation page
  */
-function showDynamicProjectDocs(projectId: string): void {
-    const data = getAdminData();
+async function showDynamicProjectDocs(projectId: string): Promise<void> {
+    const data = await fetchSiteData();
     if (!data) return;
     
     const project = data.projects.find(p => p.id === projectId);

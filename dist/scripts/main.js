@@ -472,8 +472,8 @@ async function renderDynamicSoftware() {
         container.appendChild(card);
     });
 }
-function showDynamicProjectDocs(projectId) {
-    const data = getAdminData();
+async function showDynamicProjectDocs(projectId) {
+    const data = await fetchSiteData();
     if (!data)
         return;
     const project = data.projects.find(p => p.id === projectId);
