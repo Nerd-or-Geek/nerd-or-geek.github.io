@@ -49,7 +49,7 @@
       ],
       "icon": "fa-cube",
       "customImage": "assets/img/projects/Pinecraft.png",
-      "staticUrl": "projects/project-one.html",
+      "staticUrl": "projects/pinecraft.html",
       "sections": [
         {
           "id": "sec-1",
