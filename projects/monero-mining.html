@@ -58,9 +58,9 @@
                     <li><a href="#build-xmrig" class="docs-link">Build Mining Software</a></li>
                     <li><a href="#wallet-setup" class="docs-link">Monero Wallet Setup</a></li>
                     <li><a href="#configure-miner" class="docs-link">Configure Mining Software</a></li>
-                    <li><a href="#start-mining" class="docs-link">Start Mining</a></li>
+                    <li><a href="#start-mining" class="docs-link">Start Mining (Screen)</a></li>
                     <li><a href="#optimization" class="docs-link">Optional Optimization</a></li>
-                    <li><a href="#autostart" class="docs-link">Autostart on Boot</a></li>
+                    <li><a href="#autostart" class="docs-link">Autostart (systemd + screen)</a></li>
                     <li><a href="#overclocking" class="docs-link">Advanced Overclocking</a></li>
                 </ul>
             </nav>
@@ -513,17 +513,68 @@ make -j$(nproc)</code></pre>
                 <!-- Start Mining -->
                 <section id="start-mining" class="docs-section">
                     <h2 class="docs-heading">Section 7 — Start Mining</h2>
-                    <p>Launch XMRig and begin mining Monero.</p>
+                    <p>Launch XMRig in a screen session for interactive monitoring. Using <code>screen</code> allows you to detach from the mining session while it continues running in the background.</p>
                     
-                    <h3>Run the Miner</h3>
-                    <p>Navigate to the build directory and start XMRig:</p>
+                    <h3>Install Screen</h3>
+                    <p>If screen is not already installed:</p>
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-lang">bash</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code>sudo apt install -y screen</code></pre>
+                    </div>
+
+                    <h3>Start XMRig in a Screen Session</h3>
+                    <p>Navigate to the build directory and start XMRig in a detached screen session:</p>
                     <div class="docs-code-block">
                         <div class="code-header">
                             <span class="code-lang">bash</span>
                             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                         </div>
                         <pre><code>cd ~/xmrig/build
-./xmrig</code></pre>
+screen -dmS xmrig ./xmrig</code></pre>
+                    </div>
+                    <p>This starts XMRig in a detached screen session named <code>xmrig</code>. The miner runs in the background and you can safely disconnect from SSH.</p>
+
+                    <h3>Attach to the Screen Session</h3>
+                    <p>To view the live mining output, attach to the screen session:</p>
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-lang">bash</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code>screen -r xmrig</code></pre>
+                    </div>
+
+                    <h3>Detach from the Screen Session</h3>
+                    <p>To detach and leave XMRig running in the background, press:</p>
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Keyboard</span>
+                        </div>
+                        <pre><code>Ctrl+A, then D</code></pre>
+                    </div>
+                    <p>This returns you to the normal shell while XMRig continues mining.</p>
+
+                    <h3>Screen Commands Reference</h3>
+                    <div class="docs-grid-2">
+                        <div class="docs-card">
+                            <h4><code>screen -dmS xmrig ./xmrig</code></h4>
+                            <p>Start XMRig in a new detached screen session named "xmrig".</p>
+                        </div>
+                        <div class="docs-card">
+                            <h4><code>screen -r xmrig</code></h4>
+                            <p>Reattach to the running screen session to view live output.</p>
+                        </div>
+                        <div class="docs-card">
+                            <h4><code>Ctrl+A, D</code></h4>
+                            <p>Detach from the screen session (leaves miner running).</p>
+                        </div>
+                        <div class="docs-card">
+                            <h4><code>screen -ls</code></h4>
+                            <p>List all active screen sessions.</p>
+                        </div>
                     </div>
 
                     <h3>Expected Console Output</h3>
@@ -630,17 +681,30 @@ make -j$(nproc)</code></pre>
 
                 <!-- Autostart on Boot -->
                 <section id="autostart" class="docs-section">
-                    <h2 class="docs-heading">Section 9 — Autostart on Boot (systemd)</h2>
-                    <p>Configure XMRig to start automatically when the Raspberry Pi boots.</p>
+                    <h2 class="docs-heading">Section 9 — Autostart on Boot (systemd + screen)</h2>
+                    <p>Configure XMRig to start automatically in a screen session when the Raspberry Pi boots. This method combines the power of systemd for auto-start with screen for interactive monitoring.</p>
+
+                    <div class="docs-callout docs-callout-info">
+                        <i class="fas fa-check-circle"></i>
+                        <div>
+                            <strong>Benefits of this approach:</strong>
+                            <ul>
+                                <li>Full interactive console output via <code>screen -r xmrig</code></li>
+                                <li>Automatic start on boot via systemd</li>
+                                <li>Persistent service that survives reboots</li>
+                                <li>Auto-restart if XMRig crashes</li>
+                            </ul>
+                        </div>
+                    </div>
                     
-                    <h3>Create a Start Script</h3>
-                    <p>Create a script in your home directory:</p>
+                    <h3>Step 1: Create the Start Script</h3>
+                    <p>Create a script in your home directory that manages the screen session:</p>
                     <div class="docs-code-block">
                         <div class="code-header">
                             <span class="code-lang">bash</span>
                             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                         </div>
-                        <pre><code>nano /home/&lt;username&gt;/start-app.sh</code></pre>
+                        <pre><code>nano ~/start-xmrig.sh</code></pre>
                     </div>
 
                     <p>Add the following content:</p>
@@ -650,8 +714,20 @@ make -j$(nproc)</code></pre>
                             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                         </div>
                         <pre><code>#!/bin/bash
-cd /home/&lt;username&gt;/xmrig/build
-./xmrig</code></pre>
+cd /home/pi/xmrig/build
+# Kill any old xmrig screen
+screen -S xmrig -X quit 2>/dev/null
+# Start in detached screen
+screen -dmS xmrig bash -c './xmrig; exec bash'
+# Keep script alive so systemd service stays active
+while true; do sleep 3600; done</code></pre>
+                    </div>
+
+                    <div class="docs-callout docs-callout-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>Note:</strong> If your username is not <code>pi</code>, replace <code>/home/pi</code> with <code>/home/&lt;your-username&gt;</code> in both the script and the service file.
+                        </div>
                     </div>
 
                     <p>Make the script executable:</p>
@@ -660,16 +736,17 @@ cd /home/&lt;username&gt;/xmrig/build
                             <span class="code-lang">bash</span>
                             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                         </div>
-                        <pre><code>chmod +x /home/&lt;username&gt;/start-app.sh</code></pre>
+                        <pre><code>chmod +x ~/start-xmrig.sh</code></pre>
                     </div>
 
-                    <h3>Create systemd Service File</h3>
+                    <h3>Step 2: Create the systemd Service</h3>
+                    <p>Create a new systemd service file:</p>
                     <div class="docs-code-block">
                         <div class="code-header">
                             <span class="code-lang">bash</span>
                             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                         </div>
-                        <pre><code>sudo nano /etc/systemd/system/xmrig.service</code></pre>
+                        <pre><code>sudo nano /etc/systemd/system/xmrig-screen.service</code></pre>
                     </div>
 
                     <p>Add the following configuration:</p>
@@ -679,56 +756,101 @@ cd /home/&lt;username&gt;/xmrig/build
                             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                         </div>
                         <pre><code>[Unit]
-Description=XMRig Monero Miner
+Description=XMRig Monero Miner (Screen Session)
 After=network.target
 
 [Service]
-User=&lt;username&gt;
-WorkingDirectory=/home/&lt;username&gt;/xmrig/build
-ExecStart=/home/&lt;username&gt;/start-app.sh
+User=pi
+WorkingDirectory=/home/pi
+ExecStart=/home/pi/start-xmrig.sh
 Restart=always
 RestartSec=10
+StandardOutput=inherit
+StandardError=inherit
 
 [Install]
 WantedBy=multi-user.target</code></pre>
                     </div>
 
-                    <h3>Enable and Start the Service</h3>
+                    <h3>Step 3: Enable and Start the Service</h3>
                     <div class="docs-code-block">
                         <div class="code-header">
                             <span class="code-lang">bash</span>
                             <button class="copy-btn" onclick="copyCode(this)">Copy</button>
                         </div>
-                        <pre><code># Reload systemd
+                        <pre><code># Reload systemd to recognize the new service
 sudo systemctl daemon-reload
 
-# Enable at boot
-sudo systemctl enable xmrig.service
+# Enable to start at boot
+sudo systemctl enable xmrig-screen.service
 
-# Start immediately
-sudo systemctl start xmrig.service
+# Start the service immediately
+sudo systemctl start xmrig-screen.service
 
-# Check status
-sudo systemctl status xmrig.service</code></pre>
+# Check that it's running
+sudo systemctl status xmrig-screen.service</code></pre>
                     </div>
 
-                    <h3>Service Configuration Explained</h3>
+                    <h3>Interacting with the Miner</h3>
+                    <p>Once the service is running, you can attach to the screen session to view live mining output:</p>
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-lang">bash</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code># Attach to the mining session
+screen -r xmrig
+
+# Detach (leave running): Press Ctrl+A, then D</code></pre>
+                    </div>
+
+                    <h3>Cleaning Up Dead Screens</h3>
+                    <p>If you have stale or dead screen sessions, clean them up with:</p>
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-lang">bash</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code>screen -wipe</code></pre>
+                    </div>
+
+                    <h3>Service Management Commands</h3>
                     <div class="docs-grid-2">
                         <div class="docs-card">
-                            <h4><code>Restart=always</code></h4>
-                            <p>Ensures the miner automatically restarts if it crashes or exits unexpectedly.</p>
+                            <h4><code>systemctl status xmrig-screen</code></h4>
+                            <p>Check if the service is running and view recent log output.</p>
                         </div>
                         <div class="docs-card">
-                            <h4><code>After=network.target</code></h4>
-                            <p>Waits for network connectivity before starting the miner.</p>
+                            <h4><code>systemctl restart xmrig-screen</code></h4>
+                            <p>Restart the mining service (kills and restarts XMRig).</p>
                         </div>
                         <div class="docs-card">
-                            <h4><code>RestartSec=10</code></h4>
-                            <p>Waits 10 seconds before restarting after a failure.</p>
+                            <h4><code>systemctl stop xmrig-screen</code></h4>
+                            <p>Stop the mining service.</p>
                         </div>
                         <div class="docs-card">
-                            <h4><code>systemctl enable</code></h4>
-                            <p>Registers the service to start automatically at boot.</p>
+                            <h4><code>journalctl -u xmrig-screen -f</code></h4>
+                            <p>View live service logs from systemd.</p>
+                        </div>
+                    </div>
+
+                    <h3>How It Works</h3>
+                    <div class="docs-grid-2">
+                        <div class="docs-card">
+                            <h4><i class="fas fa-terminal"></i> Screen Session</h4>
+                            <p>XMRig runs inside a screen session, providing full interactive console access. You can attach/detach at any time without interrupting mining.</p>
+                        </div>
+                        <div class="docs-card">
+                            <h4><i class="fas fa-cogs"></i> systemd Management</h4>
+                            <p>systemd keeps the start script running. The infinite loop ensures the service stays "active" so systemd doesn't think it has stopped.</p>
+                        </div>
+                        <div class="docs-card">
+                            <h4><i class="fas fa-sync-alt"></i> Auto-Restart</h4>
+                            <p><code>Restart=always</code> ensures the entire setup restarts if XMRig crashes or the script exits unexpectedly.</p>
+                        </div>
+                        <div class="docs-card">
+                            <h4><i class="fas fa-power-off"></i> Boot Persistence</h4>
+                            <p>The service is enabled at boot, so mining automatically resumes after power outages or reboots.</p>
                         </div>
                     </div>
                 </section>
