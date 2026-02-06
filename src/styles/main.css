@@ -20,6 +20,7 @@ body {
   color: #1e293b;
   line-height: 1.6;
   overflow-x: hidden;
+  padding-top: 60px;
 }
 body::before {
   content: "";
@@ -58,8 +59,10 @@ button {
 .header {
   background-color: #0f2744;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 100;
   border-bottom: 2px solid rgba(14, 165, 233, 0.3);
 }

@@ -40,6 +40,7 @@ body {
     color: $text-dark;
     line-height: 1.6;
     overflow-x: hidden;
+    padding-top: 60px;
     
     &::before {
         content: '';
@@ -84,8 +85,10 @@ button {
 .header {
     background-color: #0f2744;
     box-shadow: $shadow;
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     border-bottom: 2px solid rgba(14, 165, 233, 0.3);
 }

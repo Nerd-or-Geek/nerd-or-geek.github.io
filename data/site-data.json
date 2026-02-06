@@ -235,6 +235,46 @@
         }
       ],
       "createdAt": 1768499201280
+    },
+    {
+      "id": "static-project-3",
+      "name": "Monero Mining",
+      "description": "Complete setup guide for CPU mining Monero (XMR) on Raspberry Pi with XMRig.",
+      "badge": "New",
+      "tags": [
+        "Raspberry Pi",
+        "Cryptocurrency"
+      ],
+      "icon": "fa-coins",
+      "customImage": "assets/img/projects/monero-mining.png",
+      "staticUrl": "projects/monero-mining.html",
+      "sections": [
+        {
+          "id": "xmr-sec-1",
+          "title": "Overview",
+          "type": "text",
+          "content": "This guide walks you through setting up a Raspberry Pi as a Monero (XMR) CPU miner using XMRig, a high-performance, open-source RandomX miner.",
+          "codeLanguage": "",
+          "order": 0
+        },
+        {
+          "id": "xmr-sec-2",
+          "title": "Prerequisites",
+          "type": "cards-2",
+          "content": "Required Hardware|Raspberry Pi 4 (4GB or 8GB recommended), MicroSD card (16GB+ Class 10), Official Raspberry Pi power supply (3A USB-C), Ethernet or WiFi connection\n---\nRecommended Hardware|Heatsink and active cooling fan, Case with ventilation, External SSD (optional)",
+          "codeLanguage": "",
+          "order": 1
+        },
+        {
+          "id": "xmr-sec-3",
+          "title": "Resources",
+          "type": "links",
+          "content": "XMRig GitHub|https://github.com/xmrig/xmrig|Source code and releases\nMonero Wallet|https://www.getmonero.org/downloads/|Official wallet downloads\nRaspberry Pi Imager|https://www.raspberrypi.com/software/|OS installation tool",
+          "codeLanguage": "",
+          "order": 2
+        }
+      ],
+      "createdAt": 1768499201280
     }
   ],
   "software": [
