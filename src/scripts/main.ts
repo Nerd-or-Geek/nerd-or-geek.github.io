@@ -529,42 +529,32 @@ function isPreviewMode(): boolean {
 }
 
 /**
- * Get admin data - first tries to fetch from static JSON, falls back to localStorage
- * If preview mode is ON, uses localStorage directly to show local changes
+ * Get admin data - fetches from static JSON file, with localStorage as fallback
+ * Preview mode only affects admin portal, not the main site
  */
 async function fetchSiteData(): Promise<AdminData | null> {
-    // Return cached data if available (and not in preview mode)
-    if (cachedSiteData && !isPreviewMode()) {
+    // Return cached data if available (only for same page session)
+    if (cachedSiteData) {
         return cachedSiteData;
     }
     
-    // If preview mode is enabled, use localStorage directly
-    if (isPreviewMode()) {
-        const data = localStorage.getItem(ADMIN_STORAGE_KEY);
-        if (data) {
-            try {
-                cachedSiteData = JSON.parse(data);
-                console.log('Preview Mode: Using local data');
-                return cachedSiteData;
-            } catch {
-                return null;
-            }
-        }
-    }
-    
-    // Try to fetch from static JSON file (works on GitHub Pages)
+    // Always try to fetch from static JSON file first
     try {
         const basePath = getBasePath();
         const response = await fetch(`${basePath}data/site-data.json`);
         if (response.ok) {
             cachedSiteData = await response.json();
+            // Sync localStorage with JSON data to keep them consistent
+            localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(cachedSiteData));
+            // Turn off preview mode since we're using fresh JSON data
+            localStorage.removeItem(PREVIEW_MODE_KEY);
             return cachedSiteData;
         }
     } catch (e) {
         console.log('Could not fetch site-data.json, falling back to localStorage');
     }
     
-    // Fallback to localStorage for local development
+    // Fallback to localStorage (for offline or local file:// access)
     const data = localStorage.getItem(ADMIN_STORAGE_KEY);
     if (data) {
         try {

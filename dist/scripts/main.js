@@ -318,27 +318,16 @@ function isPreviewMode() {
     return localStorage.getItem(PREVIEW_MODE_KEY) === 'true';
 }
 async function fetchSiteData() {
-    if (cachedSiteData && !isPreviewMode()) {
+    if (cachedSiteData) {
         return cachedSiteData;
-    }
-    if (isPreviewMode()) {
-        const data = localStorage.getItem(ADMIN_STORAGE_KEY);
-        if (data) {
-            try {
-                cachedSiteData = JSON.parse(data);
-                console.log('Preview Mode: Using local data');
-                return cachedSiteData;
-            }
-            catch {
-                return null;
-            }
-        }
     }
     try {
         const basePath = getBasePath();
         const response = await fetch(`${basePath}data/site-data.json`);
         if (response.ok) {
             cachedSiteData = await response.json();
+            localStorage.setItem(ADMIN_STORAGE_KEY, JSON.stringify(cachedSiteData));
+            localStorage.removeItem(PREVIEW_MODE_KEY);
             return cachedSiteData;
         }
     }
