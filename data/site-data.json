@@ -35,15 +35,6 @@
       "icon": "fa-microchip",
       "comingSoon": false,
       "createdAt": 1768499201280
-    },
-    {
-      "id": "static-affiliate-4",
-      "name": "eBay Shop",
-      "description": "Coming soon: my eBay store with affordable Raspberry Pis, respeaker hats, speakers, and Pi-ready accessories.",
-      "link": "",
-      "icon": "fa-store",
-      "comingSoon": true,
-      "createdAt": 1768499201280
     }
   ],
   "projects": [
@@ -306,6 +297,103 @@
         }
       ],
       "createdAt": 1773088216499
+    },
+    {
+      "id": "static-project-3",
+      "name": "Monero Mining",
+      "description": "Complete setup guide for CPU mining Monero (XMR) on Raspberry Pi with XMRig.",
+      "badge": "New",
+      "tags": [
+        "Raspberry Pi",
+        "Cryptocurrency"
+      ],
+      "icon": "fa-coins",
+      "customImage": "assets/img/projects/monero-mining.png",
+      "staticUrl": "projects/monero-mining.html",
+      "sections": [
+        {
+          "id": "xmr-sec-1",
+          "title": "Overview",
+          "type": "text",
+          "content": "This guide walks you through setting up a Raspberry Pi as a Monero (XMR) CPU miner using XMRig, a high-performance, open-source RandomX miner.",
+          "codeLanguage": "",
+          "order": 0
+        },
+        {
+          "id": "xmr-sec-2",
+          "title": "Prerequisites",
+          "type": "cards-2",
+          "content": "Required Hardware|Raspberry Pi 4 (4GB or 8GB recommended), MicroSD card (16GB+ Class 10), Official Raspberry Pi power supply (3A USB-C), Ethernet or WiFi connection\n---\nRecommended Hardware|Heatsink and active cooling fan, Case with ventilation, External SSD (optional)",
+          "codeLanguage": "",
+          "order": 1
+        },
+        {
+          "id": "xmr-sec-3",
+          "title": "Resources",
+          "type": "links",
+          "content": "XMRig GitHub|https://github.com/xmrig/xmrig|Source code and releases\nMonero Wallet|https://www.getmonero.org/downloads/|Official wallet downloads\nRaspberry Pi Imager|https://www.raspberrypi.com/software/|OS installation tool",
+          "codeLanguage": "",
+          "order": 2
+        }
+      ],
+      "createdAt": 1768499201280
+    },
+    {
+      "id": "static-project-4",
+      "name": "Morse-Pi",
+      "description": "A full-featured Morse code trainer and practice tool built with Flask, designed to run on a Raspberry Pi with a physical key or paddle.",
+      "badge": "New",
+      "tags": [
+        "Raspberry Pi",
+        "Flask",
+        "Morse Code"
+      ],
+      "icon": "fa-tower-broadcast",
+      "customImage": "assets/img/projects/Morse-Pi.png",
+      "staticUrl": "projects/morse-pi.html",
+      "sections": [
+        {
+          "id": "morse-sec-1",
+          "title": "Overview",
+          "type": "text",
+          "content": "**Morse-Pi** is a full-featured Morse code trainer and practice tool built with Flask, designed to run on a Raspberry Pi with a physical key or paddle. Access everything from any browser on your local network — no app to install on your phone or computer.\n\n[View the official GitHub repository](https://github.com/Nerd-or-Geek/Morse-Pi)",
+          "codeLanguage": "",
+          "order": 0
+        },
+        {
+          "id": "morse-sec-2",
+          "title": "Estimated Time",
+          "type": "callout-info",
+          "content": "**10–15 minutes** (including installation and configuration)",
+          "codeLanguage": "",
+          "order": 1
+        },
+        {
+          "id": "morse-sec-3",
+          "title": "Prerequisites",
+          "type": "cards-2",
+          "content": "Software Only (Minimum)|Any computer with Python 3.9+, A modern browser on the same machine or network\n---\nFull Hardware Setup (Raspberry Pi)|Raspberry Pi (any model with 40-pin GPIO — Pi 3B+, Pi 4, Pi Zero 2 W), Piezo buzzer or small speaker, Morse key (straight key) or iambic paddle",
+          "codeLanguage": "",
+          "order": 2
+        },
+        {
+          "id": "morse-sec-4",
+          "title": "Installation Guide",
+          "type": "steps",
+          "content": "**One-Line Install** - Run `curl -sSL https://raw.githubusercontent.com/Nerd-or-Geek/Morse-Pi/main/install.sh | sudo bash`\n---\n**Wait for Installation** - The script installs dependencies, clones the repo, and sets up the systemd service.\n---\n**Access Web UI** - Open your browser to the URL printed on screen (e.g., http://192.168.1.42:5000)\n---\n**Configure Settings** - Use the CONFIG tab to adjust WPM, GPIO pins, and audio settings.",
+          "codeLanguage": "",
+          "order": 3
+        },
+        {
+          "id": "morse-sec-5",
+          "title": "Resources",
+          "type": "links",
+          "content": "GitHub Repo|https://github.com/Nerd-or-Geek/Morse-Pi|Source code, issues, and releases\nFlask Documentation|https://flask.palletsprojects.com/|Learn more about the Flask web framework\nGPIO Zero Docs|https://gpiozero.readthedocs.io/|Official documentation for GPIO Zero",
+          "codeLanguage": "",
+          "order": 4
+        }
+      ],
+      "createdAt": 1768499201280
     }
   ],
   "software": [
