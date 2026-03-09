@@ -1,6 +1,15 @@
 {
   "affiliates": [
     {
+      "id": "static-affiliate-4",
+      "name": "eBay Shop",
+      "description": "The cheapest place to buy a Raspberry Pi! Shop my eBay store for affordable Raspberry Pis, ReSpeaker hats, speakers, and Pi-ready accessories.",
+      "link": "https://www.ebay.com/usr/michael-gledhill",
+      "icon": "fa-store",
+      "comingSoon": false,
+      "createdAt": 1768499201280
+    },
+    {
       "id": "static-affiliate-1",
       "name": "Raspberry Pi Tips School",
       "description": "Learn everything about Raspberry Pi with comprehensive courses and tutorials. Perfect for beginners and advanced users!",
@@ -25,15 +34,6 @@
       "link": "https://techexplorations.com?ref=hbwnc9",
       "icon": "fa-microchip",
       "comingSoon": false,
-      "createdAt": 1768499201280
-    },
-    {
-      "id": "static-affiliate-4",
-      "name": "eBay Shop",
-      "description": "Coming soon: my eBay store with affordable Raspberry Pis, respeaker hats, speakers, and Pi-ready accessories.",
-      "link": "",
-      "icon": "fa-store",
-      "comingSoon": true,
       "createdAt": 1768499201280
     }
   ],
