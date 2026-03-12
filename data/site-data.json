@@ -341,11 +341,11 @@
     {
       "id": "static-project-4",
       "name": "Morse-Pi",
-      "description": "A full-featured Morse code trainer and practice tool built with Flask, designed to run on a Raspberry Pi with a physical key or paddle.",
+      "description": "A browser-based Morse code trainer for Raspberry Pi with a recommended native Rust backend, Pi Zero-friendly setup, and optional legacy Python support.",
       "badge": "New",
       "tags": [
         "Raspberry Pi",
-        "Flask",
+        "Rust",
         "Morse Code"
       ],
       "icon": "fa-tower-broadcast",
@@ -356,7 +356,7 @@
           "id": "morse-sec-1",
           "title": "Overview",
           "type": "text",
-          "content": "**Morse-Pi** is a full-featured Morse code trainer and practice tool built with Flask, designed to run on a Raspberry Pi with a physical key or paddle. Access everything from any browser on your local network — no app to install on your phone or computer.\n\n[View the official GitHub repository](https://github.com/Nerd-or-Geek/Morse-Pi)",
+          "content": "**Morse-Pi** is a browser-based Morse code trainer for Raspberry Pi with a recommended native Rust backend and an optional legacy Python backend. It works especially well on a Pi Zero-family board with a real key or paddle, but you can also practice from any browser with keyboard shortcuts and on-screen controls.\n\n[Read the full official documentation](https://nerd-or-geek.github.io/Morse-Pi/)\n\n[View the official GitHub repository](https://github.com/Nerd-or-Geek/Morse-Pi)",
           "codeLanguage": "",
           "order": 0
         },
@@ -364,7 +364,7 @@
           "id": "morse-sec-2",
           "title": "Estimated Time",
           "type": "callout-info",
-          "content": "**10–15 minutes** (including installation and configuration)",
+          "content": "**20–45 minutes** for flashing Raspberry Pi OS and first-time setup, plus **10–30 minutes** for the initial Rust build on a Pi Zero.",
           "codeLanguage": "",
           "order": 1
         },
@@ -372,7 +372,7 @@
           "id": "morse-sec-3",
           "title": "Prerequisites",
           "type": "cards-2",
-          "content": "Software Only (Minimum)|Any computer with Python 3.9+, A modern browser on the same machine or network\n---\nFull Hardware Setup (Raspberry Pi)|Raspberry Pi (any model with 40-pin GPIO — Pi 3B+, Pi 4, Pi Zero 2 W), Piezo buzzer or small speaker, Morse key (straight key) or iambic paddle",
+          "content": "Required Hardware|Raspberry Pi Zero / Zero W / Zero 2 W, 16 GB or larger microSD card, stable 5 V power supply, optional Morse key or paddle, optional piezo speaker\n---\nSetup Tools|Computer with SD card reader, Raspberry Pi Imager, Wi-Fi credentials, and SSH enabled in Raspberry Pi Imager advanced settings",
           "codeLanguage": "",
           "order": 2
         },
@@ -380,7 +380,7 @@
           "id": "morse-sec-4",
           "title": "Installation Guide",
           "type": "steps",
-          "content": "**One-Line Install** - Run `curl -sSL https://raw.githubusercontent.com/Nerd-or-Geek/Morse-Pi/main/install.sh | sudo bash`\n---\n**Wait for Installation** - The script installs dependencies, clones the repo, and sets up the systemd service.\n---\n**Access Web UI** - Open your browser to the URL printed on screen (e.g., http://192.168.1.42:5000)\n---\n**Configure Settings** - Use the CONFIG tab to adjust WPM, GPIO pins, and audio settings.",
+          "content": "**Flash Raspberry Pi OS Lite** - Use Raspberry Pi Imager and choose Raspberry Pi OS Lite. Use 32-bit for Pi Zero / Zero W, or 32-bit / 64-bit for Pi Zero 2 W.\n---\n**Enable SSH and Wi-Fi** - In Raspberry Pi Imager advanced settings, set your hostname, username, password, Wi-Fi, locale, and enable SSH before writing the card.\n---\n**Boot the Pi and Update Packages** - Connect to the Pi, then run `sudo apt update` and `sudo apt upgrade -y`.\n---\n**Run the Rust Installer** - Install Morse-Pi with `curl -sSL https://raw.githubusercontent.com/Nerd-or-Geek/Morse-Pi/main/install-rust.sh | sudo bash`.\n---\n**Open the Web UI** - Browse to the URL printed on screen, usually something like `http://192.168.1.42:5000`.\n---\n**Optional USB HID Reboot** - Reboot after install if you plan to use the Pi as a USB keyboard.",
           "codeLanguage": "",
           "order": 3
         },
@@ -388,7 +388,7 @@
           "id": "morse-sec-5",
           "title": "Resources",
           "type": "links",
-          "content": "GitHub Repo|https://github.com/Nerd-or-Geek/Morse-Pi|Source code, issues, and releases\nFlask Documentation|https://flask.palletsprojects.com/|Learn more about the Flask web framework\nGPIO Zero Docs|https://gpiozero.readthedocs.io/|Official documentation for GPIO Zero",
+          "content": "Official Docs|https://nerd-or-geek.github.io/Morse-Pi/|Read the full Morse-Pi documentation site\nGitHub Repo|https://github.com/Nerd-or-Geek/Morse-Pi|Source code, issues, releases, and install scripts\nRaspberry Pi Imager|https://www.raspberrypi.com/software/|Official tool for flashing Raspberry Pi OS to an SD card\nTroubleshooting|https://nerd-or-geek.github.io/Morse-Pi/troubleshooting.html|Fix Rust build, GPIO, USB HID, and network issues",
           "codeLanguage": "",
           "order": 4
         }

@@ -156,14 +156,17 @@
                 </div>
                 <ul class="docs-toc">
                     <li><a href="#overview" class="docs-link">Overview</a></li>
-                    <li><a href="#features" class="docs-link">Features</a></li>
                     <li><a href="#hardware-requirements" class="docs-link">Hardware Requirements</a></li>
+                    <li><a href="#install-raspberry-pi-os" class="docs-link">Install Raspberry Pi OS</a></li>
+                    <li><a href="#update-raspberry-pi-os" class="docs-link">Update Raspberry Pi OS</a></li>
+                    <li><a href="#install-rust" class="docs-link">Install Morse-Pi Rust</a></li>
                     <li><a href="#gpio-wiring" class="docs-link">GPIO Wiring</a></li>
-                    <li><a href="#installation" class="docs-link">Installation</a></li>
+                    <li><a href="#features" class="docs-link">Features</a></li>
                     <li><a href="#configuration" class="docs-link">Configuration</a></li>
                     <li><a href="#keyboard-shortcuts" class="docs-link">Keyboard Shortcuts</a></li>
                     <li><a href="#multi-pi-networking" class="docs-link">Multi-Pi Networking</a></li>
                     <li><a href="#service-management" class="docs-link">Service Management</a></li>
+                    <li><a href="#troubleshooting" class="docs-link">Troubleshooting</a></li>
                     <li><a href="#project-structure" class="docs-link">Project Structure</a></li>
                     <li><a href="#resources" class="docs-link">Resources</a></li>
                 </ul>
@@ -185,11 +188,12 @@
             <section class="docs-hero">
                 <div class="docs-hero-content">
                     <h1 class="docs-title">Morse-Pi</h1>
-                    <p class="docs-subtitle">A full-featured Morse code trainer and practice tool built with Flask for Raspberry Pi</p>
+                    <p class="docs-subtitle">A browser-based Morse code trainer for Raspberry Pi with a recommended native Rust backend and optional legacy Python backend</p>
                     <div class="docs-meta">
                         <span class="docs-badge">Tutorial</span>
                         <span class="docs-badge">Raspberry Pi</span>
-                        <span class="docs-badge">Flask</span>
+                        <span class="docs-badge">Rust</span>
+                        <span class="docs-badge">Pi Zero</span>
                         <span class="docs-badge">Morse Code</span>
                     </div>
                 </div>
@@ -204,76 +208,28 @@
                 <section id="overview" class="docs-section">
                     <h2 class="docs-heading">Overview</h2>
                     <p>
-                        <strong>Morse-Pi</strong> is a full-featured Morse code trainer and practice tool built with Flask, designed to run on a Raspberry Pi with a physical key or paddle. Access everything from any browser on your local network — no app to install on your phone or computer.
+                        <strong>Morse-Pi</strong> is a browser-based Morse code trainer built for Raspberry Pi. The project now has a recommended native Rust backend for the fastest, most reliable install, plus an optional legacy Python backend if you want to tinker. A Pi Zero, Zero W, or Zero 2 W makes a great dedicated Morse trainer, but you can also practice from any browser with on-screen controls and keyboard shortcuts.
                     </p>
+
+                    <div class="docs-callout docs-callout-info">
+                        <i class="fas fa-book-open"></i>
+                        <div>
+                            <strong>Read the full official documentation:</strong>
+                            <a href="https://nerd-or-geek.github.io/Morse-Pi/" target="_blank" rel="noopener noreferrer">https://nerd-or-geek.github.io/Morse-Pi/</a>
+                        </div>
+                    </div>
+
+                    <div class="docs-callout docs-callout-info">
+                        <i class="fas fa-stopwatch"></i>
+                        <div>
+                            <strong>Plan your time:</strong> allow about 20–45 minutes to flash Raspberry Pi OS, connect your Pi Zero, and run the setup. The very first Rust build usually takes 10–30 minutes on a Pi Zero and only a few minutes on faster boards like the Pi 4.
+                        </div>
+                    </div>
                     
                     <div class="docs-callout docs-callout-info">
                         <i class="fas fa-info-circle"></i>
                         <div>
-                            <strong>No Pi Required!</strong> A Raspberry Pi is optional — the web UI runs fine on any machine. GPIO features require a Pi.
-                        </div>
-                    </div>
-
-                    <h3>Key Capabilities</h3>
-                    <div class="docs-grid-2">
-                        <div class="docs-card">
-                            <h4><i class="fas fa-paper-plane"></i> SEND Mode</h4>
-                            <p>Key Morse in real time and watch character-by-character decoding as you go.</p>
-                        </div>
-                        <div class="docs-card">
-                            <h4><i class="fas fa-keyboard"></i> ENCODE</h4>
-                            <p>Type any text and see the Morse equivalent instantly displayed.</p>
-                        </div>
-                        <div class="docs-card">
-                            <h4><i class="fas fa-language"></i> DECODE</h4>
-                            <p>Enter dots and dashes to get the decoded text in real time.</p>
-                        </div>
-                        <div class="docs-card">
-                            <h4><i class="fas fa-tachometer-alt"></i> SPEED Trainer</h4>
-                            <p>Practice sending at a target WPM and get scored on your accuracy.</p>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Features -->
-                <section id="features" class="docs-section">
-                    <h2 class="docs-heading">Features</h2>
-                    <div class="docs-grid-3">
-                        <div class="feature-card">
-                            <h4><i class="fas fa-chart-line"></i> Stats Tracking</h4>
-                            <p>Track accuracy, longest streak, and session history.</p>
-                        </div>
-                        <div class="feature-card">
-                            <h4><i class="fas fa-clock"></i> Farnsworth Timing</h4>
-                            <p>Stretch gaps between letters and words — great for beginners.</p>
-                        </div>
-                        <div class="feature-card">
-                            <h4><i class="fas fa-network-wired"></i> Multi-Pi Networking</h4>
-                            <p>Discover other Morse-Pi devices on your LAN and send messages between them.</p>
-                        </div>
-                        <div class="feature-card">
-                            <h4><i class="fas fa-keyboard"></i> Keyboard Control</h4>
-                            <p>Works without hardware — Space = straight key, Z/X = dot/dash paddles.</p>
-                        </div>
-                        <div class="feature-card">
-                            <h4><i class="fas fa-microchip"></i> GPIO Support</h4>
-                            <p>Connect a real Morse key or iambic paddle via Raspberry Pi GPIO pins.</p>
-                        </div>
-                        <div class="feature-card">
-                            <h4><i class="fas fa-sliders-h"></i> Configurable Tones</h4>
-                            <p>Adjust dot and dash frequencies, volume, and WPM from the browser.</p>
-                        </div>
-                        <div class="feature-card">
-                            <h4><i class="fas fa-moon"></i> Dark/Light Themes</h4>
-                            <p>Configurable from the CONFIG panel to match your preference.</p>
-                        </div>
-                        <div class="feature-card">
-                            <h4><i class="fas fa-globe"></i> Browser-Based</h4>
-                            <p>Full web UI accessible from any device on your network.</p>
-                        </div>
-                        <div class="feature-card">
-                            <h4><i class="fas fa-volume-up"></i> Audio Feedback</h4>
-                            <p>Configure tones for dots and dashes with adjustable frequencies.</p>
+                            <strong>No Pi Required!</strong> A Raspberry Pi is optional — the web UI works on other Linux machines too. GPIO, speaker output, and USB HID keyboard mode still need real Pi hardware.
                         </div>
                     </div>
                 </section>
@@ -281,34 +237,193 @@
                 <!-- Hardware Requirements -->
                 <section id="hardware-requirements" class="docs-section">
                     <h2 class="docs-heading">Hardware Requirements</h2>
-                    
-                    <div class="docs-grid-2">
-                        <div class="docs-card">
-                            <h3><i class="fas fa-laptop"></i> Software Only (Minimum)</h3>
-                            <ul>
-                                <li>Any computer with Python 3.9+</li>
-                                <li>A modern browser on the same machine or network</li>
-                            </ul>
+
+                    <div class="docs-grid-3">
+                        <div class="feature-card">
+                            <h4><i class="fas fa-microchip"></i> Raspberry Pi Zero Setup</h4>
+                            <p>Raspberry Pi Zero, Zero W, or Zero 2 W; a 16 GB or larger microSD card; and a stable 5 V power supply.</p>
                         </div>
-                        <div class="docs-card">
-                            <h3><i class="fas fa-microchip"></i> Full Hardware Setup (Raspberry Pi)</h3>
-                            <ul>
-                                <li>Raspberry Pi (any model with 40-pin GPIO — Pi 3B+, Pi 4, Pi Zero 2 W, etc.)</li>
-                                <li>A piezo buzzer or small speaker wired to a GPIO pin</li>
-                                <li>A Morse key (straight key) or an iambic paddle (two-contact)</li>
-                            </ul>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-laptop"></i> Setup Computer</h4>
+                            <p>A Windows, macOS, or Linux computer with an SD card reader and Raspberry Pi Imager installed.</p>
                         </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-wave-square"></i> Optional Morse Hardware</h4>
+                            <p>Morse key or iambic paddle, jumper wires, and a piezo buzzer or small speaker for GPIO audio output.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-wifi"></i> Network Access</h4>
+                            <p>Wi-Fi is the easiest way to reach the web UI. Ethernet via adapter also works if your Zero setup supports it.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-usb"></i> USB HID Mode</h4>
+                            <p>For keyboard-emulation mode, use a Pi Zero-family board with a real USB data cable connected to the port labeled <strong>USB</strong>, not <strong>PWR</strong>.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-bolt"></i> Recommended Board</h4>
+                            <p>Pi Zero 2 W is the sweet spot: same tiny form factor, but much faster build and better general responsiveness.</p>
+                        </div>
+                    </div>
+
+                    <div class="docs-callout docs-callout-warning">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <div>
+                            <strong>OS choice matters:</strong> use <strong>Raspberry Pi OS Lite (32-bit)</strong> for an original Pi Zero or Zero W. If you have a Pi Zero 2 W, you can use 32-bit or 64-bit Raspberry Pi OS Lite.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Install Raspberry Pi OS -->
+                <section id="install-raspberry-pi-os" class="docs-section">
+                    <h2 class="docs-heading">Install Raspberry Pi OS on the SD Card</h2>
+                    <p>Use Raspberry Pi Imager to write Raspberry Pi OS to your microSD card before you install Morse-Pi.</p>
+
+                    <div class="docs-callout docs-callout-info">
+                        <i class="fas fa-download"></i>
+                        <div>
+                            <strong>Get Raspberry Pi Imager:</strong>
+                            <a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener noreferrer">https://www.raspberrypi.com/software/</a>
+                        </div>
+                    </div>
+
+                    <div class="docs-steps">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <div class="step-content">
+                                <h4>Install Raspberry Pi Imager</h4>
+                                <p>Download and install Raspberry Pi Imager on your Windows, macOS, or Linux computer. It is the official tool for writing Raspberry Pi OS to an SD card.</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <div class="step-content">
+                                <h4>Insert Your microSD Card</h4>
+                                <p>Put the microSD card into your computer's card reader, then launch Raspberry Pi Imager.</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <div class="step-content">
+                                <h4>Choose Device and OS</h4>
+                                <p>Click <strong>Choose Device</strong> and select your exact Pi Zero model. Then click <strong>Choose OS</strong> and select <strong>Raspberry Pi OS Lite</strong>. Use the 32-bit image for Pi Zero / Zero W, or 32-bit/64-bit for Pi Zero 2 W.</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">4</div>
+                            <div class="step-content">
+                                <h4>Configure Advanced Settings</h4>
+                                <p>Before writing the image, open the advanced settings prompt and set a hostname, username, password, Wi-Fi country, Wi-Fi SSID/password, locale, and <strong>enable SSH</strong>. That saves you from setup headaches later — like tiny keyboards and big sighs.</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">5</div>
+                            <div class="step-content">
+                                <h4>Write the Image</h4>
+                                <p>Select your storage device, confirm the erase/write prompt, and wait for Raspberry Pi Imager to finish. Safely eject the card when it is done.</p>
+                            </div>
+                        </div>
+
+                        <div class="step">
+                            <div class="step-number">6</div>
+                            <div class="step-content">
+                                <h4>Boot the Pi Zero</h4>
+                                <p>Insert the card into the Pi, power it on, and wait a minute or two for first boot. On a Pi Zero, use the port marked <strong>PWR</strong> for power and the port marked <strong>USB</strong> for data accessories or HID mode.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Update Raspberry Pi OS -->
+                <section id="update-raspberry-pi-os" class="docs-section">
+                    <h2 class="docs-heading">Update Raspberry Pi OS</h2>
+                    <p>Once your Pi Zero is online, connect over SSH or use a local terminal and bring the base system up to date before installing Morse-Pi.</p>
+
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Bash</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code>sudo apt update
+sudo apt upgrade -y</code></pre>
+                    </div>
+
+                    <p>If the upgrade installs a new kernel, firmware, or USB modules, a reboot is a smart move before the Morse-Pi installer:</p>
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Bash</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code>sudo reboot</code></pre>
+                    </div>
+
+                    <div class="docs-callout docs-callout-info">
+                        <i class="fas fa-terminal"></i>
+                        <div>
+                            If <code>curl</code> is missing on a minimal image, install it with <code>sudo apt install curl -y</code> before running the Rust installer.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Install Rust -->
+                <section id="install-rust" class="docs-section">
+                    <h2 class="docs-heading">Install Morse-Pi with the Rust Installer</h2>
+
+                    <p>The Rust backend is the recommended install path. It compiles to a native binary, runs well on dedicated Pi hardware, and is the version the official docs now lead with.</p>
+
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Bash</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code>curl -sSL https://raw.githubusercontent.com/Nerd-or-Geek/Morse-Pi/main/install-rust.sh | sudo bash</code></pre>
+                    </div>
+
+                    <p>The installer automatically:</p>
+                    <ul>
+                        <li>Configures the USB HID keyboard gadget for supported Pi models</li>
+                        <li>Installs the Rust toolchain, build tools, and pigpio development packages</li>
+                        <li>Clones Morse-Pi to <code>/opt/morse-pi</code> and builds the Rust backend with GPIO support</li>
+                        <li>Creates systemd services so Morse-Pi starts on boot</li>
+                    </ul>
+
+                    <div class="docs-callout docs-callout-warning">
+                        <i class="fas fa-hourglass-half"></i>
+                        <div>
+                            <strong>Pi Zero heads-up:</strong> the first build can take a while. That is normal. If you plan to use the USB HID keyboard feature, run <code>sudo reboot</code> after the installer finishes so the kernel modules are fully active.
+                        </div>
+                    </div>
+
+                    <p>When the installer finishes, open the IP address printed on screen in your browser, for example:</p>
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-lang">URL</span>
+                        </div>
+                        <pre><code>http://192.168.1.42:5000</code></pre>
+                    </div>
+
+                    <h3>Already Running the Python Version?</h3>
+                    <p>You can switch an existing Python install to Rust without wiping your settings:</p>
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Bash</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code>curl -sSL https://raw.githubusercontent.com/Nerd-or-Geek/Morse-Pi/main/transition-rust.sh | sudo bash</code></pre>
                     </div>
                 </section>
 
                 <!-- GPIO Wiring -->
                 <section id="gpio-wiring" class="docs-section">
                     <h2 class="docs-heading">GPIO Wiring</h2>
-                    
+
                     <div class="docs-callout docs-callout-warning">
                         <i class="fas fa-exclamation-triangle"></i>
                         <div>
-                            <strong>Important:</strong> All GPIO numbers below are BCM numbers (not physical pin numbers).
+                            <strong>Important:</strong> all GPIO numbers below are <strong>BCM</strong> numbers, not physical pin numbers.
                         </div>
                     </div>
 
@@ -327,7 +442,7 @@
                                 <td>Key signal</td>
                                 <td><code>17</code></td>
                                 <td>Pin 11</td>
-                                <td>Active-low (key shorts pin to ground)</td>
+                                <td>Active-low (key shorts pin to GND)</td>
                             </tr>
                             <tr>
                                 <td>Key ground</td>
@@ -336,16 +451,16 @@
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Buzzer +</td>
+                                <td>Speaker +</td>
                                 <td><code>18</code></td>
                                 <td>Pin 12</td>
-                                <td>PWM-capable pin required</td>
+                                <td>Speaker pin 1</td>
                             </tr>
                             <tr>
-                                <td>Buzzer −</td>
-                                <td>GND</td>
-                                <td>Pin 14</td>
-                                <td></td>
+                                <td>Speaker −</td>
+                                <td><code>13</code></td>
+                                <td>Pin 33</td>
+                                <td>Speaker pin 2 for push-pull audio</td>
                             </tr>
                         </tbody>
                     </table>
@@ -374,16 +489,16 @@
                                 <td>Active-low</td>
                             </tr>
                             <tr>
-                                <td>Buzzer +</td>
+                                <td>Speaker +</td>
                                 <td><code>18</code></td>
                                 <td>Pin 12</td>
-                                <td></td>
+                                <td>Speaker pin 1</td>
                             </tr>
                             <tr>
-                                <td>Buzzer −</td>
-                                <td>GND</td>
-                                <td>Pin 14</td>
-                                <td></td>
+                                <td>Speaker −</td>
+                                <td><code>13</code></td>
+                                <td>Pin 33</td>
+                                <td>Speaker pin 2 for push-pull audio</td>
                             </tr>
                         </tbody>
                     </table>
@@ -392,121 +507,78 @@
                     <div class="gpio-diagram"> ┌──────────────────────────────────┐
  │  1  3V3   │  2  5V              │
  │  3  BCM2  │  4  5V              │
- │  5  BCM3  │  6  GND  ← buzzer − │
+ │  5  BCM3  │  6  GND             │
  │  7  BCM4  │  8  BCM14           │
  │  9  GND   │ 10  BCM15           │
- │ 11  <span class="gpio-highlight">BCM17</span> │ 12  <span class="gpio-highlight">BCM18</span> ← buzzer +│  ← key (single)
+ │ 11  <span class="gpio-highlight">BCM17</span> │ 12  <span class="gpio-highlight">BCM18</span> ← spkr +│  ← key (single)
  │ 13  <span class="gpio-highlight">BCM27</span> │ 14  GND             │  ← dash (dual)
  │ 15  <span class="gpio-highlight">BCM22</span> │ 16  BCM23           │  ← dot  (dual)
+ │  …        │  …                 │
+ │ 33  <span class="gpio-highlight">BCM13</span> │ 34  GND             │  ← spkr −
  └──────────────────────────────────┘</div>
 
                     <div class="docs-callout docs-callout-info">
-                        <i class="fas fa-cog"></i>
+                        <i class="fas fa-volume-up"></i>
                         <div>
-                            All pin assignments are configurable in the CONFIG panel — no code changes needed.
+                            Dual-pin speaker output is louder and cleaner because the two GPIO pins drive the speaker in opposite phases. If you leave <strong>Speaker Pin 2</strong> empty in the CONFIG tab, Morse-Pi falls back to simpler single-pin PWM output.
                         </div>
                     </div>
                 </section>
 
-                <!-- Installation -->
-                <section id="installation" class="docs-section">
-                    <h2 class="docs-heading">Installation</h2>
-                    
-                    <h3>One-Line Install (Raspberry Pi OS / Debian)</h3>
-                    <div class="docs-code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Bash</span>
-                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                <section id="features" class="docs-section">
+                    <h2 class="docs-heading">Features</h2>
+                    <div class="docs-grid-3">
+                        <div class="feature-card">
+                            <h4><i class="fas fa-paper-plane"></i> SEND Mode</h4>
+                            <p>Key Morse in real time and watch character-by-character decoding as you go.</p>
                         </div>
-                        <pre><code>curl -sSL https://raw.githubusercontent.com/Nerd-or-Geek/Morse-Pi/main/install.sh | sudo bash</code></pre>
-                    </div>
-
-                    <p>The script will:</p>
-                    <ul>
-                        <li>Install system packages (python3, pip, git, python3-gpiozero, python3-lgpio)</li>
-                        <li>Clone this repo to <code>/opt/morse-pi</code></li>
-                        <li>Install Flask and dependencies to the system Python with pip3</li>
-                        <li>Register and start a systemd service that auto-starts on boot</li>
-                        <li>Open port 5000 in ufw if the firewall is active</li>
-                    </ul>
-
-                    <p>Once complete, open your browser to the URL printed on screen, e.g.:</p>
-                    <div class="docs-code-block">
-                        <div class="code-header">
-                            <span class="code-lang">URL</span>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-keyboard"></i> ENCODE &amp; DECODE</h4>
+                            <p>Translate text to Morse or practice decoding dots and dashes with quiz-style feedback.</p>
                         </div>
-                        <pre><code>http://192.168.1.42:5000</code></pre>
-                    </div>
-
-                    <h3>Manual Installation</h3>
-                    <div class="docs-steps">
-                        <div class="step">
-                            <div class="step-number">1</div>
-                            <div class="step-content">
-                                <h4>Clone the Repository</h4>
-                                <div class="docs-code-block">
-                                    <div class="code-header">
-                                        <span class="code-lang">Bash</span>
-                                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                                    </div>
-                                    <pre><code>git clone https://github.com/Nerd-or-Geek/Morse-Pi.git
-cd Morse-Pi</code></pre>
-                                </div>
-                            </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-tachometer-alt"></i> SPEED Trainer</h4>
+                            <p>Practice sending at a target WPM and get scored on timing and accuracy.</p>
                         </div>
-                        
-                        <div class="step">
-                            <div class="step-number">2</div>
-                            <div class="step-content">
-                                <h4>Install Dependencies</h4>
-                                <div class="docs-code-block">
-                                    <div class="code-header">
-                                        <span class="code-lang">Bash</span>
-                                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                                    </div>
-                                    <pre><code>sudo pip3 install flask --break-system-packages
-
-# On Raspberry Pi, also install GPIO support:
-sudo apt install python3-gpiozero python3-lgpio -y
-sudo usermod -aG gpio $USER</code></pre>
-                                </div>
-                            </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-chart-line"></i> Stats Tracking</h4>
+                            <p>Track accuracy, longest streak, and session history.</p>
                         </div>
-                        
-                        <div class="step">
-                            <div class="step-number">3</div>
-                            <div class="step-content">
-                                <h4>Run the Application</h4>
-                                <div class="docs-code-block">
-                                    <div class="code-header">
-                                        <span class="code-lang">Bash</span>
-                                        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                                    </div>
-                                    <pre><code>cd morse-translator
-python3 app.py</code></pre>
-                                </div>
-                                <p>Then open <code>http://localhost:5000</code> (or the Pi's IP from another device).</p>
-                            </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-clock"></i> Farnsworth Timing</h4>
+                            <p>Stretch gaps between letters and words — great for beginners.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-network-wired"></i> Multi-Pi Networking</h4>
+                            <p>Discover other Morse-Pi devices on your LAN and send messages between them.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-usb"></i> USB HID Keyboard</h4>
+                            <p>Turn decoded Morse into real keystrokes on a connected computer through USB gadget mode.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-keyboard"></i> Keyboard Control</h4>
+                            <p>Works without hardware — Space = straight key, Z/X = dot/dash paddles.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-microchip"></i> GPIO Support</h4>
+                            <p>Connect a real Morse key or iambic paddle via Raspberry Pi GPIO pins.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-volume-up"></i> Push-Pull Audio</h4>
+                            <p>Drive a speaker from two GPIO pins in anti-phase for louder, cleaner sound.</p>
+                        </div>
+                        <div class="feature-card">
+                            <h4><i class="fas fa-sliders-h"></i> Live Configuration</h4>
+                            <p>Adjust GPIO pins, tones, WPM, Farnsworth timing, theme, and keyboard settings from the browser.</p>
                         </div>
                     </div>
-
-                    <h3>Updating</h3>
-                    <p>If you used the installer:</p>
-                    <div class="docs-code-block">
-                        <div class="code-header">
-                            <span class="code-lang">Bash</span>
-                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
-                        </div>
-                        <pre><code>sudo git -C /opt/morse-pi pull
-sudo systemctl restart morse-pi</code></pre>
-                    </div>
-                    <p>Or just re-run the install script — it will pull the latest code and restart the service automatically.</p>
                 </section>
 
                 <!-- Configuration -->
                 <section id="configuration" class="docs-section">
                     <h2 class="docs-heading">Configuration</h2>
-                    <p>All settings are changed live from the CONFIG tab in the browser — no need to edit files.</p>
+                    <p>All settings are changed live from the CONFIG tab in the browser — no config files to hand-edit and no restart dance required for normal tweaks.</p>
                     
                     <table class="config-table">
                         <thead>
@@ -550,7 +622,22 @@ sudo systemctl restart morse-pi</code></pre>
                             <tr>
                                 <td>Speaker pin</td>
                                 <td><code>18</code></td>
-                                <td>BCM pin for buzzer (must support PWM)</td>
+                                <td>Primary speaker GPIO (speaker pin 1)</td>
+                            </tr>
+                            <tr>
+                                <td>Speaker pin 2</td>
+                                <td><code>13</code> / <code>null</code></td>
+                                <td>Optional second speaker GPIO for push-pull audio</td>
+                            </tr>
+                            <tr>
+                                <td>Ground output pins</td>
+                                <td><code>[]</code></td>
+                                <td>Optional GPIO pins driven LOW to act as software-configured grounds</td>
+                            </tr>
+                            <tr>
+                                <td>Output type</td>
+                                <td><code>speaker</code></td>
+                                <td>Use PWM speaker output or LED-style on/off output</td>
                             </tr>
                             <tr>
                                 <td>Dot frequency</td>
@@ -582,13 +669,23 @@ sudo systemctl restart morse-pi</code></pre>
                                 <td><code>2×</code></td>
                                 <td>How much longer the between-word pause is</td>
                             </tr>
+                            <tr>
+                                <td>KB mode</td>
+                                <td><code>letters</code></td>
+                                <td>Decoded letters or custom dot/dash key mapping for USB HID mode</td>
+                            </tr>
+                            <tr>
+                                <td>Theme</td>
+                                <td><code>dark</code></td>
+                                <td>Switch between dark and light UI themes</td>
+                            </tr>
                         </tbody>
                     </table>
 
                     <div class="docs-callout docs-callout-info">
                         <i class="fas fa-save"></i>
                         <div>
-                            Settings are saved to <code>morse-translator/settings.json</code> and survive restarts.
+                            Settings are stored in <code>/opt/morse-pi/morse-translator/settings.json</code> and are preserved across updates and backend switches.
                         </div>
                     </div>
                 </section>
@@ -620,6 +717,13 @@ sudo systemctl restart morse-pi</code></pre>
                             </tr>
                         </tbody>
                     </table>
+
+                    <div class="docs-callout docs-callout-info">
+                        <i class="fas fa-keyboard"></i>
+                        <div>
+                            In dual-pin mode, holding <code>Z</code> and <code>X</code> together activates squeeze keying so the keyer alternates dots and dashes automatically.
+                        </div>
+                    </div>
                 </section>
 
                 <!-- Multi-Pi Networking -->
@@ -661,17 +765,29 @@ sudo systemctl restart morse-pi</code></pre>
                     <div class="docs-callout docs-callout-info">
                         <i class="fas fa-broadcast-tower"></i>
                         <div>
-                            Each Pi broadcasts a UDP beacon on port 5001. The receiving Pi plays the incoming message through its buzzer and adds it to the inbox.
+                            Each Pi broadcasts a UDP beacon on port 5001 every few seconds. Peers that disappear for about 15 seconds are automatically removed from the list.
                         </div>
                     </div>
 
-                    <p>Give each Pi a human-readable name in <strong>CONFIG → Device Name</strong> or directly in the NETWORK tab.</p>
+                    <p>Give each Pi a human-readable name in <strong>CONFIG → Device Name</strong> or directly in the NETWORK tab so peers are easier to recognize.</p>
                 </section>
 
                 <!-- Service Management -->
                 <section id="service-management" class="docs-section">
                     <h2 class="docs-heading">Service Management</h2>
-                    <p>If you used the installer, Morse-Pi runs as a systemd service. Use these commands to manage it:</p>
+                    <h3>Update a Rust Installation</h3>
+                    <p>To pull the latest code, rebuild the binary, and restart the service, use the dedicated Rust updater:</p>
+
+                    <div class="docs-code-block">
+                        <div class="code-header">
+                            <span class="code-lang">Bash</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <pre><code>curl -sSL https://raw.githubusercontent.com/Nerd-or-Geek/Morse-Pi/main/update-rust.sh | sudo bash</code></pre>
+                    </div>
+
+                    <h3>Systemd Services</h3>
+                    <p>If you used the installer, Morse-Pi runs as a systemd service. These are the commands you will use most often:</p>
                     
                     <div class="docs-code-block">
                         <div class="code-header">
@@ -687,8 +803,104 @@ sudo systemctl restart morse-pi
 # Stop the service
 sudo systemctl stop morse-pi
 
+# Last 50 log lines
+sudo journalctl -u morse-pi -n 50
+
 # View live logs
-sudo journalctl -u morse-pi -f</code></pre>
+sudo journalctl -u morse-pi -f
+
+# USB HID gadget service
+sudo systemctl status morse-pi-hid
+sudo systemctl restart morse-pi-hid
+
+# GPIO daemon used by the Rust backend
+sudo systemctl status pigpiod
+sudo systemctl restart pigpiod</code></pre>
+                    </div>
+
+                    <div class="docs-callout docs-callout-info">
+                        <i class="fas fa-circle-info"></i>
+                        <div>
+                            Want to verify which backend is active? Run <code>grep ExecStart /etc/systemd/system/morse-pi.service</code>. If it points to <code>morse-pi</code>, you are on Rust. If it runs <code>python3 app.py</code>, you are on the legacy Python backend.
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Troubleshooting -->
+                <section id="troubleshooting" class="docs-section">
+                    <h2 class="docs-heading">Troubleshooting</h2>
+                    <p>If Morse-Pi misbehaves, these are the fastest fixes to try before you start glaring at the Pi like it has personally offended you.</p>
+
+                    <div class="docs-grid-2">
+                        <div class="docs-card">
+                            <h4><i class="fas fa-globe"></i> Web UI Won't Load</h4>
+                            <ul>
+                                <li>Check the service: <code>sudo systemctl status morse-pi</code></li>
+                                <li>Review logs: <code>sudo journalctl -u morse-pi -n 50</code></li>
+                                <li>Confirm the IP address with <code>hostname -I</code></li>
+                                <li>Make sure port <code>5000</code> is not blocked by a firewall</li>
+                            </ul>
+                        </div>
+
+                        <div class="docs-card">
+                            <h4><i class="fas fa-memory"></i> Rust Build Fails on Pi Zero</h4>
+                            <ul>
+                                <li>Add or enlarge swap if the linker runs out of memory</li>
+                                <li>Install missing build tools: <code>sudo apt install build-essential -y</code></li>
+                                <li>Install missing pigpio headers: <code>sudo apt install libpigpio-dev -y</code></li>
+                                <li>If <code>cargo</code> is missing, run <code>source "$HOME/.cargo/env"</code></li>
+                            </ul>
+                            <div class="docs-code-block" style="margin-top: 1rem;">
+                                <div class="code-header">
+                                    <span class="code-lang">Bash</span>
+                                    <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                                </div>
+                                <pre><code>sudo dphys-swapfile swapoff
+sudo sed -i 's/CONF_SWAPSIZE=.*/CONF_SWAPSIZE=512/' /etc/dphys-swapfile
+sudo dphys-swapfile setup
+sudo dphys-swapfile swapon</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="docs-card">
+                            <h4><i class="fas fa-volume-up"></i> GPIO or Sound Issues</h4>
+                            <ul>
+                                <li>Check <code>pigpiod</code>: <code>sudo systemctl status pigpiod</code></li>
+                                <li>Verify the speaker and key wiring against the BCM pin table above</li>
+                                <li>Make sure the CONFIG tab matches your actual pin assignments</li>
+                                <li>Add your user to the <code>gpio</code> group if needed: <code>sudo usermod -aG gpio $USER</code></li>
+                            </ul>
+                        </div>
+
+                        <div class="docs-card">
+                            <h4><i class="fas fa-keyboard"></i> USB HID Keyboard Problems</h4>
+                            <ul>
+                                <li>Reboot after install so <code>dwc2</code> and gadget modules fully load</li>
+                                <li>Check the HID service: <code>sudo systemctl status morse-pi-hid</code></li>
+                                <li>Verify modules: <code>lsmod | grep dwc2</code></li>
+                                <li>If <code>g_ether</code> is loaded first, it can block HID mode on Pi Zero boards</li>
+                            </ul>
+                        </div>
+
+                        <div class="docs-card">
+                            <h4><i class="fas fa-network-wired"></i> Networking Problems</h4>
+                            <ul>
+                                <li>Put both Morse-Pi devices on the same subnet for automatic peer discovery</li>
+                                <li>Wait at least 5 seconds for UDP beacons to appear</li>
+                                <li>Test another Pi directly with <code>curl http://&lt;peer-ip&gt;:5000/status</code></li>
+                                <li>Check <code>sudo ufw status</code> if peers or messages do not arrive</li>
+                            </ul>
+                        </div>
+
+                        <div class="docs-card">
+                            <h4><i class="fas fa-wrench"></i> Still Stuck?</h4>
+                            <ul>
+                                <li>Run the app manually to surface startup errors</li>
+                                <li>Rust backend: <code>cd /opt/morse-pi/morse-translator && ./morse-pi</code></li>
+                                <li>Re-run the installer to repair services and dependencies</li>
+                                <li>Use the full official troubleshooting page linked below for deeper fixes</li>
+                            </ul>
+                        </div>
                     </div>
                 </section>
 
@@ -700,14 +912,28 @@ sudo journalctl -u morse-pi -f</code></pre>
                             <span class="code-lang">Directory Tree</span>
                         </div>
                         <pre><code>Morse-Pi/
-├── install.sh                  ← one-line installer for Raspberry Pi
-└── morse-translator/
-    ├── app.py                  ← Flask app, GPIO control, Morse timing, networking
-    ├── settings.json           ← saved user settings (auto-created)
-    ├── words.json              ← word list for quiz/speed modes
-    └── templates/
-        ├── index.html          ← single-page web UI
-        └── diag.html           ← GPIO live diagnostic popup</code></pre>
+├── install.sh                  ← fresh installer — legacy Python backend
+├── install-rust.sh             ← fresh installer — recommended Rust backend
+├── transition-rust.sh          ← migrate Python installs to Rust
+├── update.sh                   ← updater — Python backend
+├── update-rust.sh              ← updater — Rust backend
+├── docs/                       ← official documentation site
+├── morse-translator/           ← runtime files, templates, settings, stats
+└── morse-translator-rust/
+    ├── Cargo.toml              ← Rust package manifest
+    └── src/
+        ├── main.rs             ← HTTP server and routes
+        ├── gpio.rs             ← GPIO integration via pigpio
+        ├── sound.rs            ← tone generation and keyer logic
+        ├── keyboard.rs         ← USB HID keyboard support
+        └── network.rs          ← UDP peer discovery</code></pre>
+                    </div>
+
+                    <div class="docs-callout docs-callout-info">
+                        <i class="fas fa-folder-tree"></i>
+                        <div>
+                            The installer also creates service files such as <code>/etc/systemd/system/morse-pi.service</code> and <code>/etc/systemd/system/morse-pi-hid.service</code> so everything auto-starts on boot.
+                        </div>
                     </div>
                 </section>
 
@@ -715,26 +941,33 @@ sudo journalctl -u morse-pi -f</code></pre>
                 <section id="resources" class="docs-section">
                     <h2 class="docs-heading">Resources</h2>
                     
-                    <div class="docs-grid-3">
+                    <div class="docs-grid-2">
+                        <div class="docs-card">
+                            <h4><i class="fas fa-book-open"></i> Official Morse-Pi Docs</h4>
+                            <p>The full documentation site with getting started, maintenance, USB HID, reference, and troubleshooting guides.</p>
+                            <a href="https://nerd-or-geek.github.io/Morse-Pi/" target="_blank" rel="noopener noreferrer" class="docs-link">
+                                Read the official docs →
+                            </a>
+                        </div>
                         <div class="docs-card">
                             <h4><i class="fab fa-github"></i> GitHub Repository</h4>
                             <p>Source code, issues, and releases.</p>
-                            <a href="https://github.com/Nerd-or-Geek/Morse-Pi" target="_blank" class="docs-link">
+                            <a href="https://github.com/Nerd-or-Geek/Morse-Pi" target="_blank" rel="noopener noreferrer" class="docs-link">
                                 View on GitHub →
                             </a>
                         </div>
                         <div class="docs-card">
-                            <h4><i class="fas fa-flask"></i> Flask Documentation</h4>
-                            <p>Learn more about the Flask web framework.</p>
-                            <a href="https://flask.palletsprojects.com/" target="_blank" class="docs-link">
-                                Flask Docs →
+                            <h4><i class="fas fa-sd-card"></i> Raspberry Pi Imager</h4>
+                            <p>The official tool for flashing Raspberry Pi OS to your SD card or USB storage.</p>
+                            <a href="https://www.raspberrypi.com/software/" target="_blank" rel="noopener noreferrer" class="docs-link">
+                                Download Imager →
                             </a>
                         </div>
                         <div class="docs-card">
-                            <h4><i class="fas fa-microchip"></i> Raspberry Pi GPIO</h4>
-                            <p>Official documentation for GPIO Zero.</p>
-                            <a href="https://gpiozero.readthedocs.io/" target="_blank" class="docs-link">
-                                GPIO Zero Docs →
+                            <h4><i class="fas fa-life-ring"></i> Official Troubleshooting</h4>
+                            <p>Deeper fixes for Rust builds, GPIO, USB HID conflicts, and networking edge cases.</p>
+                            <a href="https://nerd-or-geek.github.io/Morse-Pi/troubleshooting.html" target="_blank" rel="noopener noreferrer" class="docs-link">
+                                Open troubleshooting guide →
                             </a>
                         </div>
                     </div>
